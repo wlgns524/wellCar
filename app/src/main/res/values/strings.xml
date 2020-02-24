@@ -1,3 +1,46 @@
 <resources>
-    <string name="app_name">wellCar</string>
+    <string name="app_name">웰카</string>
+
+    <!-- keys -->
+    <string name="default_notification_channel_id">foav_Notification_Channel_Id</string>
+    <string name="default_notification_channel_name">foav_Notification_Channel_Name</string>
+
+    <!-- pattern -->
+    <string name="pattern_email" translatable="false">^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$</string>
+    <string name="pattern_password" translatable="false">^(?=.*[a-zA-Z]+)(?=.*[!@#$%^*+=-]|.*[0-9]+).{8,13}$</string>
+    <!-- 특수문자 -->
+    <string name="pattern_special" translatable="false">[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝| ]*</string>
+    <!-- 영어/숫자 (7~20)-->
+    <string name="pattern_id" translatable="false">^[a-zA-z][a-zA-z0-9]{6,20}$</string>
+
+    <!-- Common String -->
+    <string name="exit_message">"\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다."</string>
+    <string name="error_msg">잠시 후 다시 시도해주세요</string>
+
+    <!-- 국가 -->
+    <string name="country">국가</string>
+    <string name="korea">한국</string>
+    <string name="country_code">국가코드</string>
+    <string name="phone_code_kr">한국(+82)</string>
+
+    <!-- Network Error-->
+    <string name="unknown_error">오류가 발생했습니다</string>
+    <string name="server_connect_error_message">서버 접속 오류입니다(%1$s)\n잠시 후 다시 시도해주세요.</string>
+    <string name="network_error_message">네트워크 상태가 원활하지 않습니다.(%1$s)\n3G/4G 또는 WIFI로 네트워크를 전환해 주시기 바랍니다.</string>
+
+    <!-- Common Dialog -->
+    <string name="ok">확인</string>
+    <string name="cancel">취소</string>
+
+    <!-- CommonUtil -->
+    <string name="a_moment_ago">A moment ago</string><!--방금-->
+    <string name="minutes_ago">%d minutes ago</string><!--%d분 전-->
+    <string name="hours_ago">%d hours ago</string><!--%d시간 전-->
+    <string name="days_ago">%d days ago</string><!--%d일 전-->
+    <string name="weeks_ago">%d weeks ago</string><!--%d주 전-->
+    <string name="months_ago">%d months ago</string><!--%d달 전-->
+    <string name="years_ago">%d years ago</string><!--%d년 전-->
+    <string name="form_hour">%dh</string><!--%d시간-->
+    <string name="form_minute">%dm</string><!--%d분-->
+
 </resources>

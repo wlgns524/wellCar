@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bottom_company_selected" android:state_selected="true"></item>
+    <item android:drawable="@drawable/bottom_company_unselected"></item>
+</selector>
