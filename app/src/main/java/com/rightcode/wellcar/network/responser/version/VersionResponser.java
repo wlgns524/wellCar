@@ -13,6 +13,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class VersionResponser extends CommonResult {
 
-    @JsonField(name = "versions")
+    @JsonField
     Versions version;
 }

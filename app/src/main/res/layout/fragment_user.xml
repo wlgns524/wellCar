@@ -1,44 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_bacground">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/app_bacground"
+    android:fillViewport="true">
 
     <LinearLayout
-        android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/layout_unregist_car"
-            layout="@layout/layout_unregist_car"
+        <fragment
+            android:id="@+id/top_fragment"
+            android:name="com.rightcode.wellcar.Fragment.TopFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp" />
+            android:layout_alignParentTop="true"
+            android:tag="TopFragment"
+            tools:layout="@layout/fragment_top" />
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/layout_unregist_car"
+                layout="@layout/layout_unregist_car"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+            <include
+                android:id="@+id/layout_regist_car_user"
+                layout="@layout/layout_regist_car_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:visibility="gone" />
+
+            <!-- 로그인 안된 상태-->
+            <include
+                android:id="@+id/layout_user_basic_view"
+                layout="@layout/layout_user_basic_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true" />
+
+            <!-- 로그인 된 상태(일반) -->
+            <include
+                android:id="@+id/layout_user_customer_view"
+                layout="@layout/layout_user_customer_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone" />
+
+            <!-- 로그인 된 상태(업체) -->
+            <include
+                android:id="@+id/layout_user_company_view"
+                layout="@layout/layout_user_company_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/space_color" />
+
+            <include
+                layout="@layout/view_customer_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true" />
+
+            <TextView
+                android:id="@+id/tv_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="로그아웃"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <include
-            layout="@layout/layout_user_basic_view"
+            android:id="@+id/view_info"
+            layout="@layout/view_owner_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/space_color" />
-
-        <include
-            layout="@layout/view_customer_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" />
+            android:layout_below="@+id/ll" />
     </LinearLayout>
-
-    <include
-        layout="@layout/view_owner_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-</RelativeLayout>
+</ScrollView>

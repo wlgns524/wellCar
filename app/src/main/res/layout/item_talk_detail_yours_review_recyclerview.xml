@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="50dp"
+    android:layout_marginBottom="3dp">
+
+    <ImageView
+        android:id="@+id/iv_talk_detail_yours"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/big_logo" />
+
+    <TextView
+        android:id="@+id/tv_talk_detail_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_talk_detail_yours"
+        android:background="@drawable/white_border_white_background_corner_5"
+        android:gravity="center_vertical"
+        android:minHeight="40dp"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_talk_detail_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_talk_detail_content"
+        android:layout_toRightOf="@+id/iv_talk_detail_yours"
+        android:textColor="@color/text_gray"
+        android:textSize="10sp" />
+</RelativeLayout>

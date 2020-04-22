@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rightcode.wellcar.Adapter.ViewHolder.CommonRecyclerViewHolder;
 import com.rightcode.wellcar.Adapter.ViewHolder.HomeReviewViewHolder;
 import com.rightcode.wellcar.R;
+import com.rightcode.wellcar.network.model.response.storeReview.StoreReview;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class HomeReviewRecyclerViewAdapter extends RecyclerView.Adapter<CommonRe
     private Context mContext;
 
     @Setter
-    private ArrayList<String> data;
+    private ArrayList<StoreReview> data;
 
     public HomeReviewRecyclerViewAdapter(Context context) {
         this.mContext = context;
@@ -36,16 +37,15 @@ public class HomeReviewRecyclerViewAdapter extends RecyclerView.Adapter<CommonRe
 
     @Override
     public void onBindViewHolder(@NonNull CommonRecyclerViewHolder viewHolder, int i) {
-        ((HomeReviewViewHolder) viewHolder).onBind("");
+        ((HomeReviewViewHolder) viewHolder).onBind(data.get(i));
     }
 
     @Override
     public int getItemCount() {
         if (data == null) {
-            return 5;
+            return 0;
         } else {
             return data.size();
         }
     }
-
 }

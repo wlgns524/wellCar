@@ -10,14 +10,14 @@
 
     <fragment
         android:id="@+id/top_fragment"
-        android:name="com.rightCode.cheorwonHotplace.Fragment.TopFragment"
+        android:name="com.rightcode.wellcar.Fragment.TopFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:tag="TopFragment"
         tools:layout="@layout/fragment_top" />
 
-    <com.rightCode.cheorwonHotplace.Component.GalleryView
+    <com.rightcode.wellcar.Component.GalleryView
         android:id="@+id/gv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -38,7 +38,6 @@ public class RatingStarLayout extends LinearLayout {
 
     private void initialize(View v) {
         setOrientation(LinearLayout.VERTICAL);
-        setBackgroundResource(R.color.white);
         setPadding(0, 0, 0, 0);
 
         addView(v);

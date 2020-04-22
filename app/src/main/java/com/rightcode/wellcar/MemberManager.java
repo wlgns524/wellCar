@@ -4,9 +4,10 @@ import android.content.Context;
 import android.location.Location;
 import android.text.TextUtils;
 
-import com.rightcode.wellcar.RxJava.RxBus;
+import com.rightcode.wellcar.Util.DataEnums;
 import com.rightcode.wellcar.Util.GPSUtil;
 import com.rightcode.wellcar.Util.PreferenceUtil;
+import com.rightcode.wellcar.network.NetworkBridge;
 import com.rightcode.wellcar.network.model.response.user.UserInfo;
 
 import lombok.Getter;
@@ -26,8 +27,8 @@ public class MemberManager {
     @Setter
     @Getter
     private String serviceToken;
-    @Getter
     private UserInfo userInfo;
+    private NetworkBridge networkBridge;
 
     //----------------------------------------------------------------------------------------------
     // get / set
@@ -43,10 +44,7 @@ public class MemberManager {
         if (context == null) {
             return;
         }
-
         this.context = context.getApplicationContext();
-
-        RxBus.register(this);
     }
 
     public static MemberManager getInstance(Context context) {
@@ -64,11 +62,28 @@ public class MemberManager {
         this.userInfo = userInfo;
     }
 
+    public void userLogin(String userId, String userPw) {
+        PreferenceUtil.getInstance(context).put(PreferenceUtil.PreferenceKey.UserId, userId);
+        PreferenceUtil.getInstance(context).put(PreferenceUtil.PreferenceKey.UserPw, userPw);
+    }
+
+
     public void userLogout() {
         serviceToken = null;
         userInfo = null;
-        PreferenceUtil.getInstance(context).put(PreferenceUtil.PreferenceKey.UserId,"");
-        PreferenceUtil.getInstance(context).put(PreferenceUtil.PreferenceKey.UserPw,"");
+        PreferenceUtil.getInstance(context).put(PreferenceUtil.PreferenceKey.UserId, "");
+        PreferenceUtil.getInstance(context).put(PreferenceUtil.PreferenceKey.UserPw, "");
+    }
+
+//    public DataEnums.UserType getRole() {
+//        if (isLogin()) {
+//            userInfo.getRole();
+//        }
+//        return null;
+//    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
     }
 
     public Location getLocation() {

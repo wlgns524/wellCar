@@ -33,9 +33,9 @@ import rx.functions.Action1;
 public class BaseActivity extends AppCompatActivity implements CommonViewInterface {
 
 
-    private final int ERROR_LEVEL_1 = 1; // CHECKING_SERVICE
-    private final int ERROR_LEVEL_2 = 2; // NEED_TO_UPDATE
-    private final int ERROR_LEVEL_4 = 4; // 기타
+//    private final int ERROR_LEVEL_1 = 1; // CHECKING_SERVICE
+//    private final int ERROR_LEVEL_2 = 2; // NEED_TO_UPDATE
+//    private final int ERROR_LEVEL_4 = 4; // 기타
 
     //----------------------------------------------------------------------------------------------
     // Static Field
@@ -166,7 +166,7 @@ public class BaseActivity extends AppCompatActivity implements CommonViewInterfa
 //    }
 
     public boolean handleServerError(CommonResult commonResult) {
-        if (commonResult == null ) {
+        if (commonResult == null) {
             return false;
         }
 
@@ -209,21 +209,17 @@ public class BaseActivity extends AppCompatActivity implements CommonViewInterfa
     }
 
     public void showNeedToUpdateServerErrorDialog(String message) {
-        int dialogId = errorDialog != null ? errorDialog.getDialogId() : ERROR_LEVEL_4;
-        if (dialogId >= ERROR_LEVEL_2) {
-            if (errorDialog != null && errorDialog.isShowing()) {
-                errorDialog.dismiss();
-            }
-
-            hideLoading();
-            errorDialog = (CommonDialog) AlertUtil.show(this, message, action -> {
-                startMarketActivity();
-            });
-            errorDialog.setDialogId(ERROR_LEVEL_2);
-            errorDialog.setOnCancelListener(cancel -> {
-                finishAffinity();
-            });
+        if (errorDialog != null && errorDialog.isShowing()) {
+            errorDialog.dismiss();
         }
+
+        hideLoading();
+        errorDialog = (CommonDialog) AlertUtil.show(this, message, action -> {
+            startMarketActivity();
+        });
+        errorDialog.setOnCancelListener(cancel -> {
+            finishAffinity();
+        });
     }
 
 
@@ -231,48 +227,34 @@ public class BaseActivity extends AppCompatActivity implements CommonViewInterfa
         showServerErrorDialog(message, null);
     }
 
+
     public void showServerErrorDialog(String message, Action1 action) {
-        int dialogId;
-
         if (errorDialog != null) {
-            dialogId = errorDialog.getDialogId();
         } else {
-            dialogId = ERROR_LEVEL_4;
             errorDialog = new CommonDialog(this);
-            errorDialog.setDialogId(ERROR_LEVEL_4);
+        }
+        errorDialog.setMessage(message);
+        if (errorDialog.isShowing()) {
+            errorDialog.dismiss();
         }
 
-        if (dialogId >= ERROR_LEVEL_4) {
-            if (errorDialog.isShowing()) {
-                errorDialog.dismiss();
-            }
-
-            errorDialog = (CommonDialog) AlertUtil.show(this, message);
-            errorDialog.setDialogId(ERROR_LEVEL_4);
-            errorDialog.setOnCancelListener(cancel -> {
-                errorDialog.dismiss();
-            });
-        }
+        errorDialog = (CommonDialog) AlertUtil.show(this, message, action);
     }
 
     public void showCheckingServiceServerErrorDialog(String message) {
-        int dialogId = errorDialog != null ? errorDialog.getDialogId() : ERROR_LEVEL_4;
-        if (dialogId >= ERROR_LEVEL_1) {
-            if (errorDialog != null && errorDialog.isShowing()) {
-                errorDialog.dismiss();
-            }
-
-            hideLoading();
-            errorDialog = (CommonDialog) AlertUtil.show(this, message, action -> {
-                finishAffinity();
-
-            });
-
-            errorDialog.setDialogId(ERROR_LEVEL_1);
-            errorDialog.setOnCancelListener(cancel -> {
-                finishAffinity();
-            });
+        if (errorDialog != null && errorDialog.isShowing()) {
+            errorDialog.dismiss();
         }
+
+        hideLoading();
+        errorDialog = (CommonDialog) AlertUtil.show(this, message, action -> {
+            finishAffinity();
+
+        });
+
+        errorDialog.setOnCancelListener(cancel -> {
+            finishAffinity();
+        });
     }
 
     public void startMarketActivity() {

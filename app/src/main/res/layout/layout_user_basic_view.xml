@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
-
+    android:background="@color/white"
+    android:gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,73 +12,91 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp">
+            android:id="@+id/rl_basic_notice"
+            android:layout_width="wrap_content"
+            android:clickable="true"
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_notice"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_notice" />
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_notice"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="3dp"
-                android:text="공지사항"
-                android:textColor="@color/text_gray"
-                android:textSize="12sp" />
+                <ImageView
+                    android:id="@+id/iv_notice"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_notice" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="공지사항"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp">
+            android:id="@+id/rl_basic_inquiry"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_help"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_help" />
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_help"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="3dp"
-                android:text="문의하기"
-                android:textColor="@color/text_gray"
-                android:textSize="12sp" />
+                <ImageView
+                    android:id="@+id/iv_help"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_inquiry" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="문의하기"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp">
+            android:id="@+id/rl_basic_notification"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_notification"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_notification" />
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_notification"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="3dp"
-                android:text="푸시알림"
-                android:textColor="@color/text_gray"
-                android:textSize="12sp" />
+                <ImageView
+                    android:id="@+id/iv_notification"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_notification" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="푸시알림"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
         </RelativeLayout>
-
     </LinearLayout>
 </LinearLayout>

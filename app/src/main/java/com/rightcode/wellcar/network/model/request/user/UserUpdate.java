@@ -16,5 +16,26 @@ public class UserUpdate {
     String name;
     @JsonField
     @Setter
+    String owner;
+    @JsonField
+    @Setter
+    String companyNumber;
+    @JsonField
+    @Setter
+    String nickname;
+    @JsonField
+    @Setter
+    String address;
+    @JsonField
+    @Setter
+    String addressDetail;
+    @JsonField
+    @Setter
+    String businessLicense;
+    @JsonField
+    @Setter
     String birth;
+    @JsonField
+    @Setter
+    Integer carId;
 }

@@ -7,17 +7,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.rightcode.wellcar.Fragment.HomeBannerFragment;
+import com.rightcode.wellcar.network.model.response.event.Event;
 
 import java.util.ArrayList;
 
 import lombok.Setter;
 
-import static com.rightcode.wellcar.Util.ExtraData.EXTRA_IMAGE;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_BANNER_DATA;
 
 public class HomeBannerViewPagerAdapter extends CommonFragmentPagerAdapter {
 
     @Setter
-    private ArrayList<String> data;
+    private ArrayList<Event> data;
 
     //----------------------------------------------------------------------------------------------
     // constructor
@@ -33,10 +34,9 @@ public class HomeBannerViewPagerAdapter extends CommonFragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-
         Fragment f = new HomeBannerFragment();
         Bundle bundle = new Bundle();
-//        bundle.putString(EXTRA_IMAGE, data.get(i));
+        bundle.putSerializable(EXTRA_BANNER_DATA, data.get(i));
         f.setArguments(bundle);
         return f;
     }
@@ -46,6 +46,6 @@ public class HomeBannerViewPagerAdapter extends CommonFragmentPagerAdapter {
         if (data != null)
             return data.size();
         else
-            return 5;
+            return 0;
     }
 }

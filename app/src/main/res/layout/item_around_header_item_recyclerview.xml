@@ -1,0 +1,9 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    android:id="@+id/tv_around_header_item"
+    android:background="@drawable/space_border_space_corner_5"
+    android:gravity="center"
+    android:padding="5dp"
+    android:textColor="@color/text_gray" />

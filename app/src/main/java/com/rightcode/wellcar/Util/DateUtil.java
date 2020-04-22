@@ -20,6 +20,13 @@ public class DateUtil {
         return new SimpleDateFormat("yyyyMMdd").format(localDate);
     }
 
+    //현재 날짜
+    public static String getTalkDate() {
+        Date localDate = new Date(System.currentTimeMillis());
+        return new SimpleDateFormat("yyyy MM dd HH:mm").format(localDate);
+    }
+
+
 
     //현재 날짜
     public static String getDate(String separation) {

@@ -28,6 +28,7 @@ public class CommonUtil {
     private Pattern passwordPattern;
 
     public static Boolean isIdValid(String str) {
+        // 패턴이 맞는지 맞으면 true
         Pattern pattern = Pattern.compile("^[a-zA-z][a-zA-z0-9][0-9a-zA-Z]{7,15}$");
         if (pattern.matcher(str).matches()) {
             return true;
@@ -36,7 +37,9 @@ public class CommonUtil {
         }
     }
 
-    public static Boolean isPwValid(String str) {
+    public static Boolean isEmailValid(String str) {
+        // 특수문자
+        // 패턴이 맞는지 맞으면 true
         Pattern pattern = Pattern.compile("^(?=.*[a-zA-Z]+)(?=.*[!@#$%^*+=-]|.*[0-9]+).{8,16}$");
         if (pattern.matcher(str).matches()) {
             return true;
@@ -46,6 +49,8 @@ public class CommonUtil {
     }
 
     public static Boolean isPwNumberValid(String str) {
+        // 소문자 대문자 숫자 8이상 16이하
+        // 패턴이 맞는지 맞으면 true
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9]{8,16}$");
         if (pattern.matcher(str).matches()) {
             return true;
@@ -70,6 +75,15 @@ public class CommonUtil {
         v.clearFocus();
         InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+
+    public static Boolean isShowKeyboard(Context context) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm.isAcceptingText()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static String timeToString(Context context, long time) {
@@ -134,14 +148,14 @@ public class CommonUtil {
         return pi.versionName;
     }
 
-    public static String getVersionCode(Context context) {
+    public static int getVersionCode(Context context) {
         PackageInfo pi = null;
         try {
             pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return String.valueOf(pi.versionCode);
+        return pi.versionCode;
     }
 
     public static void unbindDrawables(View view) {

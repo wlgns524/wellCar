@@ -26,7 +26,6 @@ public class CommonRecyclerViewHolder extends RecyclerView.ViewHolder {
     private long mLastClickTime = System.currentTimeMillis();
     private static final long CLICK_TIME_INTERVAL = 500;
     private Context mContext;
-    private NetworkBridge networkBridge;
 
     public interface onBind {
     }
@@ -50,7 +49,6 @@ public class CommonRecyclerViewHolder extends RecyclerView.ViewHolder {
     public CommonRecyclerViewHolder(@NonNull View itemView, Context context) {
         super(itemView);
         mContext = context;
-        networkBridge = new NetworkBridge();
     }
 
 
@@ -86,14 +84,6 @@ public class CommonRecyclerViewHolder extends RecyclerView.ViewHolder {
     //----------------------------------------------------------------------------------------------
 
 
-    protected void request(CommonApiRequester requester, Action1<? super
-            CommonResult> successAction, Action1<? super CommonResult> failAction) {
-        if (networkBridge != null) {
-            networkBridge.request(requester, successAction, failAction);
-        } else {
-            Log.d("networkBridge null");
-        }
-    }
     //----------------------------------------------------------------------------------------------
     // private
     //----------------------------------------------------------------------------------------------

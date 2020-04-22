@@ -2,6 +2,8 @@ package com.rightcode.wellcar.network.model.response.user;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
+import com.rightcode.wellcar.Util.DataEnums;
+import com.rightcode.wellcar.network.model.response.car.Car;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,23 +14,40 @@ import lombok.EqualsAndHashCode;
 public class UserInfo {
 
     @JsonField
-    String loginId;
-    @JsonField
-    String id;
-    @JsonField
     String tel;
     @JsonField
-    String name;
+    Integer id;
     @JsonField
-    String profile;
+    String loginId;
     @JsonField
-    String birth;
+    Integer carWashTicket;
     @JsonField
-    String job;
-    @JsonField
-    Boolean notification;
+    Integer point;
     @JsonField
     String role;
     @JsonField
-    Boolean active;
+    Car car;
+    @JsonField
+    UserCompany company;
+    @JsonField
+    UserStore store;
+    @JsonField
+    UserGeneral general;
+
+//    @JsonField
+//    String password;
+//    @JsonField
+//    Integer carId;
+//    @JsonField
+//    String updatedAt;
+
+    public DataEnums.UserType getRole() {
+        if (role.equals("업체")) {
+            return DataEnums.UserType.COMPANY;
+        } else if (role.equals("고객")) {
+            return DataEnums.UserType.CUSTOMER;
+        } else {
+            return null;
+        }
+    }
 }

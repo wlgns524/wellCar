@@ -11,7 +11,7 @@ import retrofit2.Call;
 public class UserUpdateRequester extends AbstractRequester {
 
     @Setter
-    UserUpdate parameter;
+    UserUpdate param;
 
     public UserUpdateRequester(Context context) {
         super(context);
@@ -19,7 +19,7 @@ public class UserUpdateRequester extends AbstractRequester {
 
     @Override
     protected Call genApi() {
-        Call call = networkManager.getApi().userUpdate(parameter);
+        Call call = networkManager.getApi().userUpdate(param);
 
         return call;
     }

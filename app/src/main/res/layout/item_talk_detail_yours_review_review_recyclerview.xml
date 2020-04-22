@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    android:layout_marginRight="60dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_talk_detail_yours"
+        android:layout_width="40dp"
+        android:src="@drawable/big_logo"
+        android:layout_marginRight="5dp"
+        android:layout_height="40dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_talk_detail"
+        android:layout_width="300dp"
+        android:layout_toRightOf="@+id/iv_talk_detail_yours"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_border_white_background_corner_5">
+
+        <TextView
+            android:id="@+id/tv_talk_detail_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/color_ffc058_border_color_ffc058_background_corner_5"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="리뷰 쓰러 가기"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_talk_detail_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_talk_detail_yours"
+        android:layout_below="@+id/rl_talk_detail"
+        android:layout_marginTop="3dp"
+        android:gravity="right"
+        android:textColor="@color/text_gray"
+        android:textSize="10sp" />
+
+</RelativeLayout>

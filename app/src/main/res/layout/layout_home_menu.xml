@@ -11,10 +11,10 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-
         <RelativeLayout
+            android:id="@+id/rl_estimate"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="88dp"
             android:layout_margin="5dp"
             android:background="@drawable/home_menu_background">
 
@@ -39,15 +39,16 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_shopping_mall"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="88dp"
             android:layout_margin="5dp"
             android:background="@drawable/home_menu_background">
 
             <ImageView
                 android:id="@+id/iv_home_menu2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="27dp"
+                android:layout_height="29dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:src="@drawable/home_menu2" />
@@ -65,8 +66,9 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_car_wash"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="88dp"
             android:layout_margin="5dp"
             android:background="@drawable/home_menu_background">
 
@@ -100,15 +102,16 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl_around"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="88dp"
             android:layout_margin="5dp"
             android:background="@drawable/home_menu_background">
 
             <ImageView
                 android:id="@+id/iv_home_menu4"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="37dp"
+                android:layout_height="19dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:src="@drawable/home_menu4" />
@@ -126,15 +129,16 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_review"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="88dp"
             android:layout_margin="5dp"
             android:background="@drawable/home_menu_background">
 
             <ImageView
                 android:id="@+id/iv_home_menu5"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:src="@drawable/home_menu5" />
@@ -152,16 +156,17 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_event"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="88dp"
             android:layout_margin="5dp"
             android:background="@drawable/home_menu_background">
 
             <ImageView
                 android:id="@+id/iv_home_menu6"
                 android:adjustViewBounds="true"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="26dp"
+                android:layout_height="29dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/home_menu6" />
 

@@ -1,26 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <ImageView
+
+    <RelativeLayout
+        android:id="@+id/rl_not_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/talk_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="로그인 후 이용 가능합니다."
+            android:textColor="@color/app_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/app_color_border_app_color_background_corner_25"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="로그인하기"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:src="@drawable/test_talk" />
+        android:orientation="vertical"
+        android:visibility="gone">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/white_border_white_background_corner_25"
-        android:gravity="center"
-        android:padding="15dp"
-        android:textSize="18sp"
-        android:text="로그인하기"
-        android:textColor="@color/app_color" />
+        <fragment
+            android:id="@+id/top_fragment"
+            android:name="com.rightcode.wellcar.Fragment.TopFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:tag="TopFragment"
+            tools:layout="@layout/fragment_top" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_talk"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 </RelativeLayout>

@@ -36,6 +36,24 @@ public final class MoneyHelper
     }
 
 
+
+    public static String getUsaUnit(int paramInt)
+    {
+        StringBuilder localStringBuilder = new StringBuilder();
+        localStringBuilder.append("₩");
+        localStringBuilder.append(getKor(String.valueOf(paramInt)));
+        return localStringBuilder.toString();
+    }
+
+    public static String getUsaUnit(String paramString)
+    {
+        StringBuilder localStringBuilder = new StringBuilder();
+        localStringBuilder.append("₩");
+        localStringBuilder.append(getKor(paramString));
+
+        return localStringBuilder.toString();
+    }
+
     public static String getKorUnit(int paramInt)
     {
         StringBuilder localStringBuilder = new StringBuilder();

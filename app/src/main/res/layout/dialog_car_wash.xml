@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_80000000"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="40dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/dialog_car_wash_top" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:background="@drawable/dialog_car_wash_middle">
+
+            <TextView
+                android:id="@+id/tv_company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_guide_msg"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                tools:text="스팀 세차" />
+
+            <TextView
+                android:id="@+id/tv_guide_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/iv_coupon_logo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:text="세차장에서 이화면을 보여주세요"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/iv_coupon_logo"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/coupon_logo" />
+
+            <TextView
+                android:id="@+id/tv_coupon_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_coupon_logo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:text="고유번호 입력"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/et_car_wash_coupon_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_coupon_title"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/space_border_space_corner_5"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_car_wash_use"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/dialog_car_wash_bottom">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="사용하기"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

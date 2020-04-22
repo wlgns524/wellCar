@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <fragment
+        android:id="@+id/top_fragment"
+        android:name="com.rightcode.wellcar.Fragment.TopFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:tag="TopFragment"
+        tools:layout="@layout/fragment_top" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="서비스에 대한 문의 또는 어플리케이션 에러와 관련된 사항을 자유롭게 문의해주세요."
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/et_inquiry_tel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/basic_border"
+        android:hint="전화번호 -없이 입력"
+        android:inputType="numberDecimal"
+        android:maxLength="11"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/et_inquiry_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/basic_border"
+        android:hint="문의사항 제목을 적어주세요."
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/et_inquiry_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/basic_border"
+        android:gravity="top"
+        android:hint="서비스에 관한 문의사항을 적어주세요."
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_inquiry_regist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_color"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="보내기"
+        android:textColor="@color/white" />
+</LinearLayout>

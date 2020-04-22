@@ -7,7 +7,7 @@
     <RatingBar
         android:id="@+id/review_write_evaluation_item_rb_star"
         android:layout_width="wrap_content"
-        android:layout_height="21dp"
+        android:layout_height="11dp"
         android:layout_gravity="center"
         android:progressDrawable="@drawable/progress_img_small_star"
         android:rating="5"

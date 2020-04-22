@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="5dp"
     android:background="@drawable/space_border_white_corner_5"
     android:gravity="center"
@@ -13,32 +14,32 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_logo"
+            android:id="@+id/iv_car_logo"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/test_benz_logo" />
+            android:layout_marginRight="5dp"/>
 
         <TextView
-            android:id="@+id/tv_car_name"
+            android:id="@+id/tv_car_brand_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/tv_change_car"
-            android:layout_toRightOf="@+id/iv_logo"
+            android:layout_toRightOf="@+id/iv_car_logo"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Mercedes-Benz E-Class"
+            tools:text="Mercedes-Benz E-Class"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/tv_car_year"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_car_name"
+            android:layout_below="@+id/tv_car_brand_name"
             android:layout_toLeftOf="@+id/tv_change_car"
-            android:layout_toRightOf="@+id/iv_logo"
-            android:text="2018년형"
+            android:layout_toRightOf="@+id/iv_car_logo"
+            tools:text="2018년형"
             android:textColor="@color/text_gray"
             android:textSize="12sp" />
 
@@ -75,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="VIP 김두식"
+            tools:text="VIP 김두식"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -118,14 +119,15 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_car_wash_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5개"
+                android:text="0개"
                 android:textColor="@color/black" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_price"
+            android:id="@+id/tv_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

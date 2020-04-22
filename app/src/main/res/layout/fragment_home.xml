@@ -66,7 +66,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,11 +84,12 @@
             tools:listitem="@layout/item_home_review_recyclerview" />
 
         <ImageView
+            android:id="@+id/iv_home_banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/test_home_bottom" />
+            android:src="@drawable/home_banner"
+            android:adjustViewBounds="true" />
     </LinearLayout>
 
 </ScrollView>

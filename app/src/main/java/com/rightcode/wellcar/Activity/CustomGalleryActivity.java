@@ -72,7 +72,7 @@ public class CustomGalleryActivity extends BaseActivity {
         mTopFragment = (TopFragment) FragmentUtil.findFragmentByTag(getSupportFragmentManager(), "TopFragment");
         mTopFragment.setText(TopFragment.Menu.CENTER, "우리동네 할인찾기");
         mTopFragment.setImagePadding(TopFragment.Menu.CENTER, 10);
-//        mTopFragment.setImage(TopFragment.Menu.LEFT, R.drawable.arr);
+        mTopFragment.setImage(TopFragment.Menu.LEFT, R.drawable.arrow_left);
         mTopFragment.setImagePadding(TopFragment.Menu.LEFT, 5);
         mTopFragment.setListener(TopFragment.Menu.LEFT, new View.OnClickListener() {
             @Override

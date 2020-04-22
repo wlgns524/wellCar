@@ -1,7 +1,9 @@
 package com.rightcode.wellcar.Util;
 
 import com.bluelinelabs.logansquare.LoganSquare;
+import com.rightcode.wellcar.network.typeConverter.ItemDiffTypeConverter;
 import com.rightcode.wellcar.network.typeConverter.StoreMenuStatusConverter;
+import com.rightcode.wellcar.network.typeConverter.TalkTypeConverter;
 import com.rightcode.wellcar.network.typeConverter.UserTypeConverter;
 
 public class DataEnums {
@@ -9,11 +11,14 @@ public class DataEnums {
     public void registerTypeConverter() {
         LoganSquare.registerTypeConverter(UserType.class, new UserTypeConverter());
         LoganSquare.registerTypeConverter(StoreMenuStatus.class, new StoreMenuStatusConverter());
+        LoganSquare.registerTypeConverter(ItemDiffType.class, new ItemDiffTypeConverter());
+        LoganSquare.registerTypeConverter(TalkDiffType.class, new TalkTypeConverter());
     }
 
     public enum UserType {
-        MANAGER("담당자"),
-        NORMAL("일반");
+        CUSTOMER("고객"),
+        COMPANY("업체"),
+        NULL("");
 
         private String type;
 
@@ -40,13 +45,14 @@ public class DataEnums {
         }
     }
 
-    public enum CertificationType {
-        ID("아이디 찾기"),
-        PW("비밀번호 변경");
+    public enum DiffType {
+        JOIN("join"),
+        FIND("find"),
+        UPDATE("update");
 
         private String type;
 
-        CertificationType(String type) {
+        DiffType(String type) {
             this.type = type;
         }
 
@@ -55,8 +61,8 @@ public class DataEnums {
             return type;
         }
 
-        public static CertificationType getEnum(String value) {
-            for (CertificationType resultCode : values()) {
+        public static DiffType getEnum(String value) {
+            for (DiffType resultCode : values()) {
                 if (resultCode.toString().equalsIgnoreCase(value)) {
                     return resultCode;
                 }
@@ -69,15 +75,14 @@ public class DataEnums {
         }
     }
 
-    public enum TownArea {
-        ALL("전체"),
-        DONGSONG("동송읍"),
-        GALMAL("갈말읍"),
-        KIMHWA("김화읍");
+
+    public enum TalkDiffType {
+        Chatting("chatting"),
+        REVIEW("review");
 
         private String type;
 
-        TownArea(String type) {
+        TalkDiffType(String type) {
             this.type = type;
         }
 
@@ -86,8 +91,105 @@ public class DataEnums {
             return type;
         }
 
-        public static TownArea getEnum(String value) {
-            for (TownArea resultCode : values()) {
+        public static TalkDiffType getEnum(String value) {
+            for (TalkDiffType resultCode : values()) {
+                if (resultCode.toString().equalsIgnoreCase(value)) {
+                    return resultCode;
+                }
+            }
+            return null;
+        }
+
+        public boolean equals(TalkDiffType str) {
+            return type != null ? type.equals(str.toString()) : false;
+        }
+    }
+
+    public enum ItemDiffType {
+        SUNBLOCK("썬팅"),
+        GLASS("유리막"),
+        BLACKBOX("블랙박스"),
+        UNDERCOATING("언더코팅"),
+        PPF("ppf"),
+        TUNING("튜닝"),
+        TIRE("타이어"),
+        PACKAGE("패키지");
+
+        private String type;
+
+        ItemDiffType(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public String toString() {
+            return type;
+        }
+
+        public static ItemDiffType getEnum(String value) {
+            for (ItemDiffType resultCode : values()) {
+                if (resultCode.toString().equalsIgnoreCase(value)) {
+                    return resultCode;
+                }
+            }
+            return null;
+        }
+
+        public boolean equals(UserType code) {
+            return type != null ? type.equals(code.toString()) : false;
+        }
+    }
+
+
+    public enum BrandType {
+        IMPORTED("수입"),
+        DOMESTIC("국산");
+
+        private String type;
+
+        BrandType(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public String toString() {
+            return type;
+        }
+
+        public static BrandType getEnum(String value) {
+            for (BrandType resultCode : values()) {
+                if (resultCode.toString().equalsIgnoreCase(value)) {
+                    return resultCode;
+                }
+            }
+            return null;
+        }
+
+        public boolean equals(UserType code) {
+            return type != null ? type.equals(code.toString()) : false;
+        }
+    }
+
+
+    public enum CompanyDetailType {
+        BASIC("기본"),
+        ESTIMATE("견적"),
+        CLEAN("세차장"),
+        MANAGEMENT("관리자");
+
+        private String type;
+
+        CompanyDetailType(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public String toString() {
+            return type;
+        }
+
+        public static CompanyDetailType getEnum(String value) {
+            for (CompanyDetailType resultCode : values()) {
                 if (resultCode.toString().equalsIgnoreCase(value)) {
                     return resultCode;
                 }
