@@ -1,22 +1,16 @@
 package com.rightcode.wellcar.Adapter.ViewHolder;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.rightcode.wellcar.Activity.CompanyDetailActivity;
-import com.rightcode.wellcar.Activity.PaymentActivity;
 import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.TicketBuyRecyclerViewAdapter;
 import com.rightcode.wellcar.Dialog.PaymentMethodDialog;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.MoneyHelper;
-import com.rightcode.wellcar.network.model.response.notice.Notice;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.rightcode.wellcar.Util.ExtraData.EXTRA_PAYMENT_URL;
 
 
 public class TicketBuyViewHolder extends CommonRecyclerViewHolder implements View.OnClickListener {

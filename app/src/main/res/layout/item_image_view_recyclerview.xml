@@ -5,7 +5,7 @@
     android:layout_height="75dp"
     android:layout_marginLeft="10dp">
 
-    <com.rightCode.cheorwonHotplace.Component.RelativeCornerLayout
+    <com.rightcode.wellcar.Component.RelativeCornerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cornerRadius="6dp">
@@ -15,8 +15,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
-
-
-    </com.rightCode.cheorwonHotplace.Component.RelativeCornerLayout>
-
+    </com.rightcode.wellcar.Component.RelativeCornerLayout>>
 </RelativeLayout>

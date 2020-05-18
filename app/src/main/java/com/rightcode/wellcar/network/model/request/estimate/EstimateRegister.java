@@ -26,5 +26,7 @@ public class EstimateRegister implements Serializable {
     @JsonField
     @Setter
     ArrayList<Integer> storeIds;
-
+    @JsonField
+    @Setter
+    String request;
 }

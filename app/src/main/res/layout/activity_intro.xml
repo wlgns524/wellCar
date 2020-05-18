@@ -5,7 +5,6 @@
     android:background="@color/app_color"
     android:orientation="vertical">
 
-
     <ImageView
         android:layout_width="230dp"
         android:layout_height="100dp"

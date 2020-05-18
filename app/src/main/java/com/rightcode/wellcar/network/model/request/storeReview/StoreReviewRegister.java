@@ -17,4 +17,10 @@ public class StoreReviewRegister {
     @JsonField
     @Setter
     Float kindness;
+    @JsonField
+    @Setter
+    Integer estimateId;
+    @JsonField
+    @Setter
+    Integer ticketHistoryId;
 }

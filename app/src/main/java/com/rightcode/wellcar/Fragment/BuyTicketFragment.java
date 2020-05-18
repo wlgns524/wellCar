@@ -77,7 +77,7 @@ public class BuyTicketFragment extends BaseFragment {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case EXTRA_ACTIVITY_ACTION: {
-
+                    paymentTicketList();
                 }
             }
         }
@@ -124,12 +124,13 @@ public class BuyTicketFragment extends BaseFragment {
         mBuyTicketRecyclerViewAdapter = new BuyTicketRecyclerViewAdapter(getContext());
         rv_ticket_use.setAdapter(mBuyTicketRecyclerViewAdapter);
 
-        tv_ticket_count.setText(MemberManager.getInstance(getContext()).getUserInfo().getCarWashTicket().toString());
+//        tv_ticket_count.setText(MemberManager.getInstance(getContext()).getUserInfo().getCarWashTicket().toString());
     }
 
     private void paymentTicketList() {
 //        tv_month.setText(String.format("%04d년 %02d월", currentYear, currentMonth));
         tv_month.setText(String.format("%02d월", currentMonth));
+        tv_ticket_count.setText(MemberManager.getInstance(getContext()).getUserInfo().getCarWashTicket().toString());
         showLoading();
         PaymentTicketListRequester paymentTicketListRequester = new PaymentTicketListRequester(getContext());
         paymentTicketListRequester.setYear(currentYear);

@@ -26,8 +26,12 @@ public class Item implements Parcelable {
     @JsonField
     ItemBrand itemBrand;
 
-    public Item(){
+    public Item() {
 
+    }
+
+    public Item(String name) {
+        this.name = name;
     }
 
     protected Item(Parcel in) {

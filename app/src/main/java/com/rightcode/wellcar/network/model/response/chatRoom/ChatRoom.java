@@ -17,18 +17,39 @@ public class ChatRoom {
     @JsonField
     Integer id;
     @JsonField
-    String createdAt;
+    String content;
     @JsonField
-    ChatRoomEstimateStore estimateStore;
+    ArrayList<String> items;
     @JsonField
-    ArrayList<String> chats;
+    String storeName;
+    @JsonField
+    String storeImage;
+    @JsonField
+    Integer price;
     @JsonField
     Integer viewCount;
-    // 업체용
     @JsonField
-    ChatRoomStore store;
-    // 유저용
+    String request;
     @JsonField
-    ChatRoomUser user;
+    String userName;
+    @JsonField
+    String createdAt;
+    @JsonField
+    Integer storeId;
+
+//    @JsonField
+//    String createdAt;
+//    @JsonField
+//    ChatRoomEstimateStore estimateStore;
+//    @JsonField
+//    ArrayList<String> chats;
+//    @JsonField
+//    Integer viewCount;
+//    // 업체용
+//    @JsonField
+//    ChatRoomStore store;
+//    // 유저용
+//    @JsonField
+//    ChatRoomUser user;
 
 }

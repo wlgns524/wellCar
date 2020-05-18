@@ -29,7 +29,21 @@ public class StoreDetail {
     @JsonField
     String introduction;
     @JsonField
+    String content;
+    @JsonField
     String opens;
+    @JsonField
+    Float rate;
+    @JsonField
+    Float satisfaction;
+    @JsonField
+    Float kindness;
+    @JsonField
+    Double longitude;
+    @JsonField
+    Double latitude;
+    @JsonField
+    String code;
     @JsonField
     Boolean active;
     @JsonField
@@ -42,5 +56,4 @@ public class StoreDetail {
     Image detailImage;
     @JsonField
     ArrayList<Image> images;
-
 }

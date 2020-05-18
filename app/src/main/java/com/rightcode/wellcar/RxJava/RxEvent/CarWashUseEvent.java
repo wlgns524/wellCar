@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class CarWashUseEvent {
 
-    private String code;
+    private String code = "";
 
     public CarWashUseEvent(String code) {
         this.code = code;

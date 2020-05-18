@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.network.model.response.itemBrand.ItemBrand;
 
@@ -44,6 +46,10 @@ public class ItemBrandSpinnerAdapter extends BaseAdapter {
             //데이터세팅
             String text = data[position].getName();
             ((TextView) convertView.findViewById(R.id.tv_spinner)).setText(text);
+            Glide.with(context)
+                    .load(data[position].getImageName())
+                    .into(((ImageView) convertView.findViewById(R.id.iv_brand_logo)));
+            ;
         }
 
         return convertView;
@@ -53,7 +59,7 @@ public class ItemBrandSpinnerAdapter extends BaseAdapter {
     public ItemBrand getItem(int position) {
         try {
             return data[position];
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return null;
         }
     }

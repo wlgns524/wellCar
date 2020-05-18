@@ -6,13 +6,16 @@ import com.rightcode.wellcar.network.model.request.auth.Login;
 import com.rightcode.wellcar.network.model.request.auth.PasswordChange;
 import com.rightcode.wellcar.network.model.request.chat.ChatRegister;
 import com.rightcode.wellcar.network.model.request.estimate.EstimateRegister;
+import com.rightcode.wellcar.network.model.request.estimateStore.EstimateStoreUpdate;
 import com.rightcode.wellcar.network.model.request.inquiry.InquiryRegister;
 import com.rightcode.wellcar.network.model.request.payment.BuyCheck;
 import com.rightcode.wellcar.network.model.request.payment.PaymentEstimateBuyInfo;
 import com.rightcode.wellcar.network.model.request.payment.PaymentTicketBuyInfo;
 import com.rightcode.wellcar.network.model.request.storeReview.StoreReviewRegister;
 import com.rightcode.wellcar.network.model.request.ticketHistory.TicketHistoryRegister;
+import com.rightcode.wellcar.network.model.request.user.UserStoreUpdate;
 import com.rightcode.wellcar.network.model.request.user.UserUpdate;
+import com.rightcode.wellcar.network.responser.accountCompany.SettlementListResponser;
 import com.rightcode.wellcar.network.responser.auth.FindLoginIdResponser;
 import com.rightcode.wellcar.network.responser.auth.LoginResponser;
 import com.rightcode.wellcar.network.responser.brand.BrandListResponser;
@@ -21,12 +24,14 @@ import com.rightcode.wellcar.network.responser.chatRoom.ChatRoomDetailResponser;
 import com.rightcode.wellcar.network.responser.chatRoom.ChatRoomListResponser;
 import com.rightcode.wellcar.network.responser.estimate.EstimateDetailResponser;
 import com.rightcode.wellcar.network.responser.estimate.EstimateListResponser;
+import com.rightcode.wellcar.network.responser.estimate.EstimateStoreListResponser;
 import com.rightcode.wellcar.network.responser.event.EventDetailResponser;
 import com.rightcode.wellcar.network.responser.event.EventListResponser;
 import com.rightcode.wellcar.network.responser.item.ItemListResponser;
 import com.rightcode.wellcar.network.responser.itemBrand.ItemBrandListResponser;
 import com.rightcode.wellcar.network.responser.notice.NoticeDetailResponser;
 import com.rightcode.wellcar.network.responser.notice.NoticeListResponser;
+import com.rightcode.wellcar.network.responser.notification.NotificationDetailResponser;
 import com.rightcode.wellcar.network.responser.paymentEstimate.PaymentEstimateBuyInfoResponser;
 import com.rightcode.wellcar.network.responser.paymentEstimate.PaymentEstimateDetailResponser;
 import com.rightcode.wellcar.network.responser.paymentEstimate.PaymentEstimateListResponser;
@@ -38,6 +43,7 @@ import com.rightcode.wellcar.network.responser.store.StoreListResponser;
 import com.rightcode.wellcar.network.responser.storeReview.StoreReviewDetailResponser;
 import com.rightcode.wellcar.network.responser.storeReview.StoreReviewListResponser;
 import com.rightcode.wellcar.network.responser.storeReview.StoreReviewRegisterResponser;
+import com.rightcode.wellcar.network.responser.ticketHistory.TicketHistoryListResponser;
 import com.rightcode.wellcar.network.responser.user.UserInfoResponser;
 import com.rightcode.wellcar.network.responser.version.VersionResponser;
 
@@ -47,6 +53,8 @@ import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -130,8 +138,13 @@ public interface LegacyNetworkApi {
     Call<CommonResult> logout(
     );
 
-    @DELETE("/user/withdrwal")
+    @DELETE("/user/withdrawal")
     Call<CommonResult> userDrop(
+    );
+
+    @PUT("/user/store/update")
+    Call<CommonResult> userStoreUpdate(
+            @Body UserStoreUpdate param
     );
 
     //----------------------------------------------------------------------------------------------
@@ -165,7 +178,9 @@ public interface LegacyNetworkApi {
 
     @GET("/itemBrand/list")
     Call<ItemBrandListResponser> itemBrandList(
-            @Query("diff") String diff
+            @Query("diff") String diff,
+            @Query("random") Boolean random,
+            @Query("storeId") Integer storeId
     );
 
 
@@ -180,12 +195,22 @@ public interface LegacyNetworkApi {
             @Query("si") String si,
             @Query("gu") String gu,
             @Query("itemId") ArrayList<Integer> itemId,
+            @Query("itemBrandId") Integer itemBrandId,
             @Query("diff") String... diff);
+
 
 
     @GET("/store/detail")
     Call<StoreDetailResponser> storeDetail(
             @Query("id") Integer id
+    );
+
+    @Multipart
+    @POST("/store/file/register")
+    Call<CommonResult> storeThumbnailRegister(
+            @Query("diff") String diff,
+            @Query("storeId") Integer storeId,
+            @Part MultipartBody.Part... image
     );
 
 
@@ -214,13 +239,19 @@ public interface LegacyNetworkApi {
             @Query("id") Integer id
     );
 
-
     //----------------------------------------------------------------------------------------------
     // estimateStore
     //----------------------------------------------------------------------------------------------
 
     @GET("/estimateStore/list")
-    Call<CommonResult> estimateStoreList(
+    Call<EstimateStoreListResponser> estimateStoreList(
+    );
+
+    @PUT("/estimateStore/update")
+    Call<CommonResult> estimateStoreUpdate(
+            @Query("id") Integer id,
+            @Body EstimateStoreUpdate param
+
     );
 
 
@@ -262,7 +293,7 @@ public interface LegacyNetworkApi {
     // inquiry
     //----------------------------------------------------------------------------------------------
 
-    @GET("/inquiry/register")
+    @POST("/inquiry/register")
     Call<CommonResult> inquiryRegister(
             @Body InquiryRegister param
     );
@@ -390,7 +421,6 @@ public interface LegacyNetworkApi {
     );
 
 
-
     //----------------------------------------------------------------------------------------------
     // payment/ticket
     //----------------------------------------------------------------------------------------------
@@ -425,6 +455,43 @@ public interface LegacyNetworkApi {
     Call<CommonResult> ticketHistoryRegister(
             @Query("storeId") Integer storeId,
             @Body TicketHistoryRegister param
+    );
+
+    @GET("/ticketHistory/management")
+    Call<TicketHistoryListResponser> ticketHistoryManagement(
+    );
+
+    //----------------------------------------------------------------------------------------------
+    // /notification
+    //----------------------------------------------------------------------------------------------
+
+    @PUT("/notification/update")
+    Call<CommonResult> notificationUpdate(
+            @Query("notificationToken") String notificationToken,
+            @Query("active") Boolean active,
+            @Query("chatActive") Boolean chatActive
+    );
+
+    @FormUrlEncoded
+    @POST("/notification/register")
+    Call<CommonResult> notificationRegister(
+            @Field("notificationToken") String notificationToken
+    );
+
+    @GET("/notification/detail")
+    Call<NotificationDetailResponser> notificationDetail(
+            @Query("notificationToken") String notificationToken
+    );
+
+    //----------------------------------------------------------------------------------------------
+    // v1/accounts/company/list
+    //----------------------------------------------------------------------------------------------
+
+    @GET("/v1/accounts/company/list")
+    Call<SettlementListResponser> carWashSettlementList(
+            @Query("startDate") String startDate,
+            @Query("endDate") String endDate,
+            @Query("diff") String diff
     );
 
 //    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwibG9naW5JZCI6IndsZ25zNTI0Iiwicm9sZSI6IuyXheyytCIsImlhdCI6MTU4NDY4NTk2OSwiZXhwIjo0NzQwNDQ1OTY5LCJpc3MiOiJ3ZWxjYXIifQ.T6qK5zPmT8pELIjfZKHIG6SP_BYKMlQETlfShL1TLZ0

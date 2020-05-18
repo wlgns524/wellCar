@@ -247,8 +247,6 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
     private void eventList() {
         showLoading();
         EventListRequester eventListRequester = new EventListRequester(getContext());
-        eventListRequester.setLatitude(MemberManager.getInstance(getContext()).getLocation().getLatitude());
-        eventListRequester.setLongitude(MemberManager.getInstance(getContext()).getLocation().getLongitude());
         eventListRequester.setLocation("top");
 
         request(eventListRequester,

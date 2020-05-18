@@ -15,9 +15,12 @@ import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.BuyDetailEstimateRecycl
 import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.BuyEstimateRecyclerViewAdapter;
 import com.rightcode.wellcar.Fragment.TopFragment;
 import com.rightcode.wellcar.R;
+import com.rightcode.wellcar.RxJava.RxBus;
+import com.rightcode.wellcar.RxJava.RxEvent.EstimateSeletedEvent;
 import com.rightcode.wellcar.Util.DataEnums;
 import com.rightcode.wellcar.Util.FragmentUtil;
 import com.rightcode.wellcar.Util.Log;
+import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.response.paymentEstimate.PaymentEstimateDetail;
 import com.rightcode.wellcar.network.requester.payment.PaymentEstimateDetailRequester;
 import com.rightcode.wellcar.network.responser.paymentEstimate.PaymentEstimateDetailResponser;
@@ -26,9 +29,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_ACTION;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_COMPLETE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_COMPANY_DETAIL_TYPE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_COMPANY_ID;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ESTIMATE_ID;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_PAYMENT_ID;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_REVIEW_IS_MINE;
 
 public class BuyDetailActivity extends BaseActivity {
 
@@ -38,6 +45,8 @@ public class BuyDetailActivity extends BaseActivity {
     private TopFragment mTopFragment;
     private BuyDetailEstimateRecyclerViewAdapter mBuyDetailEstimateRecyclerViewAdapter;
     private PaymentEstimateDetail data;
+    private Integer estimateId;
+    private Boolean isReviewMine;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,15 +56,37 @@ public class BuyDetailActivity extends BaseActivity {
         ButterKnife.bind(this);
         initialize();
     }
+//------------------------------------------------------------------------------------------
+    // Override
+    //------------------------------------------------------------------------------------------
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case EXTRA_ACTIVITY_ACTION: {
+                    isReviewMine = true;
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+    }
 
     @OnClick({R.id.tv_review_write, R.id.tv_store_detail})
     void onClickMenu(View view) {
         switch (view.getId()) {
             case R.id.tv_review_write: {
-                Intent intent = new Intent(BuyDetailActivity.this, ReviewWriteActivity.class);
-                intent.putExtra(EXTRA_COMPANY_ID, data.getEstimateStore().getStore().getId());
-                startActivity(intent);
+                if (isReviewMine) {
+                    ToastUtil.show(BuyDetailActivity.this, "이미 작성한 리뷰가 있습니다");
+                } else {
+                    Intent intent = new Intent(BuyDetailActivity.this, ReviewWriteActivity.class);
+                    intent.putExtra(EXTRA_COMPANY_ID, data.getEstimateStore().getStore().getId());
+                    intent.putExtra(EXTRA_ESTIMATE_ID, estimateId);
+                    startActivityForResult(intent, EXTRA_ACTIVITY_ACTION);
+                }
                 break;
             }
             case R.id.tv_store_detail: {
@@ -92,6 +123,8 @@ public class BuyDetailActivity extends BaseActivity {
 
         if (getIntent() != null) {
             paymentEstimateDetail(getIntent().getIntExtra(EXTRA_PAYMENT_ID, -1));
+            estimateId = getIntent().getIntExtra(EXTRA_ESTIMATE_ID, -1);
+            isReviewMine = getIntent().getBooleanExtra(EXTRA_REVIEW_IS_MINE, false);
         }
     }
 

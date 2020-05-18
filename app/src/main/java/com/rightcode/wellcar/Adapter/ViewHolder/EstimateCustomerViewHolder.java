@@ -14,6 +14,7 @@ import com.rightcode.wellcar.Dialog.CommonDialog;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.RxJava.RxBus;
 import com.rightcode.wellcar.RxJava.RxEvent.EstimateRemoveEvent;
+import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.network.model.response.estimate.Estimate;
 
 import butterknife.BindView;
@@ -49,7 +50,7 @@ public class EstimateCustomerViewHolder extends CommonRecyclerViewHolder {
         mEstimateCustomerItemRecyclerViewAdapter.setData(data);
         rv_estimate_customer_item.setAdapter(mEstimateCustomerItemRecyclerViewAdapter);
 
-//        tv_estimate_detail.setText(String.format("%d개의 업체 견적 확인", data.getItems().size()));
+        tv_estimate_detail.setText(String.format("%d개의 업체 견적 확인", data.getStoreCount()));
     }
 
     @OnClick({R.id.iv_trash_box, R.id.tv_estimate_detail})

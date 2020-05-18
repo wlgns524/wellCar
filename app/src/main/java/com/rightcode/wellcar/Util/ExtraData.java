@@ -7,6 +7,7 @@ public class ExtraData {
     public static final int REQUEST_CODE_GALLERY = 9997;
 
     public static final String EXTRA_IMAGE = "EXTRA_IMAGE";
+    public static final String EXTRA_IMAGE_COUNT = "EXTRA_IMAGE_COUNT";
     public static final String EXTRA_SELECT_IMAGE = "EXTRA_SELECT_IMAGE";
     public static final String EXTRA_SINGLE_SELECT = "EXTRA_SINGLE_SELECT";
 
@@ -37,6 +38,7 @@ public class ExtraData {
 
     public static final String EXTRA_PAYMENT_URL = "EXTRA_PAYMENT_URL";
     public static final String EXTRA_MERCHANT_UID = "EXTRA_MERCHANT_UID";
+    public static final String EXTRA_PAYMENT_TYPE = "EXTRA_PAYMENT_TYPE";
 
     public static final String EXTRA_BANNER_DATA = "EXTRA_BANNER_DATA";
 
@@ -45,5 +47,10 @@ public class ExtraData {
     public static final String EXTRA_ADDRESS_GU = "EXTRA_ADDRESS_GU";
 
     public static final String EXTRA_REVIEW_TYPE = "EXTRA_REVIEW_TYPE";
+
+    public static final String EXTRA_BRAND_ID = "EXTRA_BRAND_ID";
+    public static final String EXTRA_TICKET_HISTORY_ID = "EXTRA_TICKET_HISTORY_ID";
+    public static final String EXTRA_REVIEW_IS_MINE = "EXTRA_REVIEW_IS_MINE";
+
 }
 

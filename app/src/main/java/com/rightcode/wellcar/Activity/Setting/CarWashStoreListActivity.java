@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rightcode.wellcar.Activity.BaseActivity;
 import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.CarWashCompanyRecyclerViewAdapter;
+import com.rightcode.wellcar.Dialog.CommonDialog;
 import com.rightcode.wellcar.Fragment.TopFragment;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.FragmentUtil;
@@ -69,14 +70,13 @@ public class CarWashStoreListActivity extends BaseActivity {
         }
     }
 
-
     //------------------------------------------------------------------------------------------
     // private
     //------------------------------------------------------------------------------------------
 
     private void initialize() {
         mTopFragment = (TopFragment) FragmentUtil.findFragmentByTag(getSupportFragmentManager(), "TopFragment");
-        mTopFragment.setText(TopFragment.Menu.CENTER, "시공견적");
+        mTopFragment.setText(TopFragment.Menu.CENTER, "셀프 세차장");
         mTopFragment.setImagePadding(TopFragment.Menu.CENTER, 10);
         mTopFragment.setImage(TopFragment.Menu.LEFT, R.drawable.arrow_left);
         mTopFragment.setImagePadding(TopFragment.Menu.LEFT, 5);
@@ -99,7 +99,7 @@ public class CarWashStoreListActivity extends BaseActivity {
         rv_car_wash_company.setAdapter(mCarWashCompanyRecyclerViewAdapter);
     }
 
-    private void initLayout(){
+    private void initLayout() {
         tv_address_si.setText(addressSi);
         tv_address_gu.setText(addressGu);
     }
@@ -117,8 +117,17 @@ public class CarWashStoreListActivity extends BaseActivity {
                 success -> {
                     StoreListResponser result = (StoreListResponser) success;
                     if (result.getCode() == 200) {
-                        mCarWashCompanyRecyclerViewAdapter.setData(result.getList());
-                        mCarWashCompanyRecyclerViewAdapter.notifyDataSetChanged();
+                        if (result.getList().size() > 0) {
+                            mCarWashCompanyRecyclerViewAdapter.setData(result.getList());
+                            mCarWashCompanyRecyclerViewAdapter.notifyDataSetChanged();
+                        } else {
+                            CommonDialog commonDialog = new CommonDialog(CarWashStoreListActivity.this);
+                            commonDialog.setMessage("검색된 구역에 등록된 세차장이 없습니다.");
+                            commonDialog.setPositiveButton("확인", ok -> {
+                                finishWithAnim();
+                            });
+                            commonDialog.show();
+                        }
                     } else {
                         showServerErrorDialog(result.getResultMsg());
                     }

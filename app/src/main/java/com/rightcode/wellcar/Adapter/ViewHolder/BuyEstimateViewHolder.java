@@ -14,14 +14,17 @@ import com.rightcode.wellcar.Activity.Setting.NoticeDetailActivity;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.MoneyHelper;
+import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.response.notice.Notice;
 import com.rightcode.wellcar.network.model.response.paymentEstimate.PaymentEstimateList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ESTIMATE_ID;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_NOTICE_ID;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_PAYMENT_ID;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_REVIEW_IS_MINE;
 
 
 public class BuyEstimateViewHolder extends CommonRecyclerViewHolder implements View.OnClickListener {
@@ -61,8 +64,14 @@ public class BuyEstimateViewHolder extends CommonRecyclerViewHolder implements V
 
     @Override
     public void onClick(View v) {
+//        if (data.getIsReviewMine()) {
+//            ToastUtil.show(mContext, "이미 작성한 리뷰가 있습니다");
+//        } else {
         Intent intent = new Intent(mContext, BuyDetailActivity.class);
         intent.putExtra(EXTRA_PAYMENT_ID, data.getId());
+        intent.putExtra(EXTRA_ESTIMATE_ID, data.getEstimateId());
+        intent.putExtra(EXTRA_REVIEW_IS_MINE, data.getIsReviewMine());;
         startActivity(intent);
+//        }
     }
 }

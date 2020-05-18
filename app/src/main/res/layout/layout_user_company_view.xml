@@ -160,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="세차예약관리"
+                    android:text="세차이용관리"
                     android:textColor="@color/text_gray"
                     android:textSize="12sp" />
 
@@ -289,6 +289,36 @@
 
             </LinearLayout>
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_company_car_wash"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_car_wash" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="세차장관리"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 
@@ -296,10 +326,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/rl_company_car_wash"
+            android:visibility="invisible"
             android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -328,9 +359,9 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/rl_company_estimate_company"
             android:layout_width="wrap_content"
             android:clickable="true"
+            android:visibility="invisible"
             android:layout_height="wrap_content">
 
             <LinearLayout
@@ -348,7 +379,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="받은견적관리"
                     android:textColor="@color/text_gray"
                     android:textSize="12sp" />
 

@@ -6,17 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.rightcode.wellcar.Activity.CarRegist.CarRegisterActivity;
-import com.rightcode.wellcar.Activity.CompanyDetailActivity;
 import com.rightcode.wellcar.Activity.Login.LoginActivity;
 import com.rightcode.wellcar.Activity.Setting.BuyActivity;
 import com.rightcode.wellcar.Activity.Setting.CarCleanActivity;
-import com.rightcode.wellcar.Activity.Setting.CarWashActivity;
-import com.rightcode.wellcar.Activity.Setting.EstimateCompanyActivity;
+import com.rightcode.wellcar.Activity.Setting.CarWashManagementActivity;
+import com.rightcode.wellcar.Activity.Setting.CompanyManagementActivity;
 import com.rightcode.wellcar.Activity.Setting.EstimateCustomerActivity;
 import com.rightcode.wellcar.Activity.Setting.InquiryActivity;
 import com.rightcode.wellcar.Activity.Setting.NoticeActivity;
@@ -37,9 +37,6 @@ import com.rightcode.wellcar.network.model.response.user.UserInfo;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.rightcode.wellcar.Util.ExtraData.EXTRA_COMPANY_DETAIL_TYPE;
-import static com.rightcode.wellcar.Util.ExtraData.EXTRA_COMPANY_ID;
 
 public class UserFragment extends BaseFragment {
 
@@ -67,6 +64,10 @@ public class UserFragment extends BaseFragment {
     View layout_user_customer_view;
     @BindView(R.id.layout_user_company_view)
     View layout_user_company_view;
+    @BindView(R.id.rl_company_car_wash)
+    RelativeLayout rl_company_car_wash;
+    @BindView(R.id.rl_company_company)
+    RelativeLayout rl_company_company;
 
     private View root;
     private TopFragment mTopFragment;
@@ -109,7 +110,7 @@ public class UserFragment extends BaseFragment {
             R.id.rl_customer_review, R.id.rl_company_estimate_customer, R.id.rl_customer_estimate_customer, R.id.rl_company_car_clean, R.id.rl_customer_car_clean,
             R.id.rl_company_notice, R.id.rl_basic_notice, R.id.rl_customer_notice, R.id.rl_company_inquiry, R.id.rl_basic_inquiry, R.id.rl_customer_inquiry,
             R.id.rl_company_notification, R.id.rl_basic_notification, R.id.rl_customer_notification, R.id.rl_company_company, R.id.rl_company_car_wash,
-            R.id.rl_company_estimate_company, R.id.tv_logout, R.id.layout_unregist_car})
+            R.id.tv_logout, R.id.layout_unregist_car})
     void onClickMenu(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -160,17 +161,11 @@ public class UserFragment extends BaseFragment {
                 break;
             }
             case R.id.rl_company_company: {
-                intent = new Intent(getContext(), CompanyDetailActivity.class);
-                intent.putExtra(EXTRA_COMPANY_ID, MemberManager.getInstance(getContext()).getUserInfo().getCompany().getId());
-                intent.putExtra(EXTRA_COMPANY_DETAIL_TYPE, DataEnums.CompanyDetailType.MANAGEMENT);
+                intent = new Intent(getContext(), CompanyManagementActivity.class);
                 break;
             }
             case R.id.rl_company_car_wash: {
-//                intent = new Intent(getContext(), CarWashActivity.class);
-                break;
-            }
-            case R.id.rl_company_estimate_company: {
-                intent = new Intent(getContext(), EstimateCompanyActivity.class);
+                intent = new Intent(getContext(), CarWashManagementActivity.class);
                 break;
             }
             case R.id.tv_logout: {
@@ -250,6 +245,21 @@ public class UserFragment extends BaseFragment {
                 layout_user_basic_view.setVisibility(View.GONE);
                 layout_user_customer_view.setVisibility(View.GONE);
                 layout_user_company_view.setVisibility(View.VISIBLE);
+                if (userInfo.getStore() != null) {
+                    if (userInfo.getStore().getPosition().equals("튜닝")) {
+                        rl_company_company.setVisibility(View.VISIBLE);
+                        rl_company_car_wash.setVisibility(View.GONE);
+                    } else if (userInfo.getStore().getPosition().equals("세차")) {
+                        rl_company_company.setVisibility(View.GONE);
+                        rl_company_car_wash.setVisibility(View.VISIBLE);
+                    } else {
+                        rl_company_company.setVisibility(View.INVISIBLE);
+                        rl_company_car_wash.setVisibility(View.GONE);
+                    }
+                } else {
+                    rl_company_company.setVisibility(View.INVISIBLE);
+                    rl_company_car_wash.setVisibility(View.GONE);
+                }
             } else {
                 layout_user_basic_view.setVisibility(View.VISIBLE);
                 layout_user_customer_view.setVisibility(View.GONE);

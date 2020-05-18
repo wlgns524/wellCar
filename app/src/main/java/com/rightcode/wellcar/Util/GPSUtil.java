@@ -175,22 +175,18 @@ public class GPSUtil extends Service implements LocationListener {
     }
 
     public void onLocationChanged(Location location) {
-        // TODO Auto-generated method stub
 
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        // TODO Auto-generated method stub
 
     }
 
     public void onProviderEnabled(String provider) {
-        // TODO Auto-generated method stub
 
     }
 
     public void onProviderDisabled(String provider) {
-        // TODO Auto-generated method stub
 
     }
 }

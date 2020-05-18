@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_COMPLETE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_MERCHANT_UID;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_PAYMENT_TYPE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_PAYMENT_URL;
 
 public class TicketBuyActivity extends BaseActivity {
@@ -100,6 +101,7 @@ public class TicketBuyActivity extends BaseActivity {
         mTopFragment.setListener(TopFragment.Menu.LEFT, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(RESULT_OK);
                 finishWithAnim();
             }
         });
@@ -111,9 +113,6 @@ public class TicketBuyActivity extends BaseActivity {
     }
 
     private void paymentTicketBuyInfo(PaymentTicketBuyInfo param) {
-        Log.d(param.getPayMethod());
-        Log.d(param.getPrice());
-        Log.d(param.getTicket());
         PaymentTicketBuyInfoRequester paymentTicketBuyInfoRequester = new PaymentTicketBuyInfoRequester(TicketBuyActivity.this);
         paymentTicketBuyInfoRequester.setParam(param);
 
@@ -132,6 +131,7 @@ public class TicketBuyActivity extends BaseActivity {
                         Intent intent = new Intent(TicketBuyActivity.this, PaymentActivity.class);
                         intent.putExtra(EXTRA_MERCHANT_UID, result.getMerchantUid());
                         intent.putExtra(EXTRA_PAYMENT_URL, url);
+                        intent.putExtra(EXTRA_PAYMENT_TYPE, "세차");
                         startActivityForResult(intent, EXTRA_ACTIVITY_COMPLETE);
                     }
                 }, fail -> {

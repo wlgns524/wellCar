@@ -62,9 +62,7 @@ public class EventListActivity extends BaseActivity {
     private void eventList() {
         showLoading();
         EventListRequester eventListRequester = new EventListRequester(EventListActivity.this);
-        eventListRequester.setLatitude(MemberManager.getInstance(EventListActivity.this).getLocation().getLatitude());
-        eventListRequester.setLongitude(MemberManager.getInstance(EventListActivity.this).getLocation().getLongitude());
-        eventListRequester.setLocation("top");
+        eventListRequester.setLocation("event");
 
         request(eventListRequester,
                 success -> {
@@ -79,7 +77,6 @@ public class EventListActivity extends BaseActivity {
                 }, fail -> {
                     hideLoading();
                     showServerErrorDialog(fail.getResultMsg());
-
                 });
     }
 }

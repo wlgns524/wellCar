@@ -9,15 +9,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 
+import com.rd.PageIndicatorView;
 import com.rightcode.wellcar.Activity.BaseActivity;
 import com.rightcode.wellcar.Adapter.SpinnerAdapter.SpinnerAdapter;
+import com.rightcode.wellcar.Adapter.ViewPagerAdapter.HomeBannerViewPagerAdapter;
+import com.rightcode.wellcar.Component.CustomViewPager;
 import com.rightcode.wellcar.Fragment.TopFragment;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.FragmentUtil;
 import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.request.estimate.EstimateRegister;
+import com.rightcode.wellcar.network.requester.event.EventListRequester;
+import com.rightcode.wellcar.network.responser.event.EventListResponser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,10 +32,15 @@ import butterknife.OnClick;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_COMPLETE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ESTIMATE_REGISTER;
 
-public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnItemSelectedListener {
+public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnItemSelectedListener, ViewPager.OnPageChangeListener {
+
 
     //    @BindView(R.id.fl_select_list)
 //    TagFlowLayout fl_select_list;
+    @BindView(R.id.cv_event)
+    CustomViewPager cv_event;
+    @BindView(R.id.pageindicator)
+    PageIndicatorView pageindicator;
     @BindView(R.id.tv_address_si)
     TextView tv_address_si;
     @BindView(R.id.tv_address_gu)
@@ -44,6 +55,8 @@ public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnIt
 
     private SpinnerAdapter siSpinnerAdapter;
     private SpinnerAdapter guSpinnerAdapter;
+    private HomeBannerViewPagerAdapter mHomeBannerViewPagerAdapter;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +65,7 @@ public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnIt
 
         ButterKnife.bind(this);
         initialize();
+        eventList();
     }
 
     //------------------------------------------------------------------------------------------
@@ -74,6 +88,53 @@ public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnIt
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()) {
+            case R.id.sn_address_si: {
+                if (siSpinnerAdapter.getItem(position).toString().equals("시 선택")) {
+                    tv_address_si.setText("");
+                    tv_address_si.setVisibility(View.GONE);
+                    tv_address_gu.setText("");
+                    tv_address_gu.setVisibility(View.GONE);
+                    break;
+                }
+                tv_address_si.setText(siSpinnerAdapter.getItem(position).toString());
+                tv_address_si.setVisibility(View.VISIBLE);
+                address(siSpinnerAdapter.getItem(position).toString());
+                break;
+            }
+            case R.id.sn_address_gu: {
+                if (guSpinnerAdapter.getItem(position).toString().equals("구 선택")) {
+                    tv_address_gu.setText("");
+                    tv_address_gu.setVisibility(View.GONE);
+                    break;
+                }
+                tv_address_gu.setText(guSpinnerAdapter.getItem(position).toString());
+                tv_address_gu.setVisibility(View.VISIBLE);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        pageindicator.setSelected(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
     //------------------------------------------------------------------------------------------
     // OnClick
     //------------------------------------------------------------------------------------------
@@ -82,11 +143,11 @@ public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnIt
     void onClickMenu(View view) {
         switch (view.getId()) {
             case R.id.tv_estimate: {
-                if (TextUtils.isEmpty(tv_address_si.getText().toString())||tv_address_si.getText().toString().equals("시 선택")) {
+                if (TextUtils.isEmpty(tv_address_si.getText().toString()) || tv_address_si.getText().toString().equals("시 선택")) {
                     ToastUtil.show(EstimateDepth1Activity.this, "시를 선택해주세요");
                     break;
                 }
-                if (TextUtils.isEmpty(tv_address_gu.getText().toString())||tv_address_gu.getText().toString().equals("구 선택")) {
+                if (TextUtils.isEmpty(tv_address_gu.getText().toString()) || tv_address_gu.getText().toString().equals("구 선택")) {
                     ToastUtil.show(EstimateDepth1Activity.this, "구를 선택해주세요");
                     break;
                 }
@@ -119,6 +180,10 @@ public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnIt
             }
         });
 
+        //event Adapter
+        mHomeBannerViewPagerAdapter = new HomeBannerViewPagerAdapter(getSupportFragmentManager(), EstimateDepth1Activity.this);
+        cv_event.setAdapter(mHomeBannerViewPagerAdapter);
+        cv_event.addOnPageChangeListener(this);
 
         //Spinner Adapter
         siSpinnerAdapter = new SpinnerAdapter(EstimateDepth1Activity.this);
@@ -198,36 +263,25 @@ public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnIt
         tv_address_gu.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (parent.getId()) {
-            case R.id.sn_address_si: {
-                if(siSpinnerAdapter.getItem(position).toString().equals("시 선택")){
-                    tv_address_si.setText("");
-                    tv_address_si.setVisibility(View.GONE);
-                    tv_address_gu.setText("");
-                    tv_address_gu.setVisibility(View.GONE);
-                    break;
-                }
-                tv_address_si.setText(siSpinnerAdapter.getItem(position).toString());
-                tv_address_si.setVisibility(View.VISIBLE);
-                address(siSpinnerAdapter.getItem(position).toString());
-                break;
-            }
-            case R.id.sn_address_gu: {
-                if(guSpinnerAdapter.getItem(position).toString().equals("구 선택")){
-                    tv_address_gu.setText("");
-                    tv_address_gu.setVisibility(View.GONE);
-                    break;
-                }
-                tv_address_gu.setText(guSpinnerAdapter.getItem(position).toString());
-                tv_address_gu.setVisibility(View.VISIBLE);
-                break;
-            }
-        }
-    }
+    private void eventList() {
+        showLoading();
+        EventListRequester eventListRequester = new EventListRequester(EstimateDepth1Activity.this);
+        eventListRequester.setLocation("전국");
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+        request(eventListRequester,
+                success -> {
+                    EventListResponser result = (EventListResponser) success;
+                    if (result.getCode() == 200) {
+                        pageindicator.setCount(result.getList().size());
+                        mHomeBannerViewPagerAdapter.setData(result.getList());
+                        mHomeBannerViewPagerAdapter.notifyDataSetChanged();
+                    } else {
+                        showServerErrorDialog(result.getResultMsg());
+                    }
+                    hideLoading();
+                }, fail -> {
+                    hideLoading();
+                    showServerErrorDialog(fail.getResultMsg());
+                });
     }
 }

@@ -160,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="세차예약관리"
+                    android:text="세차이용관리"
                     android:textColor="@color/text_gray"
                     android:textSize="12sp" />
 

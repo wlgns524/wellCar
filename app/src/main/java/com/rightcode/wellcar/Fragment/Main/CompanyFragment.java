@@ -11,13 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rightcode.wellcar.Activity.AroundActivity;
 import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.CompanyRecyclerViewAdapter;
 import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.HomeReviewRecyclerViewAdapter;
+import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.ItemBrandRecyclerViewAdapter;
 import com.rightcode.wellcar.Fragment.BaseFragment;
 import com.rightcode.wellcar.Fragment.TopFragment;
 import com.rightcode.wellcar.MemberManager;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.RxJava.RxBus;
 import com.rightcode.wellcar.Util.FragmentUtil;
+import com.rightcode.wellcar.network.requester.itemBrand.ItemBrandListRequester;
 import com.rightcode.wellcar.network.requester.store.StoreListRequester;
+import com.rightcode.wellcar.network.responser.itemBrand.ItemBrandListResponser;
 import com.rightcode.wellcar.network.responser.store.StoreListResponser;
 
 import butterknife.BindView;
@@ -25,11 +28,12 @@ import butterknife.ButterKnife;
 
 public class CompanyFragment extends BaseFragment {
 
-    @BindView(R.id.rv_company)
-    RecyclerView rv_company;
+    @BindView(R.id.rv_brand)
+    RecyclerView rv_brand;
 
     private TopFragment mTopFragment;
-    private CompanyRecyclerViewAdapter mCompanyRecyclerViewAdapter;
+
+    private ItemBrandRecyclerViewAdapter mItemBrandRecyclerViewAdapter;
     private View root;
 
     //------------------------------------------------------------------------------------------
@@ -55,7 +59,8 @@ public class CompanyFragment extends BaseFragment {
         RxBus.register(this);
         ButterKnife.bind(this, root);
         initialize();
-        storeList();
+//        storeList();
+        itemBrandList();
 
         return root;
     }
@@ -71,23 +76,22 @@ public class CompanyFragment extends BaseFragment {
         mTopFragment.setImagePadding(TopFragment.Menu.CENTER, 10);
 
         LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        rv_company.setLayoutManager(verticalLayoutManager);
-        mCompanyRecyclerViewAdapter = new CompanyRecyclerViewAdapter(getContext());
-        rv_company.setAdapter(mCompanyRecyclerViewAdapter);
+        rv_brand.setLayoutManager(verticalLayoutManager);
+        mItemBrandRecyclerViewAdapter = new ItemBrandRecyclerViewAdapter(getContext());
+        rv_brand.setAdapter(mItemBrandRecyclerViewAdapter);
     }
 
-    private void storeList() {
+    private void itemBrandList() {
         showLoading();
-        StoreListRequester storeListRequester = new StoreListRequester(getContext());
-        storeListRequester.setLatitude(MemberManager.getInstance(getContext()).getLocation().getLatitude());
-        storeListRequester.setLongitude(MemberManager.getInstance(getContext()).getLocation().getLongitude());
+        ItemBrandListRequester itemBrandListRequester = new ItemBrandListRequester(getContext());
+        itemBrandListRequester.setRandom(true);
 
-        request(storeListRequester,
+        request(itemBrandListRequester,
                 success -> {
-                    StoreListResponser result = (StoreListResponser) success;
+                    ItemBrandListResponser result = (ItemBrandListResponser) success;
                     if (result.getCode() == 200) {
-                        mCompanyRecyclerViewAdapter.setData(result.getList());
-                        mCompanyRecyclerViewAdapter.notifyDataSetChanged();
+                        mItemBrandRecyclerViewAdapter.setData(result.getList());
+                        mItemBrandRecyclerViewAdapter.notifyDataSetChanged();
                     } else {
                         showServerErrorDialog(result.getResultMsg());
                     }
@@ -96,5 +100,6 @@ public class CompanyFragment extends BaseFragment {
                     hideLoading();
                     showServerErrorDialog(fail.getResultMsg());
                 });
+
     }
 }

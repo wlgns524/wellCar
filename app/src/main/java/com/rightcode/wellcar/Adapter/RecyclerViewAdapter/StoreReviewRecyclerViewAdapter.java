@@ -9,35 +9,36 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rightcode.wellcar.Adapter.ViewHolder.CommonRecyclerViewHolder;
-import com.rightcode.wellcar.Adapter.ViewHolder.EstimateCompanyViewHolder;
+import com.rightcode.wellcar.Adapter.ViewHolder.StoreReviewViewHolder;
 import com.rightcode.wellcar.R;
-import com.rightcode.wellcar.network.model.response.store.Store;
+import com.rightcode.wellcar.network.model.response.storeReview.StoreReview;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class EstimateCompanyRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecyclerViewHolder> {
+public class StoreReviewRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecyclerViewHolder> {
+
     private Context mContext;
-
     @Setter
-    private ArrayList<Store> data;
+    @Getter
+    private ArrayList<StoreReview> data;
 
-    public EstimateCompanyRecyclerViewAdapter(Context context) {
+    public StoreReviewRecyclerViewAdapter(Context context) {
         this.mContext = context;
     }
 
     @NonNull
     @Override
     public CommonRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_estimate_company_recyclerview, viewGroup, false);
-        return new EstimateCompanyViewHolder(view, mContext);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_store_review_recyclerview, viewGroup, false);
+        return new StoreReviewViewHolder(view, mContext);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CommonRecyclerViewHolder viewHolder, int i) {
-        ((EstimateCompanyViewHolder) viewHolder).onBind(new Store());
-
+    public void onBindViewHolder(@NonNull CommonRecyclerViewHolder viewHolder, int position) {
+        ((StoreReviewViewHolder) viewHolder).onBind(data.get(position));
     }
 
     @Override

@@ -7,11 +7,8 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.rightcode.wellcar.Activity.BaseActivity;
-import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.BuyEstimateRecyclerViewAdapter;
 import com.rightcode.wellcar.Fragment.BuyEstimateFragment;
 import com.rightcode.wellcar.Fragment.BuyTicketFragment;
 import com.rightcode.wellcar.Fragment.TopFragment;

@@ -43,6 +43,7 @@ import rx.schedulers.Schedulers;
 
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_COMPANY_ID;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_COMPANY_NAME;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_IMAGE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_TALK_ID;
 
 public class TalkDetailCompanyActivity extends BaseActivity {
@@ -60,6 +61,7 @@ public class TalkDetailCompanyActivity extends BaseActivity {
     private TopFragment mTopFragment;
     private TalkDetailRecyclerViewAdapter mTalkDetailRecyclerViewAdapter;
     private Integer chatRoomId;
+    private String carBrandImage;
     private Subscription subscription;
 
     @Override
@@ -157,13 +159,14 @@ public class TalkDetailCompanyActivity extends BaseActivity {
 
         if (getIntent() != null) {
             chatRoomId = getIntent().getIntExtra(EXTRA_TALK_ID, -1);
+            carBrandImage = getIntent().getStringExtra(EXTRA_IMAGE);
             mTopFragment.setText(TopFragment.Menu.CENTER, getIntent().getStringExtra(EXTRA_COMPANY_NAME));
             chatRoomDetail(true);
         }
 
         LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(TalkDetailCompanyActivity.this, LinearLayoutManager.VERTICAL, false);
         rv_talk_detail.setLayoutManager(verticalLayoutManager);
-        mTalkDetailRecyclerViewAdapter = new TalkDetailRecyclerViewAdapter(TalkDetailCompanyActivity.this);
+        mTalkDetailRecyclerViewAdapter = new TalkDetailRecyclerViewAdapter(TalkDetailCompanyActivity.this, carBrandImage);
         rv_talk_detail.setAdapter(mTalkDetailRecyclerViewAdapter);
         mTalkDetailRecyclerViewAdapter.setCompanyId(getIntent().getIntExtra(EXTRA_COMPANY_ID, -1));
 

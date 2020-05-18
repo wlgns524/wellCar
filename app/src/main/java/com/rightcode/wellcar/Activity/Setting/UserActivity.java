@@ -164,7 +164,8 @@ public class UserActivity extends BaseActivity {
             ll_company.setVisibility(View.GONE);
             et_nickname.setText(userInfo.getGeneral().getNickname());
             et_birth.setText(userInfo.getGeneral().getBirth());
-
+            tv_address.setText(userInfo.getGeneral().getAddress());
+            et_address_detail.setText(userInfo.getGeneral().getAddressDetail());
         } else if (userInfo.getRole().equals(DataEnums.UserType.COMPANY)) {
             ll_customer.setVisibility(View.GONE);
             ll_company.setVisibility(View.VISIBLE);
@@ -172,10 +173,10 @@ public class UserActivity extends BaseActivity {
             tv_owner.setText(userInfo.getCompany().getOwner());
             et_company_number.setText(userInfo.getCompany().getCompanyNumber());
             tv_business_license.setText(userInfo.getCompany().getBusinessLicense());
+            tv_address.setText(userInfo.getCompany().getAddress());
+            et_address_detail.setText(userInfo.getCompany().getAddressDetail());
         }
         tv_id.setText(userInfo.getLoginId());
-        tv_address.setText(userInfo.getGeneral().getAddress());
-        et_address_detail.setText(userInfo.getGeneral().getAddressDetail());
     }
 
     private UserUpdate isValid() {

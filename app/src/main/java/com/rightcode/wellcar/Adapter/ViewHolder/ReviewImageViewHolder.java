@@ -35,6 +35,7 @@ public class ReviewImageViewHolder extends CommonRecyclerViewHolder implements V
         this.imageUrl = imageUrl;
         Glide.with(mContext)
                 .load(imageUrl)
+                .centerCrop()
                 .into(iv_review_image);
     }
 

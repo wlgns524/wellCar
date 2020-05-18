@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rightcode.wellcar.Activity.BaseActivity;
 import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.EstimateCustomerDetailRecyclerViewAdapter;
+import com.rightcode.wellcar.Fragment.BottomFragment;
 import com.rightcode.wellcar.Fragment.TopFragment;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.RxJava.Event;
 import com.rightcode.wellcar.RxJava.RxBus;
 import com.rightcode.wellcar.RxJava.RxEvent.EstimateSeletedEvent;
+import com.rightcode.wellcar.RxJava.RxEvent.MoveTalkEvent;
 import com.rightcode.wellcar.Util.FragmentUtil;
 import com.rightcode.wellcar.network.requester.estimate.EstimateDetailRequester;
 import com.rightcode.wellcar.network.responser.estimate.EstimateDetailResponser;
@@ -25,6 +27,10 @@ import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ESTIMATE_ID;
 
 public class EstimateCustomerDetailActivity extends BaseActivity {
 
+    @Event(MoveTalkEvent.class)
+    public void onMoveTalkEvent(MoveTalkEvent event) {
+        finishWithAnim();
+    }
 
     @Event(EstimateSeletedEvent.class)
     public void onEstimateSeletedEvent(EstimateSeletedEvent event) {

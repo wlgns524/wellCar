@@ -50,5 +50,4 @@ public class ShoppingMallRecyclerViewAdapter extends RecyclerView.Adapter<Common
             return data.size();
         }
     }
-
 }

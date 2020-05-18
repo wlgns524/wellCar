@@ -6,7 +6,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-
     <fragment
         android:id="@+id/top_fragment"
         android:name="com.rightcode.wellcar.Fragment.TopFragment"
@@ -32,6 +31,7 @@
             android:src="@drawable/big_logo" />
 
         <TextView
+            android:id="@+id/tv_payment_complete_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -40,6 +40,7 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tv_payment_complete_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

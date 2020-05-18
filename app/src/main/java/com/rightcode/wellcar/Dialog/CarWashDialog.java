@@ -1,6 +1,7 @@
 package com.rightcode.wellcar.Dialog;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +22,8 @@ public class CarWashDialog extends BaseDialog {
     TextView tv_company_name;
     @BindView(R.id.et_car_wash_coupon_number)
     EditText et_car_wash_coupon_number;
+    @BindView(R.id.tv_car_wash)
+    TextView tv_car_wash;
 
     private Context mContext;
 
@@ -28,7 +31,9 @@ public class CarWashDialog extends BaseDialog {
         super(context);
         setContentView(R.layout.dialog_car_wash);
         mContext = context;
+
         ButterKnife.bind(this);
+        initialize();
         tv_company_name.setText(companyName);
     }
 
@@ -41,10 +46,18 @@ public class CarWashDialog extends BaseDialog {
                     ToastUtil.show(mContext, "고유번호를 입력해주세요");
                     break;
                 }
-
                 RxBus.send(new CarWashUseEvent(et_car_wash_coupon_number.getText().toString()));
+                dismiss();
                 break;
             }
+        }
+    }
+
+
+    private void initialize(){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            Typeface typeface = mContext.getResources().getFont(R.font.jalnan_otf);
+            tv_car_wash.setTypeface(typeface);
         }
     }
 }

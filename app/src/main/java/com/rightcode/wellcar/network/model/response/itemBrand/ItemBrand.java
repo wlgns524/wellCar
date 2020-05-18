@@ -2,6 +2,7 @@ package com.rightcode.wellcar.network.model.response.itemBrand;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageView;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
@@ -18,9 +19,15 @@ public class ItemBrand implements Parcelable {
     Integer id;
     @JsonField
     String name;
+    @JsonField
+    String imageName;
 
-    public ItemBrand(){
+    public ItemBrand() {
 
+    }
+
+    public ItemBrand(String name) {
+        this.name = name;
     }
 
     protected ItemBrand(Parcel in) {
@@ -30,6 +37,7 @@ public class ItemBrand implements Parcelable {
             id = in.readInt();
         }
         name = in.readString();
+        imageName = in.readString();
     }
 
     public static final Creator<ItemBrand> CREATOR = new Creator<ItemBrand>() {
@@ -58,5 +66,6 @@ public class ItemBrand implements Parcelable {
             dest.writeInt(id);
         }
         dest.writeString(name);
+        dest.writeString(imageName);
     }
 }

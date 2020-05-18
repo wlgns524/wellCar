@@ -1,10 +1,13 @@
 package com.rightcode.wellcar.Activity.Login;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -27,6 +30,7 @@ import com.rightcode.wellcar.network.requester.auth.JoinRequester;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_ACTION;
@@ -71,6 +75,18 @@ public class SignUpActivity extends BaseActivity {
     AppCompatEditText et_nickname;
     @BindView(R.id.et_birth)
     AppCompatEditText et_birth;
+
+    //약관동의
+    @BindView(R.id.rb_operation_policy)
+    RadioButton rb_operation_policy;
+    @BindView(R.id.rb_terms_of_service)
+    RadioButton rb_terms_of_service;
+    @BindView(R.id.rb_privacy)
+    RadioButton rb_privacy;
+    @BindView(R.id.rb_member_terms)
+    RadioButton rb_member_terms;
+    @BindView(R.id.rb_all)
+    RadioButton rb_all;
 
 
     private TopFragment mTopFragment;
@@ -119,11 +135,57 @@ public class SignUpActivity extends BaseActivity {
     }
 
     //------------------------------------------------------------------------------------------
+    // OnCheckedChanged
+    //------------------------------------------------------------------------------------------
+
+    @OnCheckedChanged({R.id.rb_operation_policy, R.id.rb_terms_of_service, R.id.rb_privacy, R.id.rb_member_terms, R.id.rb_all})
+    void onGenderSelected(CompoundButton button, boolean checked) {
+        if (checked) {
+            switch (button.getId()) {
+                case R.id.rb_all: {
+                    rb_operation_policy.setChecked(true);
+                    rb_terms_of_service.setChecked(true);
+                    rb_privacy.setChecked(true);
+                    rb_member_terms.setChecked(true);
+                    break;
+                }
+                case R.id.rb_operation_policy: {
+                    if (rb_terms_of_service.isChecked() && rb_privacy.isChecked() && rb_member_terms.isChecked()) {
+                        rb_all.setChecked(true);
+                    }
+                    break;
+                }
+                case R.id.rb_terms_of_service: {
+                    if (rb_operation_policy.isChecked() && rb_privacy.isChecked() && rb_member_terms.isChecked()) {
+                        rb_all.setChecked(true);
+                    }
+                    break;
+                }
+                case R.id.rb_privacy: {
+                    if (rb_operation_policy.isChecked() && rb_terms_of_service.isChecked() && rb_member_terms.isChecked()) {
+                        rb_all.setChecked(true);
+                    }
+                    break;
+                }
+                case R.id.rb_member_terms: {
+                    if (rb_operation_policy.isChecked() && rb_terms_of_service.isChecked() && rb_privacy.isChecked()) {
+                        rb_all.setChecked(true);
+                    }
+                    break;
+                }
+            }
+        } else {
+            rb_all.setChecked(false);
+        }
+    }
+
+    //------------------------------------------------------------------------------------------
     // OnClick
     //------------------------------------------------------------------------------------------
 
     @OnClick({R.id.tv_customer, R.id.tv_company, R.id.ll_address,
-            R.id.tv_id_exist, R.id.tv_certification_number, R.id.tv_certification_number_check, R.id.tv_signup})
+            R.id.tv_id_exist, R.id.tv_certification_number, R.id.tv_certification_number_check, R.id.tv_signup,
+            R.id.tv_operation_policy, R.id.tv_terms_of_service, R.id.tv_privacy, R.id.tv_member_terms})
     void onClickMenu(View view) {
         switch (view.getId()) {
             case R.id.tv_customer: {
@@ -177,6 +239,27 @@ public class SignUpActivity extends BaseActivity {
                 }
                 break;
             }
+            case R.id.tv_operation_policy: {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://15.165.107.159:3030/operationalPolicy.html"));
+                startActivity(intent);
+                break;
+            }
+            case R.id.tv_terms_of_service: {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://15.165.107.159:3030/use.html"));
+                startActivity(intent);
+                break;
+            }
+            case R.id.tv_privacy: {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://15.165.107.159:3030/privacy.html"));
+                startActivity(intent);
+                break;
+            }
+            case R.id.tv_member_terms: {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://15.165.107.159:3030/memberRefund.html"));
+                startActivity(intent);
+                break;
+            }
+
         }
     }
 
@@ -289,6 +372,12 @@ public class SignUpActivity extends BaseActivity {
             ToastUtil.show(SignUpActivity.this, "휴대폰 인증을 진행해주세요");
             return false;
         }
+
+        if (!rb_all.isChecked()) {
+            ToastUtil.show(SignUpActivity.this, "약관의 모두 동의해주세요");
+            return false;
+        }
+
         return true;
     }
 
@@ -339,7 +428,7 @@ public class SignUpActivity extends BaseActivity {
                     CommonResult result = (CommonResult) success;
                     if (result.getCode() == 200) {
                         idFlag = true;
-                        ToastUtil.show(SignUpActivity.this, "인증되었습니다");
+                        ToastUtil.show(SignUpActivity.this, "사용가능한 아이디입니다.");
                     } else {
                         showServerErrorDialog(result.getResultMsg());
                     }

@@ -93,6 +93,13 @@
                 android:textSize="12sp"
                 tools:listitem="@layout/item_spinner" />
 
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/arrow_down_fill" />
 
         </RelativeLayout>
 
@@ -124,6 +131,13 @@
                 android:textSize="12sp"
                 tools:listitem="@layout/item_spinner" />
 
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/arrow_down_fill" />
 
         </RelativeLayout>
 

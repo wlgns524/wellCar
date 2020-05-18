@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.ReviewImageRecyclerViewAdapter;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.network.model.response.chatRoom.ChatRoomDetail;
@@ -23,14 +24,19 @@ public class TalkDetailYoursViewHolder extends CommonRecyclerViewHolder {
     TextView tv_talk_detail_date;
 
     private Context mContext;
+    private String carBrandImage;
 
-    public TalkDetailYoursViewHolder(View viewHolder, Context context) {
+    public TalkDetailYoursViewHolder(View viewHolder, Context context, String carBrandImage) {
         super(viewHolder, context);
         mContext = context;
+        this.carBrandImage = carBrandImage;
         ButterKnife.bind(this, itemView);
     }
 
     public void onBind(ChatRoomDetail data) {
+        Glide.with(mContext)
+                .load(carBrandImage)
+                .into(iv_talk_detail_yours);
         tv_talk_detail_content.setText(data.getContent());
         tv_talk_detail_date.setText(data.getCreatedAt());
     }

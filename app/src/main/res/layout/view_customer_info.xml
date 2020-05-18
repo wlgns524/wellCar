@@ -35,10 +35,17 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:lineSpacingExtra="0sp"
+                android:text="070 - 5165 - 4621"
                 android:textColor="#212121"
-                android:textSize="15.8sp"
-                tools:text="070.123.4567 " />
+                android:textSize="15.8sp" />
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="서비스 이용의 변경 및 취소 / 환불은 고객센터로 문의 부탁드립니다."
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,7 +53,7 @@
             android:gravity="center_horizontal"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
-            android:text="월~금 ( 9:00 ~ 18:00)"
+            android:text="월 ~ 금 (9:00 ~ 18:00)"
             android:textColor="#212121"
             android:textSize="13.3sp" />
 
@@ -55,8 +62,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:lineSpacingExtra="2.5sp"
+            android:text="점심시간 12시 ~ 1시"
             android:textColor="#212121"
-            android:textSize="13.3sp"
-            android:text="점심시간 오후 1시 ~ 2시" />
+            android:textSize="13.3sp" />
     </LinearLayout>
 </LinearLayout>

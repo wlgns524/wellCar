@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/app_bacground"
-                android:text="올바른코드"
+                android:text="상록수"
                 android:textColor="@color/text_gray"
                 android:textSize="10dp" />
 
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/app_bacground"
-                android:text="대표자 : 박효근"
+                android:text="대표자 : 정진영"
                 android:textColor="@color/text_gray"
                 android:textSize="10dp" />
 
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/app_bacground"
-                android:text="서울 강남구 봉은사로 5길 10 (지번:논현동 197-25)"
+                android:text="서울특별시 강서구 마곡동759-1"
                 android:textColor="@color/text_gray"
                 android:textSize="10dp" />
 
@@ -48,10 +48,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/app_bacground"
-                android:text="사업자등록번호 : 261-37-00595"
+                android:text="사업자등록번호 : 561-26-00844"
                 android:textColor="@color/text_gray"
                 android:textSize="10dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/app_bacground"
+                android:text="통신판매업신고 제2020-서울강서-1100호"
+                android:textColor="@color/text_gray"
+                android:textSize="10dp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

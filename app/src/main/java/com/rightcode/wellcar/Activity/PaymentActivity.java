@@ -18,6 +18,7 @@ import com.rightcode.wellcar.Dialog.CommonDialog;
 import com.rightcode.wellcar.Fragment.TopFragment;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.FragmentUtil;
+import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.PaymentScheme;
 import com.rightcode.wellcar.network.model.CommonResult;
 import com.rightcode.wellcar.network.model.request.payment.BuyCheck;
@@ -29,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_MERCHANT_UID;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_PAYMENT_TYPE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_PAYMENT_URL;
 
 public class PaymentActivity extends BaseActivity {
@@ -39,6 +41,7 @@ public class PaymentActivity extends BaseActivity {
     private static final String APP_SCHEME = "iamporttest://";
     private TopFragment mTopFragment;
     private String merchantUid;
+    private String paymentType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,7 +80,9 @@ public class PaymentActivity extends BaseActivity {
         if (getIntent() != null) {
             url = getIntent().getStringExtra(EXTRA_PAYMENT_URL);
             merchantUid = getIntent().getStringExtra(EXTRA_MERCHANT_UID);
+            paymentType = getIntent().getStringExtra(EXTRA_PAYMENT_TYPE);
         }
+        Log.d(url);
         wv_payment.loadUrl(url);
 
     }
@@ -98,6 +103,7 @@ public class PaymentActivity extends BaseActivity {
                     CommonResult result = (CommonResult) success;
                     if (result.getCode() == 200) {
                         Intent intent = new Intent(PaymentActivity.this, PaymentCompleteActivity.class);
+                        intent.putExtra(EXTRA_PAYMENT_TYPE, paymentType);
                         startActivity(intent);
                         setResult(RESULT_OK);
                         finishWithAnim();

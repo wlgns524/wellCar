@@ -1,370 +1,446 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:background="@color/white">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/rl_bottom"
         android:orientation="vertical">
 
-        <fragment
-            android:id="@+id/top_fragment"
-            android:name="com.rightcode.wellcar.Fragment.TopFragment"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:tag="TopFragment"
-            tools:layout="@layout/fragment_top" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="120dp">
-
-            <ImageView
-                android:id="@+id/iv_thumbnail_image"
+            <fragment
+                android:id="@+id/top_fragment"
+                android:name="com.rightcode.wellcar.Fragment.TopFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"/>
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:tag="TopFragment"
+                tools:layout="@layout/fragment_top" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:background="@color/color_000000_40"
-                android:padding="20dp">
+                android:layout_height="120dp">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginRight="10dp" />
+                    android:id="@+id/iv_thumbnail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@color/color_000000_40"
                     android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:padding="20dp">
 
-                    <TextView
-                        android:id="@+id/tv_company_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="아이정비소" />
-
-                    <TextView
-                        android:id="@+id/tv_company_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:lineSpacingExtra="13sp"
-                        android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="10sp"
-                        tools:text="서울 특별시 강동구 픽업 &amp; 딜리버리 가능" />
+                    <ImageView
+                        android:id="@+id/iv_company_image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="10dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_company_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:gravity="center_horizontal"
-                            android:text="최근 후기"
+                            android:maxLines="1"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:id="@+id/tv_company_review_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:gravity="center_horizontal"
-                            android:textColor="@color/app_color"
-                            android:textSize="10sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
-                            tools:text="3" />
+                            tools:text="아이정비소" />
 
                         <TextView
+                            android:id="@+id/tv_company_introduction"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:gravity="center_horizontal"
-                            android:text="수리 사례"
-                            android:textColor="#ffffff"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:id="@+id/tv_company_order_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:gravity="center_horizontal"
-                            android:textColor="@color/app_color"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            tools:text="9" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"
                             android:lineSpacingExtra="13sp"
-                            android:text="건"
+                            android:maxLines="1"
                             android:textColor="@color/white"
-                            android:textSize="10.5sp" />
+                            android:textSize="10sp"
+                            tools:text="서울 특별시 강동구 픽업 &amp; 딜리버리 가능" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="3dp"
+                                android:gravity="center_horizontal"
+                                android:text="최근 후기"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_company_review_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="3dp"
+                                android:gravity="center_horizontal"
+                                android:textColor="@color/app_color"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                tools:text="3" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="3dp"
+                                android:gravity="center_horizontal"
+                                android:text="수리 사례"
+                                android:textColor="#ffffff"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_company_order_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="3dp"
+                                android:gravity="center_horizontal"
+                                android:textColor="@color/app_color"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                tools:text="9" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:lineSpacingExtra="13sp"
+                                android:text="건"
+                                android:textColor="@color/white"
+                                android:textSize="10.5sp" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:weightSum="3">
+            </RelativeLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="3dp"
-                    android:lineSpacingExtra="15sp"
-                    android:text="평점"
-                    android:textColor="@color/text_gray"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="3dp"
-                    android:textColor="@color/color_ffc058"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:text="3.5" />
-
-                <com.rightcode.wellcar.Component.SmallRatingStarLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="11dp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="3dp"
-                    android:lineSpacingExtra="15sp"
-                    android:text="만족도"
-                    android:textColor="@color/text_gray"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="3dp"
-                    android:textColor="@color/color_ffc058"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:text="3.5" />
-
-                <com.rightcode.wellcar.Component.SmallRatingStarLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="11dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="3dp"
-                    android:lineSpacingExtra="15sp"
-                    android:text="친절도"
-                    android:textColor="@color/text_gray"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="3dp"
-                    android:textColor="@color/color_ffc058"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:text="3.5" />
-
-                <com.rightcode.wellcar.Component.SmallRatingStarLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="11dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="리뷰 미리보기"
-            android:textColor="@color/text_gray"
-            android:textSize="12sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="더보기"
-            android:textColor="@color/text_gray"
-            android:textSize="12sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@color/space_color" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="상세 정보"
-            android:textColor="@color/text_gray"
-            android:textSize="12sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/iv_company_detail_image"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:scaleType="centerCrop" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dp"
+                        android:lineSpacingExtra="15sp"
+                        android:text="평점"
+                        android:textColor="@color/text_gray"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dp"
+                        android:textColor="@color/color_ffc058"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="3.5" />
+
+                    <com.rightcode.wellcar.Component.SmallRatingStarLayout
+                        android:id="@+id/rs_rate"
+                        android:layout_width="match_parent"
+                        android:layout_height="11dp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dp"
+                        android:lineSpacingExtra="15sp"
+                        android:text="만족도"
+                        android:textColor="@color/text_gray"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_satisfaction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dp"
+                        android:textColor="@color/color_ffc058"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="3.5" />
+
+                    <com.rightcode.wellcar.Component.SmallRatingStarLayout
+                        android:id="@+id/rs_satisfaction"
+                        android:layout_width="match_parent"
+                        android:layout_height="11dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dp"
+                        android:lineSpacingExtra="15sp"
+                        android:text="친절도"
+                        android:textColor="@color/text_gray"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_kindness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dp"
+                        android:textColor="@color/color_ffc058"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="3.5" />
+
+                    <com.rightcode.wellcar.Component.SmallRatingStarLayout
+                        android:id="@+id/rs_kindness"
+                        android:layout_width="match_parent"
+                        android:layout_height="11dp" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:gravity="center"
-                android:padding="15dp"
-                android:text="더보기▼"
-                android:textColor="@color/black" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@color/space_color" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="업체 사진"
-            android:textColor="@color/text_gray"
-            android:textSize="12sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_company_images"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="업체유형"
+                android:padding="10dp"
+                android:text="리뷰 미리보기"
+                android:textColor="@color/text_gray"
                 android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/tv_company_introduction"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_review"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_store_review_recyclerview" />
+
+            <TextView
+                android:id="@+id/tv_review_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="더보기"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/space_color" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="상세 정보"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_detail_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_company_detail_image_short"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/iv_company_detail_image_long"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_company_detail_image_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="더보기 ▼"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_company_detail_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/black"
                 android:textSize="12sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
+                android:visibility="gone" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/space_color" />
 
             <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="영업시간"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/tv_company_opens"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="평일 9:00 ~ 18:00\n토요일 토:9:00~15:00\n휴무일 일요일"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="업체 사진"
+                android:textColor="@color/text_gray"
                 android:textSize="12sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_company_images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="horizontal"-->
+            <!--                android:padding="10dp">-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="100dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:gravity="center"-->
+            <!--                    android:text="업체유형"-->
+            <!--                    android:textSize="12sp" />-->
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/tv_company_introduction"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:textSize="12sp" />-->
+            <!--            </LinearLayout>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="업체 주소"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_company_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="영업시간"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_company_opens"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="평일 9:00 ~ 18:00\n토요일 토:9:00~15:00\n휴무일 일요일"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
         </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true">
 
         <TextView
             android:id="@+id/tv_company_select"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="40dp"
             android:background="@color/app_color"
             android:gravity="center"
-            android:padding="15dp"
             android:text="선택하기"
-            android:textColor="@color/white" />
-    </LinearLayout>
+            android:textColor="@color/white"
+            android:visibility="gone" />
 
-</ScrollView>
+        <TextView
+            android:id="@+id/tv_company_estimate"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/app_color"
+            android:gravity="center"
+            android:text="견적내기"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+    </RelativeLayout>
+</RelativeLayout>

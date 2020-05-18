@@ -19,6 +19,7 @@ import com.rightcode.wellcar.network.model.response.store.Store;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
 import lombok.Setter;
 
 public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecyclerViewHolder> {
@@ -30,6 +31,7 @@ public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecyc
         mSelectList.set(event.getPosition(), event.getIsSelect());
     }
 
+    @Getter
     @Setter
     private ArrayList<Store> data;
     public ArrayList<Boolean> mSelectList;
@@ -50,6 +52,7 @@ public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecyc
 
     @Override
     public void onBindViewHolder(@NonNull CommonRecyclerViewHolder viewHolder, int position) {
+
         ((CompanyViewHolder) viewHolder).onBind(data.get(position), position);
     }
 
@@ -71,7 +74,7 @@ public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecyc
     private void initSelectList() {
         if (mSelectList == null) {
             mSelectList = new ArrayList<>();
-            for (int i = 0; i <= 15; i++) {
+            for (int i = 0; i <= data.size(); i++) {
                 mSelectList.add(false);
             }
         }
@@ -83,7 +86,7 @@ public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecyc
             if (select)
                 selectCount++;
         }
-        if (selectCount > 4) {
+        if (selectCount > 5) {
             ToastUtil.show(mContext, "최대 5개까지 선택가능합니다");
             return;
         }
@@ -93,10 +96,14 @@ public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecyc
 
     public ArrayList<Store> getSelectItem() {
         ArrayList<Store> selectStore = new ArrayList<>();
-        for (int i = 0; i < mSelectList.size(); i++) {
-            if (mSelectList.get(i)) {
-                selectStore.add(data.get(i));
+        if (mSelectList != null) {
+            for (int i = 0; i < mSelectList.size(); i++) {
+                if (mSelectList.get(i)) {
+                    selectStore.add(data.get(i));
+                }
             }
+        } else {
+            initSelectList();
         }
         return selectStore;
     }

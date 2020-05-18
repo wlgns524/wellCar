@@ -32,11 +32,13 @@ public class TalkDetailRecyclerViewAdapter extends RecyclerView.Adapter<CommonRe
 
     @Setter
     private Integer companyId;
+    private String carBrandImage;
     @Setter
     private ArrayList<ChatRoomDetail> data;
 
-    public TalkDetailRecyclerViewAdapter(Context context) {
+    public TalkDetailRecyclerViewAdapter(Context context, String carBrandImage) {
         this.mContext = context;
+        this.carBrandImage = carBrandImage;
     }
 
     @NonNull
@@ -47,13 +49,13 @@ public class TalkDetailRecyclerViewAdapter extends RecyclerView.Adapter<CommonRe
             return new TalkDetailMineViewHolder(view, mContext);
         } else if (viewType == TYPE_YOURS) {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_talk_detail_yours_review_recyclerview, viewGroup, false);
-            return new TalkDetailYoursViewHolder(view, mContext);
+            return new TalkDetailYoursViewHolder(view, mContext, carBrandImage);
         } else if (viewType == TYPE_REVIEW_MINE) {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_talk_detail_mine_review_review_recyclerview, viewGroup, false);
             return new TalkDetailMineReviewViewHolder(view, mContext);
         } else if (viewType == TYPE_REVIEW_YOURS) {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_talk_detail_yours_review_review_recyclerview, viewGroup, false);
-            return new TalkDetailYoursReviewViewHolder(view, mContext, companyId);
+            return new TalkDetailYoursReviewViewHolder(view, mContext, companyId,carBrandImage);
         } else {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_common_recyclerview, viewGroup, false);
             return new CommonRecyclerViewHolder(view, mContext);

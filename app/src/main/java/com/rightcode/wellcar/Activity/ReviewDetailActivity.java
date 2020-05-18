@@ -12,6 +12,7 @@ import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.ReviewImageRecyclerView
 import com.rightcode.wellcar.Fragment.TopFragment;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.FragmentUtil;
+import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.network.model.response.storeReview.StoreReview;
 import com.rightcode.wellcar.network.model.response.storeReview.StoreReviewDetail;
 import com.rightcode.wellcar.network.requester.storeReview.StoreReviewDetailRequester;

@@ -2,6 +2,7 @@ package com.rightcode.wellcar.Adapter.ViewHolder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -48,7 +49,7 @@ public class ReviewViewHolder extends CommonRecyclerViewHolder implements View.O
 
     public void onBind(StoreReview data) {
         this.data = data;
-//        tv_store_name.setText(data.getStore().getName());
+        tv_store_name.setText(data.getStore().getName());
         tv_user_nickname.setText(String.format("%s 회원님", data.getUser().getGeneral().getNickname()));
         tv_grade.setText(data.getRate().toString());
         tv_review_content.setText(data.getContent());
@@ -59,6 +60,15 @@ public class ReviewViewHolder extends CommonRecyclerViewHolder implements View.O
         mReviewImageRecyclerViewAdapter = new ReviewImageRecyclerViewAdapter(mContext);
         mReviewImageRecyclerViewAdapter.setData(data.getStoreReviewImages());
         rv_review_image.setAdapter(mReviewImageRecyclerViewAdapter);
+        rv_review_image.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+                Intent intent = new Intent(mContext, ReviewDetailActivity.class);
+                intent.putExtra(EXTRA_REVIEW_ID, data.getId());
+                startActivity(intent);
+                return true;
+            }
+        });
     }
 
     @Override

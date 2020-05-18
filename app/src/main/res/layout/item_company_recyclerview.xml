@@ -22,6 +22,7 @@
             app:cornerRadius="6dp">
 
             <ImageView
+                android:id="@+id/iv_company_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
@@ -48,7 +49,7 @@
                     android:maxLines="2"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:text="디엠모터스"
+                    tools:text="디엠모터스"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
@@ -59,9 +60,10 @@
                     android:src="@drawable/progress_img_small_star" />
 
                 <TextView
+                    android:id="@+id/tv_grade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5.0"
+                    tools:text="5.0"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -82,6 +84,7 @@
                     android:textSize="10sp" />
 
                 <TextView
+                    android:id="@+id/tv_company_review_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
@@ -112,6 +115,7 @@
                     android:textSize="10sp" />
 
                 <TextView
+                    android:id="@+id/tv_company_order_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
@@ -132,6 +136,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_company_introduction"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="5dp"
@@ -143,6 +148,7 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:background="@drawable/color_92a3aa_border_color_92a3aa_background_corner5"
                 android:gravity="center"

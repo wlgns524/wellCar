@@ -39,6 +39,29 @@
             android:textSize="12sp" />
 
         <Switch
+            android:id="@+id/swt_notification"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="웰톡 알림"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <Switch
+            android:id="@+id/swt_welltalk_notification"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"

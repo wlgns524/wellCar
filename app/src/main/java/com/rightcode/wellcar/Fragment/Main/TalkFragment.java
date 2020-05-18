@@ -22,9 +22,15 @@ import com.rightcode.wellcar.Util.FragmentUtil;
 import com.rightcode.wellcar.network.requester.chatRoom.ChatRoomListRequester;
 import com.rightcode.wellcar.network.responser.chatRoom.ChatRoomListResponser;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class TalkFragment extends BaseFragment {
 
@@ -38,6 +44,7 @@ public class TalkFragment extends BaseFragment {
 
     private TopFragment mTopFragment;
     private View root;
+    private Subscription subscription;
 
     private TalkListRecyclerViewAdapter mTalkListRecyclerViewAdapter;
 
@@ -72,6 +79,13 @@ public class TalkFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         initLayoutUserInfo();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        subscription.unsubscribe();
     }
 
     @OnClick({R.id.tv_login})
@@ -104,7 +118,15 @@ public class TalkFragment extends BaseFragment {
         if (MemberManager.getInstance(getContext()).isLogin()) {
             ll_login.setVisibility(View.VISIBLE);
             rl_not_login.setVisibility(View.GONE);
-            chatRoomList();;
+
+            subscription = Observable
+                    .interval(3000, TimeUnit.MILLISECONDS, Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(i -> {
+                        chatRoomList();
+                    });
+            chatRoomList();
+            ;
         } else {
             ll_login.setVisibility(View.GONE);
             rl_not_login.setVisibility(View.VISIBLE);
@@ -112,7 +134,7 @@ public class TalkFragment extends BaseFragment {
     }
 
     private void chatRoomList() {
-        showLoading();
+//        showLoading();
         ChatRoomListRequester chatRoomListRequester = new ChatRoomListRequester(getContext());
 
         request(chatRoomListRequester,
@@ -124,9 +146,9 @@ public class TalkFragment extends BaseFragment {
                     } else {
                         showServerErrorDialog(result.getResultMsg());
                     }
-                    hideLoading();
+//                    hideLoading();
                 }, fail -> {
-                    hideLoading();
+//                    hideLoading();
                     showServerErrorDialog(fail.getResultMsg());
                 });
     }

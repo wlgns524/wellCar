@@ -16,6 +16,10 @@ public class PaymentEstimateList {
     @JsonField
     Integer price;
     @JsonField
+    Integer estimateId;
+    @JsonField
+    Boolean isReviewMine;
+    @JsonField
     String createdAt;
     @JsonField
     PaymentEstimateStoreDetail estimateStore;

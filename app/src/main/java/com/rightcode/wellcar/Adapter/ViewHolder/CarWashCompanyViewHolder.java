@@ -53,7 +53,7 @@ public class CarWashCompanyViewHolder extends CommonRecyclerViewHolder implement
                 .into(iv_company);
         tv_store_name.setText(data.getName());
         tv_grade.setText(data.getRate().toString());
-        tv_company_review_count.setText(data.getReviewCount().toString());
+//        tv_company_review_count.setText(data.getReviewCount().toString());
         tv_company_introduction.setText(data.getIntroduction());
     }
 

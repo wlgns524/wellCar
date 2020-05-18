@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.rightcode.wellcar.Activity.ReviewWriteActivity;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.network.model.response.chatRoom.ChatRoomDetail;
@@ -25,16 +26,22 @@ public class TalkDetailYoursReviewViewHolder extends CommonRecyclerViewHolder im
 
     private Context mContext;
     private Integer companyId;
+    private String carBrandImage;
 
-    public TalkDetailYoursReviewViewHolder(View viewHolder, Context context, Integer companyId) {
+    public TalkDetailYoursReviewViewHolder(View viewHolder, Context context, Integer companyId, String carBrandImage) {
         super(viewHolder, context);
         mContext = context;
         this.companyId = companyId;
+        this.carBrandImage = carBrandImage;
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
     }
 
     public void onBind(ChatRoomDetail data) {
+        Glide.with(mContext)
+                .load(carBrandImage)
+                .into(iv_talk_detail_yours);
+
         tv_talk_detail_date.setText(data.getCreatedAt());
     }
 

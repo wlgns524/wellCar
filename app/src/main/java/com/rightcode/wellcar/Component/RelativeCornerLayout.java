@@ -81,7 +81,7 @@ public class RelativeCornerLayout  extends RelativeLayout {
         Canvas canvas = new Canvas(mask);
 
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(backgroundColor); // TODO set your background color as needed
+        paint.setColor(backgroundColor);
 
         canvas.drawRect(0, 0, width, height, paint);
 

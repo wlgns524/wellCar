@@ -84,12 +84,12 @@ public class CarWashActivity extends BaseActivity implements Spinner.OnItemSelec
     void onClickMenu(View view) {
         switch (view.getId()) {
             case R.id.tv_car_wash: {
-                if(TextUtils.isEmpty(tv_address_si.getText().toString())){
+                if (TextUtils.isEmpty(tv_address_si.getText().toString())) {
                     ToastUtil.show(CarWashActivity.this, "시를 선택해주세요");
                     break;
                 }
 
-                if(TextUtils.isEmpty(tv_address_gu.getText().toString())){
+                if (TextUtils.isEmpty(tv_address_gu.getText().toString())) {
                     ToastUtil.show(CarWashActivity.this, "구를 선택해주세요");
                     break;
                 }
@@ -109,7 +109,7 @@ public class CarWashActivity extends BaseActivity implements Spinner.OnItemSelec
 
     private void initialize() {
         mTopFragment = (TopFragment) FragmentUtil.findFragmentByTag(getSupportFragmentManager(), "TopFragment");
-        mTopFragment.setText(TopFragment.Menu.CENTER, "셀프세차장");
+        mTopFragment.setText(TopFragment.Menu.CENTER, "셀프 세차장");
         mTopFragment.setImagePadding(TopFragment.Menu.CENTER, 10);
         mTopFragment.setImage(TopFragment.Menu.LEFT, R.drawable.arrow_left);
         mTopFragment.setImagePadding(TopFragment.Menu.LEFT, 5);
@@ -193,18 +193,24 @@ public class CarWashActivity extends BaseActivity implements Spinner.OnItemSelec
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {
             case R.id.sn_address_si: {
+                if (siSpinnerAdapter.getItem(position).toString().equals("시 선택")) {
+                    tv_address_si.setText("");
+                    tv_address_si.setVisibility(View.GONE);
+                    tv_address_gu.setText("");
+                    tv_address_gu.setVisibility(View.GONE);
+                    break;
+                }
                 tv_address_si.setText(siSpinnerAdapter.getItem(position).toString());
                 tv_address_si.setVisibility(View.VISIBLE);
                 address(siSpinnerAdapter.getItem(position).toString());
-                if (siSpinnerAdapter.getItem(position).toString().equals("")) {
-                    tv_address_gu.setText("");
-                    tv_address_gu.setVisibility(View.GONE);
-                    tv_address_si.setText("");
-                    tv_address_si.setVisibility(View.GONE);
-                }
                 break;
             }
             case R.id.sn_address_gu: {
+                if (guSpinnerAdapter.getItem(position).toString().equals("구 선택")) {
+                    tv_address_gu.setText("");
+                    tv_address_gu.setVisibility(View.GONE);
+                    break;
+                }
                 tv_address_gu.setText(guSpinnerAdapter.getItem(position).toString());
                 tv_address_gu.setVisibility(View.VISIBLE);
                 break;
@@ -214,10 +220,5 @@ public class CarWashActivity extends BaseActivity implements Spinner.OnItemSelec
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        if (parent == sn_address_si.getAdapter()) {
-            tv_address_si.setText("");
-        } else if (parent == sn_address_gu.getAdapter()) {
-            tv_address_gu.setText("");
-        }
     }
 }

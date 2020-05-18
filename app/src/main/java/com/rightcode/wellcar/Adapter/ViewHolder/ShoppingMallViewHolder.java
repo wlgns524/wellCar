@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.rightcode.wellcar.Activity.CompanyDetailActivity;
 import com.rightcode.wellcar.Activity.Setting.NoticeDetailActivity;
 import com.rightcode.wellcar.R;
@@ -42,12 +45,14 @@ public class ShoppingMallViewHolder extends CommonRecyclerViewHolder implements 
 
         Glide.with(mContext)
                 .load(data.getThumbnail())
+                .apply(new RequestOptions().transforms(new RoundedCorners(8)))
                 .into(iv_shopping_mall);
     }
 
     @Override
     public void onClick(View v) {
-        if (!TextUtils.isEmpty(data.getUrl()))
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(data.getUrl())));
+        if (!TextUtils.isEmpty(data.getUrl())) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + data.getUrl())));
+        }
     }
 }

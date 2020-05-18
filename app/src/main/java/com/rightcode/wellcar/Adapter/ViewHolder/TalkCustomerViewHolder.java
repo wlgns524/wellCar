@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.rightcode.wellcar.Activity.TalkDetailCompanyActivity;
 import com.rightcode.wellcar.Activity.TalkDetailCustomerActivity;
 import com.rightcode.wellcar.R;
+import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.MoneyHelper;
 import com.rightcode.wellcar.network.model.response.chatRoom.ChatRoom;
 import com.rightcode.wellcar.network.model.response.item.Item;
@@ -25,6 +28,7 @@ import butterknife.ButterKnife;
 
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_COMPANY_ID;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_COMPANY_NAME;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_IMAGE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_TALK_ID;
 
 
@@ -44,6 +48,10 @@ public class TalkCustomerViewHolder extends CommonRecyclerViewHolder implements 
     TextView tv_estimate_price;
     @BindView(R.id.fl_item_list)
     TagFlowLayout fl_item_list;
+    @BindView(R.id.ll_request)
+    LinearLayout ll_request;
+    @BindView(R.id.tv_request)
+    TextView tv_request;
 
     private Context mContext;
     private LayoutInflater itemInflater;
@@ -59,45 +67,47 @@ public class TalkCustomerViewHolder extends CommonRecyclerViewHolder implements 
 
     public void onBind(ChatRoom data) {
         this.data = data;
-        /**
-         * 유저정보 불러오지 말기
-         */
+        Log.d(data);
         Glide.with(mContext)
-                .load(data.getStore() != null ? data.getStore().getThumbnail().getName() : "")
+                .load(data.getStoreImage())
                 .centerCrop()
                 .apply(RequestOptions.circleCropTransform())
                 .into(iv_company_image);
-        tv_company_name.setText(data.getStore().getName());
-
+        tv_company_name.setText(data.getStoreName());
         tv_talk_date.setText(data.getCreatedAt());
-        tv_chats.setText(data.getChats().get(data.getChats().size() - 1) != null ? data.getChats().get(data.getChats().size() - 1) : "채팅을 시작하세요!");
+        tv_chats.setText(data.getContent());
         if (data.getViewCount() > 0) {
             tv_talk_count.setText(data.getViewCount().toString());
             tv_talk_count.setVisibility(View.VISIBLE);
         } else {
             tv_talk_count.setVisibility(View.GONE);
         }
-        tv_estimate_price.setText(MoneyHelper.getUsaUnit(data.getEstimateStore().getPrice()));
-        if (data.getEstimateStore().getEstimate() != null)
-            initItemLayout(data.getEstimateStore().getEstimate().getItems());
+        tv_estimate_price.setText(MoneyHelper.getUsaUnit(data.getPrice()));
+        initItemLayout(data.getItems());
+        if (data.getRequest() != null) {
+            tv_request.setText(data.getRequest());
+            ll_request.setVisibility(View.VISIBLE);
+        } else {
+            ll_request.setVisibility(View.GONE);
+        }
     }
 
 
-    private void initItemLayout(ArrayList<Item> itemList) {
+    private void initItemLayout(ArrayList<String> itemList) {
         // 데이터 추가
         int size = 0;
-        Item[] mVals = new Item[itemList.size()];
-        for (Item item : itemList) {
+        String[] mVals = new String[itemList.size()];
+        for (String item : itemList) {
             mVals[size++] = item;
         }
         itemInflater = LayoutInflater.from(mContext);
-        itemAdapter = new TagAdapter<Item>(mVals) {
+        itemAdapter = new TagAdapter<String>(mVals) {
             @Override
-            public View getView(FlowLayout parent, int position, Item item) {
+            public View getView(FlowLayout parent, int position, String str) {
                 final View view = itemInflater.inflate(R.layout.item_flowlayout_text, fl_item_list, false);
                 TextView tv_flowlayout = (TextView) view.findViewById(R.id.tv_flowlayout);
 
-                tv_flowlayout.setText(String.format("%s(%s)", item.getDiff(), item.getItemBrand().getName()));
+                tv_flowlayout.setText(str);
                 return view;
             }
 
@@ -107,10 +117,11 @@ public class TalkCustomerViewHolder extends CommonRecyclerViewHolder implements 
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(mContext, TalkDetailCustomerActivity.class);
-        intent.putExtra(EXTRA_COMPANY_NAME, data.getStore().getName());
+        Intent intent = new Intent(mContext, TalkDetailCompanyActivity.class);
+        intent.putExtra(EXTRA_COMPANY_NAME, data.getStoreName());
         intent.putExtra(EXTRA_TALK_ID, data.getId());
-        intent.putExtra(EXTRA_COMPANY_ID, data.getStore().getStoreId());
+        intent.putExtra(EXTRA_COMPANY_ID, data.getStoreId());
+        intent.putExtra(EXTRA_IMAGE, data.getStoreImage());
         startActivity(intent);
     }
 }

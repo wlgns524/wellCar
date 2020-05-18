@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:background="@drawable/space_border_white_corner_5"
     android:orientation="horizontal"
     android:padding="5dp">
 
@@ -42,9 +43,9 @@
                 android:maxLines="2"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                tools:text="디엠모터스"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="디엠모터스" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -56,9 +57,9 @@
                 android:id="@+id/tv_grade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="5.0"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="5.0" />
         </LinearLayout>
 
         <LinearLayout
@@ -106,9 +107,9 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:ellipsize="end"
-            tools:text="서울 특별시 강동구 픽업 \u0026 딜리버리 가능"
             android:textColor="@color/text_gray"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:text="서울 특별시 강동구 픽업 \u0026 딜리버리 가능" />
 
         <TextView
             android:layout_width="match_parent"

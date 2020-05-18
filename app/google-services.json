@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "861876654423",
+    "firebase_url": "https://welcar.firebaseio.com",
+    "project_id": "welcar",
+    "storage_bucket": "welcar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861876654423:android:7c6c9c81493c12ffb6ee12",
+        "android_client_info": {
+          "package_name": "com.rightcode.wellcar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861876654423-0b5naoahtusaf4qd0ldelc730qjm2jin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXcTYQFkWGVOFQhFAOKqvSm9y0qL54U4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861876654423-0b5naoahtusaf4qd0ldelc730qjm2jin.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "861876654423-ptggfu9vq1gpp7sqhl2gdutggbotpjp0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rightCodeApp.WellCar"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

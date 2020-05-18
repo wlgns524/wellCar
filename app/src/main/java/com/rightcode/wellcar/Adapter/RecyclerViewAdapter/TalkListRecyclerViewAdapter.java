@@ -76,7 +76,6 @@ public class TalkListRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecy
         if (data == null) {
             return 0;
         } else {
-            Log.d(data.size());
             return data.size();
         }
     }

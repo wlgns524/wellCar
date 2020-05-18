@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.rightcode.wellcar.network.responser.version.VersionResponser;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscription;
@@ -40,6 +42,7 @@ public class IntroActivity extends BaseActivity {
         setContentView(R.layout.activity_intro);
 
         ButterKnife.bind(this);
+
         version();
         visitor();
     }

@@ -2,11 +2,14 @@ package com.rightcode.wellcar.Adapter.ViewHolder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.rightcode.wellcar.Activity.EventDetailActivity;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.network.model.response.event.Event;
@@ -30,21 +33,25 @@ public class EventViewHolder extends CommonRecyclerViewHolder implements View.On
         mContext = context;
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
-
     }
-
 
     public void onBind(Event data) {
         this.data = data;
         Glide.with(mContext)
                 .load(data.getThumbnail())
+                .apply(new RequestOptions().transforms(new RoundedCorners(8)))
                 .into(iv_event);
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(mContext, EventDetailActivity.class);
-        intent.putExtra(EXTRA_EVENT_ID, data.getId());
-        startActivity(intent);
+        if (data.getUrl() == null) {
+            Intent intent = new Intent(mContext, EventDetailActivity.class);
+            intent.putExtra(EXTRA_EVENT_ID, data.getId());
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.getUrl()));
+            startActivity(intent);
+        }
     }
 }

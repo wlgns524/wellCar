@@ -24,8 +24,12 @@ public class EstimateDetail {
     Integer orderCount;
     @JsonField
     String introduction;
-    @JsonField(name = "thumbnail")
-    Image thumbnail;
     @JsonField
-    EstimateDetailStore estimateStore;
+    String thumbnail;
+    @JsonField
+    Integer price;
+    @JsonField
+    Boolean isPayment;
+//    @JsonField
+//    EstimateDetailStore estimateStore;
 }

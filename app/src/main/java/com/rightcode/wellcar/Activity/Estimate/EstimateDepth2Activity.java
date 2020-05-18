@@ -6,17 +6,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.viewpager.widget.ViewPager;
 
+import com.rd.PageIndicatorView;
 import com.rightcode.wellcar.Activity.BaseActivity;
 import com.rightcode.wellcar.Adapter.SpinnerAdapter.ItemBrandSpinnerAdapter;
 import com.rightcode.wellcar.Adapter.SpinnerAdapter.ItemSpinnerAdapter;
+import com.rightcode.wellcar.Adapter.ViewPagerAdapter.HomeBannerViewPagerAdapter;
+import com.rightcode.wellcar.Component.CustomViewPager;
 import com.rightcode.wellcar.Fragment.TopFragment;
+import com.rightcode.wellcar.MemberManager;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.DataEnums;
 import com.rightcode.wellcar.Util.FragmentUtil;
@@ -25,8 +33,10 @@ import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.request.estimate.EstimateRegister;
 import com.rightcode.wellcar.network.model.response.item.Item;
 import com.rightcode.wellcar.network.model.response.itemBrand.ItemBrand;
+import com.rightcode.wellcar.network.requester.event.EventListRequester;
 import com.rightcode.wellcar.network.requester.item.ItemListRequester;
 import com.rightcode.wellcar.network.requester.itemBrand.ItemBrandListRequester;
+import com.rightcode.wellcar.network.responser.event.EventListResponser;
 import com.rightcode.wellcar.network.responser.item.ItemListResponser;
 import com.rightcode.wellcar.network.responser.itemBrand.ItemBrandListResponser;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -42,12 +52,24 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnTouch;
 
+import static com.rightcode.wellcar.Util.DataEnums.ItemDiffType.BLACKBOX;
+import static com.rightcode.wellcar.Util.DataEnums.ItemDiffType.GLASS;
+import static com.rightcode.wellcar.Util.DataEnums.ItemDiffType.PPF;
+import static com.rightcode.wellcar.Util.DataEnums.ItemDiffType.SUNBLOCK;
+import static com.rightcode.wellcar.Util.DataEnums.ItemDiffType.TIRE;
+import static com.rightcode.wellcar.Util.DataEnums.ItemDiffType.TUNING;
+import static com.rightcode.wellcar.Util.DataEnums.ItemDiffType.UNDERCOATING;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_COMPLETE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ESTIMATE_REGISTER;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ITEMS;
 
-public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnItemSelectedListener {
+public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnItemSelectedListener, ViewPager.OnPageChangeListener {
 
+
+    @BindView(R.id.ll_cost)
+    LinearLayout ll_cost;
+    @BindView(R.id.ll_premium)
+    LinearLayout ll_premium;
     @BindView(R.id.tv_cost)
     TextView tv_cost;
     @BindView(R.id.rb_cost)
@@ -56,7 +78,10 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
     TextView tv_premium;
     @BindView(R.id.rb_premium)
     RadioButton rb_premium;
-
+    @BindView(R.id.cv_event)
+    CustomViewPager cv_event;
+    @BindView(R.id.pageindicator)
+    PageIndicatorView pageindicator;
     @BindView(R.id.tv_address_si)
     TextView tv_address_si;
     @BindView(R.id.tv_address_gu)
@@ -91,6 +116,52 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
     Spinner sn_tire_brand;
     @BindView(R.id.sn_tire_kind)
     Spinner sn_tire_kind;
+    @BindView(R.id.et_request)
+    EditText et_request;
+
+
+    @BindView(R.id.ll_sunblock)
+    LinearLayout ll_sunblock;
+    @BindView(R.id.rl_sunblock_brand)
+    RelativeLayout rl_sunblock_brand;
+    @BindView(R.id.rl_sunblock_kind)
+    RelativeLayout rl_sunblock_kind;
+    @BindView(R.id.ll_glass)
+    LinearLayout ll_glass;
+    @BindView(R.id.rl_glass_brand)
+    RelativeLayout rl_glass_brand;
+    @BindView(R.id.rl_glass_kind)
+    RelativeLayout rl_glass_kind;
+    @BindView(R.id.ll_blackbox)
+    LinearLayout ll_blackbox;
+    @BindView(R.id.rl_blackbox_brand)
+    RelativeLayout rl_blackbox_brand;
+    @BindView(R.id.rl_blackbox_kind)
+    RelativeLayout rl_blackbox_kind;
+    @BindView(R.id.ll_undercoating)
+    LinearLayout ll_undercoating;
+    @BindView(R.id.rl_undercoating_brand)
+    RelativeLayout rl_undercoating_brand;
+    @BindView(R.id.rl_undercoating_kind)
+    RelativeLayout rl_undercoating_kind;
+    @BindView(R.id.ll_ppf)
+    LinearLayout ll_ppf;
+    @BindView(R.id.rl_ppf_brand)
+    RelativeLayout rl_ppf_brand;
+    @BindView(R.id.rl_ppf_kind)
+    RelativeLayout rl_ppf_kind;
+    @BindView(R.id.ll_tuning)
+    LinearLayout ll_tuning;
+    @BindView(R.id.rl_tuning_brand)
+    RelativeLayout rl_tuning_brand;
+    @BindView(R.id.rl_tuning_kind)
+    RelativeLayout rl_tuning_kind;
+    @BindView(R.id.ll_tire)
+    LinearLayout ll_tire;
+    @BindView(R.id.rl_tire_brand)
+    RelativeLayout rl_tire_brand;
+    @BindView(R.id.rl_tire_kind)
+    RelativeLayout rl_tire_kind;
 
 
     private TopFragment mTopFragment;
@@ -100,6 +171,14 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
     private ArrayList<Item> values = new ArrayList<>();
     private ArrayList<Item> packageValues = new ArrayList<>();
 
+    private HomeBannerViewPagerAdapter mHomeBannerViewPagerAdapter;
+    private Boolean sublockFlag = false;
+    private Boolean glassFlag = false;
+    private Boolean blackBoxFlag = false;
+    private Boolean underCoatingFlag = false;
+    private Boolean ppfFlag = false;
+    private Boolean tuningFlag = false;
+    private Boolean tireFlag = false;
     private Integer sunblockId;
     private Integer glassId;
     private Integer blackBoxId;
@@ -130,7 +209,15 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
 
         ButterKnife.bind(this);
         initialize();
+//        eventList();
         itemPackageList();
+        itemList(SUNBLOCK);
+        itemList(GLASS);
+        itemList(BLACKBOX);
+        itemList(UNDERCOATING);
+        itemList(PPF);
+        itemList(TUNING);
+        itemList(TIRE);
     }
 
     //------------------------------------------------------------------------------------------
@@ -153,6 +240,21 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
         }
     }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        pageindicator.setSelected(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
     //------------------------------------------------------------------------------------------
     // private
     //------------------------------------------------------------------------------------------
@@ -162,6 +264,7 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
             register = (EstimateRegister) getIntent().getSerializableExtra(EXTRA_ESTIMATE_REGISTER);
             tv_address_si.setText(register.getSi());
             tv_address_gu.setText(register.getGu());
+
         }
         mTopFragment = (TopFragment) FragmentUtil.findFragmentByTag(getSupportFragmentManager(), "TopFragment");
         mTopFragment.setText(TopFragment.Menu.CENTER, "시공견적");
@@ -174,6 +277,11 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                 finishWithAnim();
             }
         });
+
+        //event Adapter
+        mHomeBannerViewPagerAdapter = new HomeBannerViewPagerAdapter(getSupportFragmentManager(), EstimateDepth2Activity.this);
+        cv_event.setAdapter(mHomeBannerViewPagerAdapter);
+        cv_event.addOnPageChangeListener(this);
 
         // Flow Layout
         mInflater = LayoutInflater.from(EstimateDepth2Activity.this);
@@ -262,16 +370,20 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
         }
     }
 
+
     @OnTouch({R.id.rl_sunblock_brand, R.id.rl_sunblock_kind, R.id.rl_glass_brand, R.id.rl_glass_kind,
             R.id.rl_blackbox_brand, R.id.rl_blackbox_kind, R.id.rl_undercoating_brand, R.id.rl_undercoating_kind,
-            R.id.rl_ppf_brand, R.id.rl_ppf_kind, R.id.rl_tuning_brand, R.id.rl_tuning_kind, R.id.rl_tire_brand, R.id.rl_tire_kind})
+            R.id.rl_ppf_brand, R.id.rl_ppf_kind, R.id.rl_tuning_brand, R.id.rl_tuning_kind, R.id.rl_tire_brand, R.id.rl_tire_kind,
+            R.id.sn_sunblock_kind, R.id.sn_glass_kind, R.id.sn_blackbox_kind, R.id.sn_undercoating_kind, R.id.sn_ppf_kind,
+            R.id.sn_tuning_kind, R.id.sn_tire_kind})
     void onTouchMenu(View view) {
         switch (view.getId()) {
             case R.id.rl_sunblock_brand: {
                 itemBrandList(DataEnums.ItemDiffType.SUNBLOCK);
                 break;
             }
-            case R.id.rl_sunblock_kind: {
+            case R.id.rl_sunblock_kind:
+            case R.id.sn_sunblock_kind: {
                 if (sunblockId != null)
                     itemList(DataEnums.ItemDiffType.SUNBLOCK, sunblockId);
                 break;
@@ -280,7 +392,8 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                 itemBrandList(DataEnums.ItemDiffType.GLASS);
                 break;
             }
-            case R.id.rl_glass_kind: {
+            case R.id.rl_glass_kind:
+            case R.id.sn_glass_kind: {
                 if (glassId != null)
                     itemList(DataEnums.ItemDiffType.GLASS, glassId);
                 break;
@@ -289,7 +402,8 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                 itemBrandList(DataEnums.ItemDiffType.BLACKBOX);
                 break;
             }
-            case R.id.rl_blackbox_kind: {
+            case R.id.rl_blackbox_kind:
+            case R.id.sn_blackbox_kind: {
                 if (blackBoxId != null)
                     itemList(DataEnums.ItemDiffType.BLACKBOX, blackBoxId);
                 break;
@@ -298,7 +412,8 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                 itemBrandList(DataEnums.ItemDiffType.UNDERCOATING);
                 break;
             }
-            case R.id.rl_undercoating_kind: {
+            case R.id.rl_undercoating_kind:
+            case R.id.sn_undercoating_kind: {
                 if (underCoatingId != null)
                     itemList(DataEnums.ItemDiffType.UNDERCOATING, underCoatingId);
                 break;
@@ -307,7 +422,8 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                 itemBrandList(DataEnums.ItemDiffType.PPF);
                 break;
             }
-            case R.id.rl_ppf_kind: {
+            case R.id.rl_ppf_kind:
+            case R.id.sn_ppf_kind: {
                 if (ppfId != null)
                     itemList(DataEnums.ItemDiffType.PPF, ppfId);
                 break;
@@ -316,7 +432,8 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                 itemBrandList(DataEnums.ItemDiffType.TUNING);
                 break;
             }
-            case R.id.rl_tuning_kind: {
+            case R.id.rl_tuning_kind:
+            case R.id.sn_tuning_kind: {
                 if (tuningId != null)
                     itemList(DataEnums.ItemDiffType.TUNING, tuningId);
                 break;
@@ -325,7 +442,8 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                 itemBrandList(DataEnums.ItemDiffType.TIRE);
                 break;
             }
-            case R.id.rl_tire_kind: {
+            case R.id.rl_tire_kind:
+            case R.id.sn_tire_kind: {
                 if (tireId != null)
                     itemList(DataEnums.ItemDiffType.TIRE, tireId);
                 break;
@@ -338,15 +456,17 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
         switch (view.getId()) {
             case R.id.tv_estimate: {
                 Intent intent = new Intent(EstimateDepth2Activity.this, EstimateDepth3Activity.class);
-                if (rb_cost.isChecked()) {
+                if (packageValues != null && packageValues.size() > 0 && rb_cost.isChecked()) {
                     register.setItemIds(new ArrayList<Integer>(
                             Arrays.asList(packageValues.get(0).getId())));
-                } else if (rb_premium.isChecked()) {
+                } else if (packageValues != null && packageValues.size() > 1 && rb_premium.isChecked()) {
                     register.setItemIds(new ArrayList<Integer>(
                             Arrays.asList(packageValues.get(1).getId())));
                 } else {
-                    values.remove(packageValues.get(0));
-                    values.remove(packageValues.get(1));
+                    if (packageValues != null && packageValues.size() > 0)
+                        values.remove(packageValues.get(0));
+                    if (packageValues != null && packageValues.size() > 1)
+                        values.remove(packageValues.get(1));
                     ArrayList<Integer> itemIds = new ArrayList<>();
                     for (Item item : values) {
                         itemIds.add(item.getId());
@@ -357,12 +477,12 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                     ToastUtil.show(EstimateDepth2Activity.this, "옵션을 선택해주세요");
                     break;
                 }
+                register.setRequest(et_request.getText().toString());
                 intent.putExtra(EXTRA_ESTIMATE_REGISTER, register);
                 intent.putExtra(EXTRA_ITEMS, values);
                 startActivityForResult(intent, EXTRA_ACTIVITY_COMPLETE);
                 break;
             }
-
         }
     }
 
@@ -376,12 +496,12 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
         }
 
         // 체크되어있지 않을 시 제거
-        if (!rb_cost.isChecked()) {
+        if (packageValues != null && packageValues.size() > 0 && !rb_cost.isChecked()) {
             String cost = String.format("%s(%s)", packageValues.get(0).getName(), packageValues.get(0).getItemBrand().getName());
             overlapList.remove(cost);
         }
 
-        if (!rb_premium.isChecked()) {
+        if (packageValues != null && packageValues.size() > 1 && !rb_premium.isChecked()) {
             String premium = String.format("%s(%s)", packageValues.get(1).getName(), packageValues.get(1).getItemBrand().getName());
             overlapList.remove(premium);
         }
@@ -409,76 +529,153 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
         switch (parent.getId()) {
             case R.id.sn_sunblock_brand:
                 if (sunblockBrandSpinnerAdapter.getItem(position) != null)
-                    sunblockId = sunblockBrandSpinnerAdapter.getItem(position).getId();
+                    if (!sunblockBrandSpinnerAdapter.getItem(position).getName().equals("선택없음(브랜드)")) {
+                        sunblockId = sunblockBrandSpinnerAdapter.getItem(position).getId();
+                    } else {
+                        sunblockKindSpinnerAdapter.setData(null);
+                        sunblockKindSpinnerAdapter.notifyDataSetChanged();
+                    }
                 break;
             case R.id.sn_sunblock_kind:
-                values.add(sunblockKindSpinnerAdapter.getItem(position));
-                rb_cost.setChecked(false);
-                rb_premium.setChecked(false);
-                selectListRefresh();
+                if (sublockFlag) {
+                    if (!sunblockKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        values.add(sunblockKindSpinnerAdapter.getItem(position));
+                        rb_cost.setChecked(false);
+                        rb_premium.setChecked(false);
+                        selectListRefresh();
+                    }
+                } else {
+                    sublockFlag = true;
+                }
                 break;
             case R.id.sn_glass_brand:
-                if (sunblockBrandSpinnerAdapter.getItem(position) != null)
-                    glassId = sunblockBrandSpinnerAdapter.getItem(position).getId();
+                if (glassBrandSpinnerAdapter.getItem(position) != null)
+                    if (!glassBrandSpinnerAdapter.getItem(position).getName().equals("선택없음(브랜드)")) {
+                        glassId = glassBrandSpinnerAdapter.getItem(position).getId();
+                    } else {
+                        glassKindSpinnerAdapter.setData(null);
+                        glassKindSpinnerAdapter.notifyDataSetChanged();
+                    }
                 break;
             case R.id.sn_glass_kind:
-                values.add(glassKindSpinnerAdapter.getItem(position));
-                rb_cost.setChecked(false);
-                rb_premium.setChecked(false);
-                selectListRefresh();
+                if (glassFlag) {
+                    if (!glassKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        values.add(glassKindSpinnerAdapter.getItem(position));
+                        rb_cost.setChecked(false);
+                        rb_premium.setChecked(false);
+                        selectListRefresh();
+                    }
+                } else {
+                    glassFlag = true;
+                }
                 break;
             case R.id.sn_blackbox_brand:
-                if (sunblockBrandSpinnerAdapter.getItem(position) != null)
-                    blackBoxId = sunblockBrandSpinnerAdapter.getItem(position).getId();
+                if (blackboxBrandSpinnerAdapter.getItem(position) != null)
+                    if (!blackboxBrandSpinnerAdapter.getItem(position).getName().equals("선택없음(브랜드)")) {
+                        blackBoxId = blackboxBrandSpinnerAdapter.getItem(position).getId();
+                    } else {
+                        blackboxKindSpinnerAdapter.setData(null);
+                        blackboxKindSpinnerAdapter.notifyDataSetChanged();
+                    }
                 break;
             case R.id.sn_blackbox_kind:
-                values.add(blackboxKindSpinnerAdapter.getItem(position));
-                rb_cost.setChecked(false);
-                rb_premium.setChecked(false);
-                selectListRefresh();
+                if (blackBoxFlag) {
+                    if (!blackboxKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        values.add(blackboxKindSpinnerAdapter.getItem(position));
+                        rb_cost.setChecked(false);
+                        rb_premium.setChecked(false);
+                        selectListRefresh();
+                    }
+                } else {
+                    blackBoxFlag = true;
+                }
                 break;
             case R.id.sn_undercoating_brand:
-                if (sunblockBrandSpinnerAdapter.getItem(position) != null)
-                    underCoatingId = sunblockBrandSpinnerAdapter.getItem(position).getId();
+                if (undercoatingBrandSpinnerAdapter.getItem(position) != null)
+                    if (!undercoatingBrandSpinnerAdapter.getItem(position).getName().equals("선택없음(브랜드)")) {
+                        underCoatingId = undercoatingBrandSpinnerAdapter.getItem(position).getId();
+                    } else {
+                        undercoatingKindSpinnerAdapter.setData(null);
+                        undercoatingKindSpinnerAdapter.notifyDataSetChanged();
+                    }
                 break;
             case R.id.sn_undercoating_kind: {
-                values.add(undercoatingKindSpinnerAdapter.getItem(position));
-                rb_cost.setChecked(false);
-                rb_premium.setChecked(false);
-                selectListRefresh();
+                if (underCoatingFlag) {
+                    if (!undercoatingKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        values.add(undercoatingKindSpinnerAdapter.getItem(position));
+                        rb_cost.setChecked(false);
+                        rb_premium.setChecked(false);
+                        selectListRefresh();
+                    }
+                } else {
+                    underCoatingFlag = true;
+                }
                 break;
             }
             case R.id.sn_ppf_brand:
                 if (ppfBrandSpinnerAdapter.getItem(position) != null)
-                    ppfId = ppfBrandSpinnerAdapter.getItem(position).getId();
+                    if (!ppfBrandSpinnerAdapter.getItem(position).getName().equals("선택없음(브랜드)")) {
+                        ppfId = ppfBrandSpinnerAdapter.getItem(position).getId();
+                    } else {
+                        ppfKindSpinnerAdapter.setData(null);
+                        ppfKindSpinnerAdapter.notifyDataSetChanged();
+                    }
                 break;
             case R.id.sn_ppf_kind: {
-                values.add(ppfKindSpinnerAdapter.getItem(position));
-                rb_cost.setChecked(false);
-                rb_premium.setChecked(false);
-                selectListRefresh();
+                if (ppfFlag) {
+                    if (!ppfKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        values.add(ppfKindSpinnerAdapter.getItem(position));
+                        rb_cost.setChecked(false);
+                        rb_premium.setChecked(false);
+                        selectListRefresh();
+                    }
+                } else {
+                    ppfFlag = true;
+                }
                 break;
             }
             case R.id.sn_tuning_brand:
                 if (tuningBrandSpinnerAdapter.getItem(position) != null)
-                    tuningId = tuningBrandSpinnerAdapter.getItem(position).getId();
+                    if (!tuningBrandSpinnerAdapter.getItem(position).getName().equals("선택없음(브랜드)")) {
+                        tuningId = tuningBrandSpinnerAdapter.getItem(position).getId();
+                    } else {
+                        tuningKindSpinnerAdapter.setData(null);
+                        tuningKindSpinnerAdapter.notifyDataSetChanged();
+                    }
                 break;
             case R.id.sn_tuning_kind: {
-                values.add(tuningKindSpinnerAdapter.getItem(position));
-                rb_cost.setChecked(false);
-                rb_premium.setChecked(false);
-                selectListRefresh();
+                if (tuningFlag) {
+                    if (!tuningKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        values.add(tuningKindSpinnerAdapter.getItem(position));
+                        rb_cost.setChecked(false);
+                        rb_premium.setChecked(false);
+                        selectListRefresh();
+                    }
+                } else {
+                    tuningFlag = true;
+                }
                 break;
             }
             case R.id.sn_tire_brand:
                 if (tireBrandSpinnerAdapter.getItem(position) != null)
-                    tireId = tireBrandSpinnerAdapter.getItem(position).getId();
+                    if (!tireBrandSpinnerAdapter.getItem(position).getName().equals("선택없음(브랜드)")) {
+                        tireId = tireBrandSpinnerAdapter.getItem(position).getId();
+                    } else {
+                        tireKindSpinnerAdapter.setData(null);
+                        tireKindSpinnerAdapter.notifyDataSetChanged();
+                    }
                 break;
             case R.id.sn_tire_kind: {
-                values.add(tireKindSpinnerAdapter.getItem(position));
-                rb_cost.setChecked(false);
-                rb_premium.setChecked(false);
-                selectListRefresh();
+                if (tireFlag) {
+                    if (!tireKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        values.add(tireKindSpinnerAdapter.getItem(position));
+                        rb_cost.setChecked(false);
+                        rb_premium.setChecked(false);
+                        selectListRefresh();
+                    }
+                } else {
+                    tireFlag = true;
+                }
                 break;
             }
         }
@@ -501,46 +698,45 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                     if (result.getCode() == 200) {
                         switch (itemDiffType) {
                             case SUNBLOCK:
-                                sn_sunblock_kind.setOnItemSelectedListener(null);
+                                result.getList().add(0, new Item("선택없음(종류)"));
                                 sunblockKindSpinnerAdapter.setData(result.getList().toArray(new Item[result.getList().size()]));
                                 sunblockKindSpinnerAdapter.notifyDataSetChanged();
-                                sn_sunblock_kind.setOnItemSelectedListener(this);
+                                sn_sunblock_kind.performClick();
                                 break;
                             case GLASS:
-                                sn_glass_kind.setOnItemSelectedListener(null);
+                                result.getList().add(0, new Item("선택없음(종류)"));
                                 glassKindSpinnerAdapter.setData(result.getList().toArray(new Item[result.getList().size()]));
                                 glassKindSpinnerAdapter.notifyDataSetChanged();
-                                sn_glass_kind.setOnItemSelectedListener(this);
+                                sn_glass_kind.performClick();
                                 break;
                             case BLACKBOX:
-                                sn_blackbox_kind.setOnItemSelectedListener(null);
+                                result.getList().add(0, new Item("선택없음(종류)"));
                                 blackboxKindSpinnerAdapter.setData(result.getList().toArray(new Item[result.getList().size()]));
                                 blackboxKindSpinnerAdapter.notifyDataSetChanged();
-                                sn_blackbox_kind.setOnItemSelectedListener(this);
+                                sn_blackbox_kind.performClick();
                                 break;
                             case UNDERCOATING:
-                                sn_undercoating_kind.setOnItemSelectedListener(null);
+                                result.getList().add(0, new Item("선택없음(종류)"));
                                 undercoatingKindSpinnerAdapter.setData(result.getList().toArray(new Item[result.getList().size()]));
                                 undercoatingKindSpinnerAdapter.notifyDataSetChanged();
-                                sn_undercoating_kind.setOnItemSelectedListener(this);
                                 break;
                             case PPF:
-                                sn_ppf_kind.setOnItemSelectedListener(null);
+                                result.getList().add(0, new Item("선택없음(종류)"));
                                 ppfKindSpinnerAdapter.setData(result.getList().toArray(new Item[result.getList().size()]));
                                 ppfKindSpinnerAdapter.notifyDataSetChanged();
-                                sn_ppf_kind.setOnItemSelectedListener(this);
+                                sn_ppf_kind.performClick();
                                 break;
                             case TUNING:
-                                sn_tuning_kind.setOnItemSelectedListener(null);
+                                result.getList().add(0, new Item("선택없음(종류)"));
                                 tuningKindSpinnerAdapter.setData(result.getList().toArray(new Item[result.getList().size()]));
                                 tuningKindSpinnerAdapter.notifyDataSetChanged();
-                                sn_tuning_kind.setOnItemSelectedListener(this);
+                                sn_tuning_kind.performClick();
                                 break;
                             case TIRE:
-                                sn_tire_kind.setOnItemSelectedListener(null);
+                                result.getList().add(0, new Item("선택없음(종류)"));
                                 tireKindSpinnerAdapter.setData(result.getList().toArray(new Item[result.getList().size()]));
                                 tireKindSpinnerAdapter.notifyDataSetChanged();
-                                sn_tire_kind.setOnItemSelectedListener(this);
+                                sn_tire_kind.performClick();
                                 break;
                         }
                     } else {
@@ -553,10 +749,129 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                 });
     }
 
+    private void initLayout() {
+        if (packageValues != null && packageValues.size() > 0) {
+            ll_cost.setVisibility(View.VISIBLE);
+            tv_cost.setText(packageValues.get(0).getItemBrand().getName());
+            rb_cost.setText(packageValues.get(0).getName());
+        } else {
+            ll_cost.setVisibility(View.GONE);
+        }
+        if (packageValues != null && packageValues.size() > 1) {
+            ll_premium.setVisibility(View.VISIBLE);
+            tv_premium.setText(packageValues.get(1).getItemBrand().getName());
+            rb_premium.setText(packageValues.get(1).getName());
+        } else {
+            ll_premium.setVisibility(View.GONE);
+        }
+    }
+
+    private void itemList(DataEnums.ItemDiffType itemDiffType) {
+        showLoading();
+        ItemBrandListRequester itemBrandListRequester = new ItemBrandListRequester(EstimateDepth2Activity.this);
+        itemBrandListRequester.setDiff(itemDiffType);
+        request(itemBrandListRequester,
+                success -> {
+                    ItemBrandListResponser result = (ItemBrandListResponser) success;
+                    if (result.getCode() == 200) {
+                        switch (itemDiffType) {
+                            case PPF: {
+                                if (result.getList() != null && result.getList().size() > 0) {
+                                    ll_ppf.setVisibility(View.VISIBLE);
+                                    rl_ppf_brand.setVisibility(View.VISIBLE);
+                                    rl_ppf_kind.setVisibility(View.VISIBLE);
+                                } else {
+                                    ll_ppf.setVisibility(View.GONE);
+                                    rl_ppf_brand.setVisibility(View.GONE);
+                                    rl_ppf_kind.setVisibility(View.GONE);
+                                }
+                                break;
+                            }
+                            case TIRE: {
+                                if (result.getList() != null && result.getList().size() > 0) {
+                                    ll_tire.setVisibility(View.VISIBLE);
+                                    rl_tire_brand.setVisibility(View.VISIBLE);
+                                    rl_tire_kind.setVisibility(View.VISIBLE);
+                                } else {
+                                    ll_tire.setVisibility(View.GONE);
+                                    rl_tire_brand.setVisibility(View.GONE);
+                                    rl_tire_kind.setVisibility(View.GONE);
+                                }
+                                break;
+                            }
+                            case GLASS: {
+                                if (result.getList() != null && result.getList().size() > 0) {
+                                    ll_glass.setVisibility(View.VISIBLE);
+                                    rl_glass_brand.setVisibility(View.VISIBLE);
+                                    rl_glass_kind.setVisibility(View.VISIBLE);
+                                } else {
+                                    ll_glass.setVisibility(View.GONE);
+                                    rl_glass_brand.setVisibility(View.GONE);
+                                    rl_glass_kind.setVisibility(View.GONE);
+                                }
+                                break;
+                            }
+                            case TUNING: {
+                                if (result.getList() != null && result.getList().size() > 0) {
+                                    ll_tuning.setVisibility(View.VISIBLE);
+                                    rl_tuning_brand.setVisibility(View.VISIBLE);
+                                    rl_tuning_kind.setVisibility(View.VISIBLE);
+                                } else {
+                                    ll_tuning.setVisibility(View.GONE);
+                                    rl_tuning_brand.setVisibility(View.GONE);
+                                    rl_tuning_kind.setVisibility(View.GONE);
+                                }
+                                break;
+                            }
+                            case BLACKBOX: {
+                                if (result.getList() != null && result.getList().size() > 0) {
+                                    ll_blackbox.setVisibility(View.VISIBLE);
+                                    rl_blackbox_brand.setVisibility(View.VISIBLE);
+                                    rl_blackbox_kind.setVisibility(View.VISIBLE);
+                                } else {
+                                    ll_blackbox.setVisibility(View.GONE);
+                                    rl_blackbox_brand.setVisibility(View.GONE);
+                                    rl_blackbox_kind.setVisibility(View.GONE);
+                                }
+                                break;
+                            }
+                            case SUNBLOCK: {
+                                if (result.getList() != null && result.getList().size() > 0) {
+                                    ll_sunblock.setVisibility(View.VISIBLE);
+                                    rl_sunblock_brand.setVisibility(View.VISIBLE);
+                                    rl_sunblock_kind.setVisibility(View.VISIBLE);
+                                } else {
+                                    ll_sunblock.setVisibility(View.GONE);
+                                    rl_sunblock_brand.setVisibility(View.GONE);
+                                    rl_sunblock_kind.setVisibility(View.GONE);
+                                }
+                                break;
+                            }
+                            case UNDERCOATING: {
+                                if (result.getList() != null && result.getList().size() > 0) {
+                                    ll_undercoating.setVisibility(View.VISIBLE);
+                                    rl_undercoating_brand.setVisibility(View.VISIBLE);
+                                    rl_undercoating_kind.setVisibility(View.VISIBLE);
+                                } else {
+                                    ll_undercoating.setVisibility(View.GONE);
+                                    rl_undercoating_brand.setVisibility(View.GONE);
+                                    rl_undercoating_kind.setVisibility(View.GONE);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    hideLoading();
+                }, fail -> {
+                    hideLoading();
+                });
+    }
+
     private void itemBrandList(DataEnums.ItemDiffType itemDiffType) {
         showLoading();
         ItemBrandListRequester itemBrandListRequester = new ItemBrandListRequester(EstimateDepth2Activity.this);
         itemBrandListRequester.setDiff(itemDiffType);
+        itemBrandListRequester.setRandom(false);
 
         request(itemBrandListRequester,
                 success -> {
@@ -564,30 +879,44 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                     if (result.getCode() == 200) {
                         switch (itemDiffType) {
                             case SUNBLOCK:
+                                sublockFlag = false;
+                                result.getList().add(0, new ItemBrand("선택없음(브랜드)"));
                                 sunblockBrandSpinnerAdapter.setData(result.getList().toArray(new ItemBrand[result.getList().size()]));
                                 sunblockBrandSpinnerAdapter.notifyDataSetChanged();
                                 break;
                             case GLASS:
+                                glassFlag = false;
+                                result.getList().add(0, new ItemBrand("선택없음(브랜드)"));
                                 glassBrandSpinnerAdapter.setData(result.getList().toArray(new ItemBrand[result.getList().size()]));
                                 glassBrandSpinnerAdapter.notifyDataSetChanged();
                                 break;
                             case BLACKBOX:
+                                blackBoxFlag = false;
+                                result.getList().add(0, new ItemBrand("선택없음(브랜드)"));
                                 blackboxBrandSpinnerAdapter.setData(result.getList().toArray(new ItemBrand[result.getList().size()]));
                                 blackboxBrandSpinnerAdapter.notifyDataSetChanged();
                                 break;
                             case UNDERCOATING:
+                                underCoatingFlag = false;
+                                result.getList().add(0, new ItemBrand("선택없음(브랜드)"));
                                 undercoatingBrandSpinnerAdapter.setData(result.getList().toArray(new ItemBrand[result.getList().size()]));
                                 undercoatingBrandSpinnerAdapter.notifyDataSetChanged();
                                 break;
                             case PPF:
+                                ppfFlag = false;
+                                result.getList().add(0, new ItemBrand("선택없음(브랜드)"));
                                 ppfBrandSpinnerAdapter.setData(result.getList().toArray(new ItemBrand[result.getList().size()]));
                                 ppfBrandSpinnerAdapter.notifyDataSetChanged();
                                 break;
                             case TUNING:
+                                tuningFlag = false;
+                                result.getList().add(0, new ItemBrand("선택없음(브랜드)"));
                                 tuningBrandSpinnerAdapter.setData(result.getList().toArray(new ItemBrand[result.getList().size()]));
                                 tuningBrandSpinnerAdapter.notifyDataSetChanged();
                                 break;
                             case TIRE:
+                                tireFlag = false;
+                                result.getList().add(0, new ItemBrand("선택없음(브랜드)"));
                                 tireBrandSpinnerAdapter.setData(result.getList().toArray(new ItemBrand[result.getList().size()]));
                                 tireBrandSpinnerAdapter.notifyDataSetChanged();
                                 break;
@@ -611,15 +940,34 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                     ItemListResponser result = (ItemListResponser) success;
                     if (result.getCode() == 200) {
                         packageValues = result.getList();
-                        tv_cost.setText(packageValues.get(0).getItemBrand().getName());
-                        rb_cost.setText(packageValues.get(0).getName());
-                        tv_premium.setText(packageValues.get(1).getItemBrand().getName());
-                        rb_premium.setText(packageValues.get(1).getName());
-
+                        initLayout();
                     } else {
                         showServerErrorDialog(result.getResultMsg());
                     }
                 }, fail -> {
+                    showServerErrorDialog(fail.getResultMsg());
+                });
+    }
+
+    private void eventList() {
+        showLoading();
+        EventListRequester eventListRequester = new EventListRequester(EstimateDepth2Activity.this);
+        eventListRequester.setLatitude(MemberManager.getInstance(EstimateDepth2Activity.this).getLocation().getLatitude());
+        eventListRequester.setLongitude(MemberManager.getInstance(EstimateDepth2Activity.this).getLocation().getLongitude());
+
+        request(eventListRequester,
+                success -> {
+                    EventListResponser result = (EventListResponser) success;
+                    if (result.getCode() == 200) {
+                        pageindicator.setCount(result.getList().size());
+                        mHomeBannerViewPagerAdapter.setData(result.getList());
+                        mHomeBannerViewPagerAdapter.notifyDataSetChanged();
+                    } else {
+                        showServerErrorDialog(result.getResultMsg());
+                    }
+                    hideLoading();
+                }, fail -> {
+                    hideLoading();
                     showServerErrorDialog(fail.getResultMsg());
                 });
     }

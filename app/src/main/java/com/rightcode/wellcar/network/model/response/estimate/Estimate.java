@@ -22,4 +22,6 @@ public class Estimate {
     String gu;
     @JsonField
     ArrayList<Item> items;
+    @JsonField
+    Integer storeCount;
 }

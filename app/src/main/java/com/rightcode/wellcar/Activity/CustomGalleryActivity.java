@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_IMAGE_COUNT;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_SELECT_IMAGE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_SINGLE_SELECT;
 
@@ -70,7 +71,7 @@ public class CustomGalleryActivity extends BaseActivity {
     //------------------------------------------------------------------------------------------
     private void initialize() {
         mTopFragment = (TopFragment) FragmentUtil.findFragmentByTag(getSupportFragmentManager(), "TopFragment");
-        mTopFragment.setText(TopFragment.Menu.CENTER, "우리동네 할인찾기");
+        mTopFragment.setText(TopFragment.Menu.CENTER, "앨범");
         mTopFragment.setImagePadding(TopFragment.Menu.CENTER, 10);
         mTopFragment.setImage(TopFragment.Menu.LEFT, R.drawable.arrow_left);
         mTopFragment.setImagePadding(TopFragment.Menu.LEFT, 5);
@@ -81,7 +82,7 @@ public class CustomGalleryActivity extends BaseActivity {
             }
         });
 
-        int maxCount = 6;
+        int maxCount = getIntent().getIntExtra(EXTRA_IMAGE_COUNT, 1);
         if (maxCount > 0) {
             galleryView.getAdapter().setMaxCount(
                     aVoid -> {

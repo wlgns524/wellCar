@@ -24,6 +24,8 @@ public class AroundViewHolder extends CommonRecyclerViewHolder implements View.O
 
     @BindView(R.id.iv_company_image)
     ImageView iv_company_image;
+    @BindView(R.id.tv_rate)
+    TextView tv_rate;
     @BindView(R.id.tv_store_name)
     TextView tv_store_name;
     @BindView(R.id.tv_company_review_count)
@@ -40,6 +42,7 @@ public class AroundViewHolder extends CommonRecyclerViewHolder implements View.O
         super(viewHolder, context);
         ButterKnife.bind(this, viewHolder);
         mContext = context;
+        itemView.setOnClickListener(this);
     }
 
     public void onBind(Store data) {
@@ -49,7 +52,7 @@ public class AroundViewHolder extends CommonRecyclerViewHolder implements View.O
                 .skipMemoryCache(true)
                 .centerCrop()
                 .into(iv_company_image);
-
+        tv_rate.setText(data.getRate().toString());
         tv_store_name.setText(data.getName());
         tv_company_review_count.setText(data.getReviewCount().toString());
         tv_company_content.setText(data.getIntroduction());
@@ -60,7 +63,7 @@ public class AroundViewHolder extends CommonRecyclerViewHolder implements View.O
     public void onClick(View v) {
         Intent intent = new Intent(mContext, CompanyDetailActivity.class);
         intent.putExtra(EXTRA_COMPANY_ID, data.getId());
-        intent.putExtra(EXTRA_COMPANY_DETAIL_TYPE, DataEnums.CompanyDetailType.BASIC);
+        intent.putExtra(EXTRA_COMPANY_DETAIL_TYPE, DataEnums.CompanyDetailType.DIRECT_ESTIMATE);
         startActivity(intent);
     }
 }

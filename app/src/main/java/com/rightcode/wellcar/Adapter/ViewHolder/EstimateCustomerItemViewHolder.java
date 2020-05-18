@@ -40,7 +40,7 @@ public class EstimateCustomerItemViewHolder extends CommonRecyclerViewHolder {
             tv_item_kind_content.setText(data.getName());
         } else {
             tv_item_brand_title.setText(data.getDiff().toString());
-            tv_item_brand_content.setText(data.getItemBrand().getName());
+            tv_item_brand_content.setText(data.getItemBrand() != null ? data.getItemBrand().getName() : "");
             tv_item_kind_title.setText(String.format("%s 종류", data.getDiff().toString()));
             tv_item_kind_content.setText(data.getName());
         }

@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.rightcode.wellcar.Fragment.BottomFragment;
 import com.rightcode.wellcar.Fragment.Main.CompanyFragment;
 import com.rightcode.wellcar.Fragment.Main.HomeFragment;
@@ -14,11 +15,16 @@ import com.rightcode.wellcar.Fragment.Main.TalkFragment;
 import com.rightcode.wellcar.Fragment.Main.UserFragment;
 import com.rightcode.wellcar.MemberManager;
 import com.rightcode.wellcar.R;
+import com.rightcode.wellcar.RxJava.Event;
+import com.rightcode.wellcar.RxJava.RxBus;
+import com.rightcode.wellcar.RxJava.RxEvent.CarWashUseEvent;
+import com.rightcode.wellcar.RxJava.RxEvent.MoveTalkEvent;
 import com.rightcode.wellcar.Util.FragmentUtil;
 import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.PreferenceUtil;
 import com.rightcode.wellcar.network.model.request.auth.Login;
 import com.rightcode.wellcar.network.requester.auth.LoginRequester;
+import com.rightcode.wellcar.network.requester.notification.NotificationRegisterRequester;
 import com.rightcode.wellcar.network.requester.user.UserInfoRequester;
 import com.rightcode.wellcar.network.responser.auth.LoginResponser;
 import com.rightcode.wellcar.network.responser.user.UserInfoResponser;
@@ -29,6 +35,11 @@ import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_COMPLETE;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, BottomFragment.Interaction {
 
+    @Event(MoveTalkEvent.class)
+    public void onMoveTalkEvent(MoveTalkEvent event) {
+        mBottomFragment.setMenu(BottomFragment.Menu.TALK);
+        onChangeMenu(BottomFragment.Menu.TALK);
+    }
 
     //----------------------------------------------------------------------------------------------
     // field
@@ -47,8 +58,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RxBus.register(this);
         ButterKnife.bind(this);
         loginCheck();
+        notificationRegister();
     }
 
 
@@ -177,6 +190,18 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     } else {
                     }
                 }, fail -> {
+                });
+    }
+
+    private void notificationRegister() {
+        NotificationRegisterRequester notificationRegisterRequester = new NotificationRegisterRequester(MainActivity.this);
+        notificationRegisterRequester.setNotificationToken(FirebaseInstanceId.getInstance().getToken());
+
+        request(notificationRegisterRequester,
+                success -> {
+
+                }, fail -> {
+
                 });
     }
 

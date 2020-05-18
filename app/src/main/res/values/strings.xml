@@ -2,8 +2,8 @@
     <string name="app_name">웰카</string>
 
     <!-- keys -->
-    <string name="default_notification_channel_id">foav_Notification_Channel_Id</string>
-    <string name="default_notification_channel_name">foav_Notification_Channel_Name</string>
+    <string name="default_notification_channel_id">wellcar_Notification_Channel_Id</string>
+    <string name="default_notification_channel_name">wellcar_Notification_Channel_Name</string>
 
     <!-- pattern -->
     <string name="pattern_email" translatable="false">^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$</string>
@@ -42,7 +42,6 @@
     <string name="years_ago">%d years ago</string><!--%d년 전-->
     <string name="form_hour">%dh</string><!--%d시간-->
     <string name="form_minute">%dm</string><!--%d분-->
-
 
     <string-array name="AREA">
         <item>시 선택</item>
@@ -154,7 +153,6 @@
         <item>동구</item>
         <item>서구</item>
         <item>남구</item>
-        <item>구 선택</item>
         <item>북구</item>
         <item>중구</item>
         <item>수성구</item>

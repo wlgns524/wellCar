@@ -3,8 +3,12 @@ package com.rightcode.wellcar.Adapter.ViewHolder;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.rightcode.wellcar.Activity.CompanyDetailActivity;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.RxJava.RxBus;
@@ -24,6 +28,18 @@ public class CompanyViewHolder extends CommonRecyclerViewHolder {
 
     @BindView(R.id.ll_background)
     LinearLayout ll_background;
+    @BindView(R.id.iv_company_image)
+    ImageView iv_company_image;
+    @BindView(R.id.tv_store_name)
+    TextView tv_store_name;
+    @BindView(R.id.tv_grade)
+    TextView tv_grade;
+    @BindView(R.id.tv_company_review_count)
+    TextView tv_company_review_count;
+    @BindView(R.id.tv_company_order_count)
+    TextView tv_company_order_count;
+    @BindView(R.id.tv_company_introduction)
+    TextView tv_company_introduction;
 
     private Context mContext;
     private Store data;
@@ -42,8 +58,17 @@ public class CompanyViewHolder extends CommonRecyclerViewHolder {
         initLayout();
     }
 
-    private void initLayout(){
-
+    private void initLayout() {
+        Glide.with(mContext).load(data.getThumbnail() != null ? data.getThumbnail().getName() : "")
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .centerCrop()
+                .into(iv_company_image);
+        tv_store_name.setText(data.getName());
+        tv_grade.setText(data.getRate().toString());
+        tv_company_review_count.setText(data.getReviewCount().toString());
+        tv_company_order_count.setText(data.getOrderCount().toString());
+        tv_company_introduction.setText(data.getIntroduction());
     }
 
     @OnClick({R.id.ll_background, R.id.tv_store_detail})

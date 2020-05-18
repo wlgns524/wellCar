@@ -16,6 +16,7 @@ import com.rightcode.wellcar.RxJava.Event;
 import com.rightcode.wellcar.RxJava.RxBus;
 import com.rightcode.wellcar.RxJava.RxEvent.AroundSelectEvent;
 import com.rightcode.wellcar.Util.FragmentUtil;
+import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.network.requester.event.EventListRequester;
 import com.rightcode.wellcar.network.requester.store.StoreListRequester;
 import com.rightcode.wellcar.network.responser.event.EventListResponser;
@@ -113,13 +114,11 @@ public class AroundActivity extends BaseActivity {
                 });
     }
 
-
     private void eventList() {
         showLoading();
         EventListRequester eventListRequester = new EventListRequester(AroundActivity.this);
         eventListRequester.setLatitude(MemberManager.getInstance(AroundActivity.this).getLocation().getLatitude());
         eventListRequester.setLongitude(MemberManager.getInstance(AroundActivity.this).getLocation().getLongitude());
-        eventListRequester.setLocation("area");
 
         request(eventListRequester,
                 success -> {

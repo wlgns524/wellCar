@@ -1,144 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
-    android:background="@drawable/space_border_white_corner_5"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:background="@drawable/space_border_white_corner_5">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/iv_company_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="10dp"/>
-
-        <TextView
-            android:id="@+id/tv_company_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_toRightOf="@+id/iv_company_image"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            tools:text="아이정비소" />
-
-        <ImageView
-            android:id="@+id/iv_star"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_marginRight="3dp"
-            android:layout_marginTop="2dp"
-            android:layout_toRightOf="@+id/tv_company_name"
-            android:src="@drawable/ic_rating_star_fill_small" />
-
-        <TextView
-            android:id="@+id/tv_grade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/iv_star"
-            android:text="3.5"
-            android:textColor="@color/black"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/tv_company_introduction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_company_name"
-            android:layout_toRightOf="@+id/iv_company_image"
-            android:textColor="@color/text_gray"
-            android:textSize="12sp"
-            tools:text="서울 특별시 강동구 픽업  딜리버리 가능" />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_company_image"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/iv_company_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp" />
 
             <TextView
+                android:id="@+id/tv_company_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
+                android:layout_toRightOf="@+id/iv_company_image"
                 android:ellipsize="end"
-                android:maxLines="1"
-                android:text="최근 후기"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="아이정비소" />
+
+            <ImageView
+                android:id="@+id/iv_star"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="3dp"
+                android:layout_toRightOf="@+id/tv_company_name"
+                android:src="@drawable/ic_rating_star_fill_small" />
+
+            <TextView
+                android:id="@+id/tv_grade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_star"
+                android:text="3.5"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_company_introduction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_company_name"
+                android:layout_toRightOf="@+id/iv_company_image"
                 android:textColor="@color/text_gray"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="서울 특별시 강동구 픽업  딜리버리 가능" />
 
-            <TextView
-                android:id="@+id/tv_company_review_count"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="3"
-                android:textColor="@color/app_color"
-                android:textSize="12sp" />
+                android:layout_below="@+id/iv_company_image"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="개"
-                android:textColor="@color/text_gray"
-                android:textSize="12sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="최근 후기"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="수리 사례"
-                android:textColor="@color/text_gray"
-                android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/tv_company_review_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="3"
+                    android:textColor="@color/app_color"
+                    android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/tv_company_order_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="9"
-                android:textColor="@color/app_color"
-                android:textSize="12sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="개"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="건"
-                android:textColor="@color/text_gray"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="수리 사례"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/tv_estimate_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="₩1,350,000" />
+                <TextView
+                    android:id="@+id/tv_company_order_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="9"
+                    android:textColor="@color/app_color"
+                    android:textSize="12sp" />
 
-</LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="건"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_estimate_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            tools:text="₩1,350,000" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_is_payment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color_000000_40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

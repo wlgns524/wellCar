@@ -23,6 +23,8 @@ public class StoreListRequester extends AbstractRequester {
     private String gu;
     @Setter
     private ArrayList<Integer> itemId;
+    @Setter
+    private Integer itemBrandId;
 
 
     public StoreListRequester(Context context) {
@@ -31,7 +33,7 @@ public class StoreListRequester extends AbstractRequester {
 
     @Override
     protected Call genApi() {
-        Call call = networkManager.getApi().storeList(latitude, longitude, si, gu, itemId, diff);
+        Call call = networkManager.getApi().storeList(latitude, longitude, si, gu, itemId, itemBrandId, diff);
 
         return call;
     }

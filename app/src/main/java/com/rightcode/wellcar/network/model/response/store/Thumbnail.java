@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Thumbnail implements Serializable {
+
     @JsonField
     String name;
 }

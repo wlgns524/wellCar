@@ -20,6 +20,8 @@ import com.rightcode.wellcar.Component.RatingStarLayout;
 import com.rightcode.wellcar.Component.RecyclerViewOnClickListener;
 import com.rightcode.wellcar.Fragment.TopFragment;
 import com.rightcode.wellcar.R;
+import com.rightcode.wellcar.RxJava.RxBus;
+import com.rightcode.wellcar.RxJava.RxEvent.ReviewWriteEvent;
 import com.rightcode.wellcar.Util.FragmentUtil;
 import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.CommonResult;
@@ -38,10 +40,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_COMPANY_ID;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ESTIMATE_ID;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_IMAGE_COUNT;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_REVIEW_DATA;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_REVIEW_TYPE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_SELECT_IMAGE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_SINGLE_SELECT;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_TICKET_HISTORY_ID;
 import static com.rightcode.wellcar.Util.ExtraData.REQUEST_CODE_GALLERY;
 
 public class ReviewWriteActivity extends BaseActivity {
@@ -63,6 +68,8 @@ public class ReviewWriteActivity extends BaseActivity {
     private ImageRecyclerViewAdapter mImageRecyclerViewAdapter;
     private ArrayList<String> selectedPhotos;
     private Integer storeId;
+    private Integer ticketHistoryId;
+    private Integer estimateId;
     private StoreReview data;
 
     @Override
@@ -168,7 +175,8 @@ public class ReviewWriteActivity extends BaseActivity {
         if (getIntent() != null) {
             storeId = getIntent().getIntExtra(EXTRA_COMPANY_ID, -1);
             data = (StoreReview) getIntent().getSerializableExtra(EXTRA_REVIEW_DATA);
-
+            ticketHistoryId = getIntent().getIntExtra(EXTRA_TICKET_HISTORY_ID, -1);
+            estimateId = getIntent().getIntExtra(EXTRA_ESTIMATE_ID, -1);
             storeReviewCheck(storeId);
         }
     }
@@ -178,6 +186,7 @@ public class ReviewWriteActivity extends BaseActivity {
             @Override
             public void onPermissionGranted() {
                 Intent intent = new Intent(ReviewWriteActivity.this, CustomGalleryActivity.class);
+                intent.putExtra(EXTRA_IMAGE_COUNT, 6);
                 if (selectedPhotos != null) {
                     intent.putStringArrayListExtra(EXTRA_SELECT_IMAGE, selectedPhotos);
                     intent.putExtra(EXTRA_SINGLE_SELECT, false);
@@ -231,6 +240,12 @@ public class ReviewWriteActivity extends BaseActivity {
         param.setSatisfaction(rs_satisfaction.getRating());
         param.setKindness(rs_kindness.getRating());
         param.setContent(et_review_content.getText().toString());
+        if (ticketHistoryId != -1) {
+            param.setTicketHistoryId(ticketHistoryId);
+        }
+        if (estimateId != -1) {
+            param.setEstimateId(estimateId);
+        }
 
         storeReviewRegisterRequester.setParam(param);
 
@@ -238,12 +253,20 @@ public class ReviewWriteActivity extends BaseActivity {
                 success -> {
                     StoreReviewRegisterResponser result = (StoreReviewRegisterResponser) success;
                     if (result.getCode() == 200) {
-                        if (mImageRecyclerViewAdapter.getItemCount() > 0)
+                        if (selectedPhotos != null && selectedPhotos.size() > 0) {
                             storeReviewImageRegister(result.getStoreReviewId());
+                        } else {
+                            hideLoading();
+                            RxBus.send(new ReviewWriteEvent());
+                            ToastUtil.show(ReviewWriteActivity.this, "등록되었습니다");
+                            setResult(RESULT_OK);
+                            finishWithAnim();
+                        }
                     } else {
                         hideLoading();
                         showServerErrorDialog(result.getResultMsg());
                     }
+
                 }, fail -> {
                     hideLoading();
                     showServerErrorDialog(fail.getResultMsg(), action -> {
@@ -255,6 +278,7 @@ public class ReviewWriteActivity extends BaseActivity {
     private void storeReviewImageRegister(Integer storeReviewId) {
         StoreReviewImageRegisterRequester storeReviewImageRegisterRequester = new StoreReviewImageRegisterRequester(ReviewWriteActivity.this);
         storeReviewImageRegisterRequester.setStoreReviewId(storeReviewId);
+        storeReviewImageRegisterRequester.setPath(selectedPhotos);
 //        storeReviewImageRegisterRequester.setPath(mImageRecyclerViewAdapter.getItemCount());
 
         request(storeReviewImageRegisterRequester,
@@ -262,6 +286,8 @@ public class ReviewWriteActivity extends BaseActivity {
                     CommonResult result = (CommonResult) success;
                     if (result.getCode() == 200) {
                         ToastUtil.show(ReviewWriteActivity.this, "등록되었습니다");
+                        RxBus.send(new ReviewWriteEvent());
+                        setResult(RESULT_OK);
                         finishWithAnim();
                     } else {
                         showServerErrorDialog(result.getResultMsg());

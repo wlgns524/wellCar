@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.rightcode.wellcar.Activity.BaseActivity;
 import com.rightcode.wellcar.Activity.MainActivity;
 import com.rightcode.wellcar.MemberManager;
@@ -15,6 +16,7 @@ import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.request.auth.Login;
 import com.rightcode.wellcar.network.requester.auth.LoginRequester;
+import com.rightcode.wellcar.network.requester.notification.NotificationRegisterRequester;
 import com.rightcode.wellcar.network.requester.user.UserInfoRequester;
 import com.rightcode.wellcar.network.responser.auth.LoginResponser;
 import com.rightcode.wellcar.network.responser.user.UserInfoResponser;
@@ -131,8 +133,7 @@ public class LoginActivity extends BaseActivity {
                     UserInfoResponser result = (UserInfoResponser) success;
                     if (result.getCode() == 200) {
                         MemberManager.getInstance(LoginActivity.this).updateLogInInfo(result.getUser());
-                        setResult(RESULT_OK);
-                        finishWithAnim();
+                        notificationRegister();
                     } else {
                         showServerErrorDialog(result.getResultMsg());
                     }
@@ -141,5 +142,19 @@ public class LoginActivity extends BaseActivity {
                     hideLoading();
                     showServerErrorDialog(fail.getResultMsg());
                 });
+    }
+
+    private void notificationRegister() {
+        NotificationRegisterRequester notificationRegisterRequester = new NotificationRegisterRequester(LoginActivity.this);
+        notificationRegisterRequester.setNotificationToken(FirebaseInstanceId.getInstance().getToken());
+
+        request(notificationRegisterRequester,
+                success -> {
+
+                }, fail -> {
+
+                });
+        setResult(RESULT_OK);
+        finishWithAnim();
     }
 }

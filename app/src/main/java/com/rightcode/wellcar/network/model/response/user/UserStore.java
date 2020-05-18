@@ -13,7 +13,19 @@ import lombok.EqualsAndHashCode;
 public class UserStore {
 
     @JsonField
+    Integer id;
+    @JsonField
     String name;
+    @JsonField
+    String address;
+    @JsonField
+    String addressDetail;
+    @JsonField
+    String introduction;
+    @JsonField
+    String opens;
+    @JsonField
+    String position;
     @JsonField
     Image thumbnail;
 }

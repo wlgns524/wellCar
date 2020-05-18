@@ -14,6 +14,7 @@ import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.RxJava.Event;
 import com.rightcode.wellcar.RxJava.RxBus;
 import com.rightcode.wellcar.RxJava.RxEvent.EstimateRemoveEvent;
+import com.rightcode.wellcar.RxJava.RxEvent.MoveTalkEvent;
 import com.rightcode.wellcar.Util.FragmentUtil;
 import com.rightcode.wellcar.network.model.CommonResult;
 import com.rightcode.wellcar.network.requester.estimate.EstimateListRequester;
@@ -24,6 +25,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EstimateCustomerActivity extends BaseActivity {
+
+    @Event(MoveTalkEvent.class)
+    public void onMoveTalkEvent(MoveTalkEvent event) {
+        finishWithAnim();
+    }
 
     @Event(EstimateRemoveEvent.class)
     public void onEstimateRemoveEvent(EstimateRemoveEvent event) {

@@ -123,7 +123,11 @@ public class DataEnums {
 
         @Override
         public String toString() {
-            return type;
+            if (type != null) {
+                return type;
+            } else {
+                return "";
+            }
         }
 
         public static ItemDiffType getEnum(String value) {
@@ -175,6 +179,7 @@ public class DataEnums {
         BASIC("기본"),
         ESTIMATE("견적"),
         CLEAN("세차장"),
+        DIRECT_ESTIMATE("바로견적내기"),
         MANAGEMENT("관리자");
 
         private String type;
