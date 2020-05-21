@@ -264,7 +264,6 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
             register = (EstimateRegister) getIntent().getSerializableExtra(EXTRA_ESTIMATE_REGISTER);
             tv_address_si.setText(register.getSi());
             tv_address_gu.setText(register.getGu());
-
         }
         mTopFragment = (TopFragment) FragmentUtil.findFragmentByTag(getSupportFragmentManager(), "TopFragment");
         mTopFragment.setText(TopFragment.Menu.CENTER, "시공견적");
@@ -289,10 +288,10 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 String value = String.format("%s(%s)", values.get(position).getName(), values.get(position).getItemBrand().getName());
-                if (value.equals("가성비패키지(썬팅(레이노 s9) + 블랙박스(아이나비) + 유리막)")) {
+                if (value.equals("썬팅+블랙박스+유리막(가성비패키지)")) {
                     rb_cost.setChecked(false);
                 }
-                if (value.equals("프리미엄 패키지(썬팅(레인보우 v90) + 블랙박스(아이나비) + 유리막 + 언더코팅)")) {
+                if (value.equals("썬팅+블랙박스+유리막+언더코팅(프리미엄패키지)")) {
                     rb_premium.setChecked(false);
                 }
                 values.remove(position);
@@ -347,21 +346,21 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
         sn_tire_kind.setOnItemSelectedListener(this);
     }
 
+
     @OnCheckedChanged({R.id.rb_cost, R.id.rb_premium})
     void onGenderSelected(CompoundButton button, boolean checked) {
+        Log.d(rb_cost.isChecked() + " / " + rb_premium.isChecked());
         if (checked) {
             switch (button.getId()) {
                 case R.id.rb_cost: {
-                    rb_cost.setChecked(checked);
-                    rb_premium.setChecked(!checked);
-                    values.clear();
+                    rb_cost.setChecked(true);
+                    rb_premium.setChecked(false);
                     values.add(packageValues.get(0));
                     break;
                 }
                 case R.id.rb_premium: {
-                    rb_cost.setChecked(!checked);
-                    rb_premium.setChecked(checked);
-                    values.clear();
+                    rb_cost.setChecked(false);
+                    rb_premium.setChecked(true);
                     values.add(packageValues.get(1));
                     break;
                 }
@@ -539,9 +538,8 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
             case R.id.sn_sunblock_kind:
                 if (sublockFlag) {
                     if (!sunblockKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        deduplication(sunblockKindSpinnerAdapter.getItem(position));
                         values.add(sunblockKindSpinnerAdapter.getItem(position));
-                        rb_cost.setChecked(false);
-                        rb_premium.setChecked(false);
                         selectListRefresh();
                     }
                 } else {
@@ -560,9 +558,8 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
             case R.id.sn_glass_kind:
                 if (glassFlag) {
                     if (!glassKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        deduplication(glassKindSpinnerAdapter.getItem(position));
                         values.add(glassKindSpinnerAdapter.getItem(position));
-                        rb_cost.setChecked(false);
-                        rb_premium.setChecked(false);
                         selectListRefresh();
                     }
                 } else {
@@ -581,9 +578,8 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
             case R.id.sn_blackbox_kind:
                 if (blackBoxFlag) {
                     if (!blackboxKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        deduplication(blackboxKindSpinnerAdapter.getItem(position));
                         values.add(blackboxKindSpinnerAdapter.getItem(position));
-                        rb_cost.setChecked(false);
-                        rb_premium.setChecked(false);
                         selectListRefresh();
                     }
                 } else {
@@ -603,8 +599,6 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                 if (underCoatingFlag) {
                     if (!undercoatingKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
                         values.add(undercoatingKindSpinnerAdapter.getItem(position));
-                        rb_cost.setChecked(false);
-                        rb_premium.setChecked(false);
                         selectListRefresh();
                     }
                 } else {
@@ -646,9 +640,8 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
             case R.id.sn_tuning_kind: {
                 if (tuningFlag) {
                     if (!tuningKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        deduplication(tuningKindSpinnerAdapter.getItem(position));
                         values.add(tuningKindSpinnerAdapter.getItem(position));
-                        rb_cost.setChecked(false);
-                        rb_premium.setChecked(false);
                         selectListRefresh();
                     }
                 } else {
@@ -668,9 +661,8 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
             case R.id.sn_tire_kind: {
                 if (tireFlag) {
                     if (!tireKindSpinnerAdapter.getItem(position).getName().equals("선택없음(종류)")) {
+                        deduplication(tireKindSpinnerAdapter.getItem(position));
                         values.add(tireKindSpinnerAdapter.getItem(position));
-                        rb_cost.setChecked(false);
-                        rb_premium.setChecked(false);
                         selectListRefresh();
                     }
                 } else {
@@ -681,10 +673,21 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
         }
     }
 
+    private void deduplication(Item item){
+        Item removeItem = null;
+        for(Item i : values){
+            if(item.getDiff() == i.getDiff()){
+                removeItem = i;
+            }
+        }
+
+        values.remove(removeItem);
+    }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 
     private void itemList(DataEnums.ItemDiffType itemDiffType, Integer brandId) {
         showLoading();

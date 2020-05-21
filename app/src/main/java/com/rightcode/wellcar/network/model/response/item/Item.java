@@ -63,6 +63,12 @@ public class Item implements Parcelable {
                 return DataEnums.ItemDiffType.BLACKBOX;
             case "언더코팅":
                 return DataEnums.ItemDiffType.UNDERCOATING;
+            case "ppf":
+                return DataEnums.ItemDiffType.PPF;
+            case "튜닝":
+                return DataEnums.ItemDiffType.TUNING;
+            case "타이어":
+                return DataEnums.ItemDiffType.TIRE;
         }
         return null;
     }
