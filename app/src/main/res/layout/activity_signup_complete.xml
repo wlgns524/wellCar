@@ -37,7 +37,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_login"
+        android:id="@+id/tv_complete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -47,6 +47,6 @@
         android:background="@drawable/app_color_border_app_color_background_corner_5"
         android:gravity="center"
         android:padding="15dp"
-        android:text="로그인"
+        android:text="시작하기"
         android:textColor="@color/white" />
 </RelativeLayout>

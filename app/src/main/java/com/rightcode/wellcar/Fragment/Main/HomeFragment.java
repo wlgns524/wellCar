@@ -3,6 +3,7 @@ package com.rightcode.wellcar.Fragment.Main;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.DataEnums;
 import com.rightcode.wellcar.Util.FragmentUtil;
 import com.rightcode.wellcar.Util.Log;
+import com.rightcode.wellcar.network.model.request.auth.Login;
 import com.rightcode.wellcar.network.model.response.car.Car;
 import com.rightcode.wellcar.network.model.response.user.UserInfo;
 import com.rightcode.wellcar.network.requester.event.EventListRequester;
@@ -41,9 +43,14 @@ import com.rightcode.wellcar.network.requester.storeReview.StoreReviewListReques
 import com.rightcode.wellcar.network.responser.event.EventListResponser;
 import com.rightcode.wellcar.network.responser.storeReview.StoreReviewListResponser;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.rightcode.wellcar.Activity.AroundActivity.around_timer;
 
 public class HomeFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
 
@@ -76,6 +83,8 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
     private HomeBannerViewPagerAdapter mHomeBannerViewPagerAdapter;
     private HomeReviewRecyclerViewAdapter mHomeReviewRecyclerViewAdapter;
     private View root;
+    private int currentPage;
+    private Timer timer;
 
     //------------------------------------------------------------------------------------------
     // contructor
@@ -107,8 +116,18 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
     public void onResume() {
         super.onResume();
         initLayoutUserInfo();
+
+        autoScrollViewPager();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(timer != null){
+            timer.cancel();
+            timer = null;
+        }
+    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -153,8 +172,13 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
                 break;
             }
             case R.id.rl_car_wash: {
-                Intent intent = new Intent(getContext(), CarWashActivity.class);
-                startActivity(intent);
+                if(MemberManager.getInstance(getContext()).isLogin()){
+                    Intent intent = new Intent(getContext(), CarWashActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             }
             case R.id.rl_around: {
@@ -210,6 +234,8 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
 //        mTopFragment.setImagePadding(TopFragment.Menu.RIGHT, 5);
 //        mTopFragment.setImage(TopFragment.Menu.RIGHT, R.drawable.ic_bell);
 //        mTopFragment.setImagePadding(TopFragment.Menu.CENTER, 10);
+
+
     }
 
     private void initLayoutUserInfo() {
@@ -230,7 +256,7 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
                 Car car = userInfo.getCar();
                 Log.d(car.getBrand());
                 Glide.with(getContext())
-                        .load(car.getBrand() != null ? car.getBrand().getImage().getName() : "")
+                        .load(car.getImage() != null ? car.getImage().getName() : "")
                         .centerCrop()
                         .override(36, 36)
                         .apply(RequestOptions.circleCropTransform())
@@ -253,7 +279,7 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
                 success -> {
                     EventListResponser result = (EventListResponser) success;
                     if (result.getCode() == 200) {
-                        pageindicator.setCount(result.getList().size());
+//                        pageindicator.setCount(result.getList().size());
                         mHomeBannerViewPagerAdapter.setData(result.getList());
                         mHomeBannerViewPagerAdapter.notifyDataSetChanged();
                     } else {
@@ -286,4 +312,29 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
                     showServerErrorDialog(fail.getResultMsg());
                 });
     }
+
+    private void autoScrollViewPager() {
+        Handler handler = new Handler();
+        currentPage = cv_banner.getCurrentItem();
+        Runnable Update = new Runnable() {
+            @Override
+            public void run() {
+                cv_banner.setCurrentItem(currentPage,true);
+                currentPage += 1;
+
+                if(currentPage >= mHomeBannerViewPagerAdapter.getCount()){
+                    currentPage = 0;
+                }
+            }
+        };
+
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 2000, 2000);
+    }
+
 }

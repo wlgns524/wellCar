@@ -125,7 +125,6 @@ public class UserActivity extends BaseActivity {
                 CommonDialog commonDialog = new CommonDialog(UserActivity.this);
                 commonDialog.setMessage("회원탈퇴하시겠습니까 ?");
                 commonDialog.setPositiveButton("확인", ok -> {
-                    MemberManager.getInstance(UserActivity.this).userLogout();
                     commonDialog.dismiss();
                     userDrop();
                 });
@@ -263,6 +262,7 @@ public class UserActivity extends BaseActivity {
                     if (result.getCode() == 200) {
                         ToastUtil.show(UserActivity.this, "회원탈퇴되었습니다");
                         finishWithAnim();
+                        MemberManager.getInstance(UserActivity.this).userLogout();
                     } else {
                         showServerErrorDialog(result.getResultMsg());
                     }

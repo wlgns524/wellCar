@@ -52,7 +52,7 @@ public class ShoppingMallViewHolder extends CommonRecyclerViewHolder implements 
     @Override
     public void onClick(View v) {
         if (!TextUtils.isEmpty(data.getUrl())) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + data.getUrl())));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(data.getUrl())));
         }
     }
 }

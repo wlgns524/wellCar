@@ -14,8 +14,10 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.rightcode.wellcar.Activity.BaseActivity;
+import com.rightcode.wellcar.Activity.CarRegist.CarRegisterActivity;
 import com.rightcode.wellcar.ApiEnums;
 import com.rightcode.wellcar.Fragment.TopFragment;
+import com.rightcode.wellcar.MemberManager;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.CommonUtil;
 import com.rightcode.wellcar.Util.DataEnums;
@@ -23,10 +25,13 @@ import com.rightcode.wellcar.Util.FragmentUtil;
 import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.CommonResult;
 import com.rightcode.wellcar.network.model.request.auth.Join;
+import com.rightcode.wellcar.network.model.request.auth.Login;
 import com.rightcode.wellcar.network.requester.auth.CertificationNumberSMSRequester;
 import com.rightcode.wellcar.network.requester.auth.ConfirmRequester;
 import com.rightcode.wellcar.network.requester.auth.ExistLoginIdRequester;
 import com.rightcode.wellcar.network.requester.auth.JoinRequester;
+import com.rightcode.wellcar.network.requester.auth.LoginRequester;
+import com.rightcode.wellcar.network.responser.auth.LoginResponser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +40,10 @@ import butterknife.OnClick;
 
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_ACTION;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_COMPLETE;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_CAR_REGIST_ROOT;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_SIGN_UP;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_USER_ID;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_USER_PW;
 
 public class SignUpActivity extends BaseActivity {
 
@@ -93,6 +102,7 @@ public class SignUpActivity extends BaseActivity {
     private DataEnums.UserType role;
     private Boolean idFlag = false;
     private Boolean telFlag = false;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -374,7 +384,7 @@ public class SignUpActivity extends BaseActivity {
         }
 
         if (!rb_all.isChecked()) {
-            ToastUtil.show(SignUpActivity.this, "약관의 모두 동의해주세요");
+            ToastUtil.show(SignUpActivity.this, "약관을 모두 동의해주세요");
             return false;
         }
 
@@ -406,8 +416,11 @@ public class SignUpActivity extends BaseActivity {
                 success -> {
                     CommonResult result = (CommonResult) success;
                     if (result.getCode() == 200) {
-                        Intent intent = new Intent(SignUpActivity.this, SignUpCompleteActivity.class);
-                        startActivityForResult(intent, EXTRA_ACTIVITY_COMPLETE);
+//                        Intent intent = new Intent(SignUpActivity.this, SignUpCompleteActivity.class);
+//                        intent.putExtra(EXTRA_USER_ID, et_id.getText().toString());
+//                        intent.putExtra(EXTRA_USER_PW, et_pw.getText().toString());
+//                        startActivityForResult(intent, EXTRA_ACTIVITY_COMPLETE);
+                        login();
                     } else {
                         showServerErrorDialog(result.getResultMsg());
                     }
@@ -479,6 +492,39 @@ public class SignUpActivity extends BaseActivity {
                 }, fail -> {
                     hideLoading();
                     showServerErrorDialog(fail.getResultMsg());
+                });
+    }
+
+    private void login() {
+        showLoading();
+        LoginRequester loginRequester = new LoginRequester(SignUpActivity.this);
+
+        Login param = new Login();
+        param.setLoginId(et_id.getText().toString());
+        param.setPassword(et_pw.getText().toString());
+
+        loginRequester.setParam(param);
+        request(loginRequester,
+                success -> {
+                    LoginResponser result = (LoginResponser) success;
+                    hideLoading();
+                    if (result.getCode() == 200) {
+                        MemberManager.getInstance(SignUpActivity.this).setServiceToken(result.getToken());
+                        MemberManager.getInstance(SignUpActivity.this).setServiceToken(result.getToken());
+                        MemberManager.getInstance(SignUpActivity.this).userLogin(et_id.getText().toString().trim(), et_pw.getText().toString());
+                        Intent intent = new Intent(SignUpActivity.this, CarRegisterActivity.class);
+                        intent.putExtra(EXTRA_CAR_REGIST_ROOT, EXTRA_SIGN_UP);
+                        startActivityForResult(intent, EXTRA_ACTIVITY_COMPLETE);
+//                        setResult(RESULT_OK);
+//                        finishWithAnim();
+                    } else {
+//                        setResult(RESULT_CANCELED);
+//                        finishWithAnim();
+                    }
+                }, fail -> {
+                    hideLoading();
+                    setResult(RESULT_CANCELED);
+                    finishWithAnim();
                 });
     }
 }

@@ -68,6 +68,8 @@ public class UserFragment extends BaseFragment {
     RelativeLayout rl_company_car_wash;
     @BindView(R.id.rl_company_company)
     RelativeLayout rl_company_company;
+    @BindView(R.id.tv_logout)
+    TextView tvLogout;
 
     private View root;
     private TopFragment mTopFragment;
@@ -208,12 +210,14 @@ public class UserFragment extends BaseFragment {
         mTopFragment = (TopFragment) FragmentUtil.findFragmentByTag(getChildFragmentManager(), "TopFragment");
         mTopFragment.setImage(TopFragment.Menu.CENTER, R.drawable.title_bar_logo);
         mTopFragment.setImagePadding(TopFragment.Menu.CENTER, 10);
+
     }
 
     private void initLayoutUserInfo() {
         MemberManager memberManager = MemberManager.getInstance(getContext());
         if (memberManager.isLogin()) {
             layout_regist_car_user.setVisibility(View.VISIBLE);
+            tvLogout.setVisibility(View.VISIBLE);
             layout_unregist_car.setVisibility(View.GONE);
 
             UserInfo userInfo = MemberManager.getInstance(getContext()).getUserInfo();
@@ -227,7 +231,7 @@ public class UserFragment extends BaseFragment {
             if (userInfo.getCar() != null) {
                 Car car = userInfo.getCar();
                 Glide.with(getContext())
-                        .load(car.getBrand() != null ? car.getBrand().getImage().getName() : "")
+                        .load(car.getImage() != null ? car.getImage().getName() : "")
                         .centerCrop()
                         .override(36, 36)
                         .apply(RequestOptions.circleCropTransform())
@@ -271,6 +275,7 @@ public class UserFragment extends BaseFragment {
             layout_user_basic_view.setVisibility(View.VISIBLE);
             layout_user_customer_view.setVisibility(View.GONE);
             layout_user_company_view.setVisibility(View.GONE);
+            tvLogout.setVisibility(View.GONE);
         }
 
     }

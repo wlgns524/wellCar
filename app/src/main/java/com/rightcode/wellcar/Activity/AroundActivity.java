@@ -2,7 +2,6 @@ package com.rightcode.wellcar.Activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,19 +15,19 @@ import com.rightcode.wellcar.RxJava.Event;
 import com.rightcode.wellcar.RxJava.RxBus;
 import com.rightcode.wellcar.RxJava.RxEvent.AroundSelectEvent;
 import com.rightcode.wellcar.Util.FragmentUtil;
-import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.network.requester.event.EventListRequester;
 import com.rightcode.wellcar.network.requester.store.StoreListRequester;
 import com.rightcode.wellcar.network.responser.event.EventListResponser;
 import com.rightcode.wellcar.network.responser.store.StoreListResponser;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AroundActivity extends BaseActivity {
-
+    public static Timer around_timer;
     @Event(AroundSelectEvent.class)
     public void onAroundSelectEvent(AroundSelectEvent event) {
         if (selectList.contains(event.getOptionTitle())) {
@@ -59,16 +58,22 @@ public class AroundActivity extends BaseActivity {
 
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         RxBus.unregister(this);
+        if(around_timer != null) {
+            around_timer.cancel();
+            around_timer = null;
+        }
     }
 
     //------------------------------------------------------------------------------------------
     // private
     //------------------------------------------------------------------------------------------
     private void initialize() {
+        around_timer = new Timer();
         mTopFragment = (TopFragment) FragmentUtil.findFragmentByTag(getSupportFragmentManager(), "TopFragment");
         mTopFragment.setText(TopFragment.Menu.CENTER, "내 주변업체");
         mTopFragment.setImagePadding(TopFragment.Menu.CENTER, 10);

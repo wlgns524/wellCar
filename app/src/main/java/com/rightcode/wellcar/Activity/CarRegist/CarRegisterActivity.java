@@ -5,10 +5,15 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.rightcode.wellcar.Activity.BaseActivity;
+import com.rightcode.wellcar.Activity.Login.LoginActivity;
+import com.rightcode.wellcar.Activity.Login.SignUpActivity;
+import com.rightcode.wellcar.Activity.Login.SignUpCompleteActivity;
 import com.rightcode.wellcar.Fragment.TopFragment;
 import com.rightcode.wellcar.MemberManager;
 import com.rightcode.wellcar.R;
@@ -16,6 +21,8 @@ import com.rightcode.wellcar.Util.FragmentUtil;
 import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.request.user.UserUpdate;
+import com.rightcode.wellcar.network.requester.notification.NotificationRegisterRequester;
+import com.rightcode.wellcar.network.requester.user.UserInfoRequester;
 import com.rightcode.wellcar.network.requester.user.UserUpdateRequester;
 import com.rightcode.wellcar.network.responser.user.UserInfoResponser;
 
@@ -26,6 +33,9 @@ import butterknife.OnClick;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_ACTION;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_COMPLETE;
 import static com.rightcode.wellcar.Util.ExtraData.EXTRA_CAR_REGIST;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_CAR_REGIST_ROOT;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_CHANGE_CAR;
+import static com.rightcode.wellcar.Util.ExtraData.EXTRA_SIGN_UP;
 
 public class CarRegisterActivity extends BaseActivity {
 
@@ -42,6 +52,7 @@ public class CarRegisterActivity extends BaseActivity {
     private String vehicle;
     private String year;
     private Integer carId;
+    private Integer rootType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,6 +104,11 @@ public class CarRegisterActivity extends BaseActivity {
                     break;
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        ToastUtil.show(getApplicationContext(),"뒤로 갈 수 없습니다.");
     }
 
     @OnClick({R.id.rl_car_register_brand, R.id.rl_car_register_vehicle, R.id.rl_car_register_year, R.id.tv_car_register})
@@ -148,17 +164,23 @@ public class CarRegisterActivity extends BaseActivity {
     // private
     //------------------------------------------------------------------------------------------
     private void initialize() {
+        if(getIntent() != null){
+            rootType = getIntent().getIntExtra(EXTRA_CAR_REGIST_ROOT, EXTRA_CHANGE_CAR);
+        } else {
+            rootType = EXTRA_CHANGE_CAR;
+        }
+
         mTopFragment = (TopFragment) FragmentUtil.findFragmentByTag(getSupportFragmentManager(), "TopFragment");
         mTopFragment.setText(TopFragment.Menu.CENTER, "차량 등록하기");
         mTopFragment.setImagePadding(TopFragment.Menu.CENTER, 10);
-        mTopFragment.setImage(TopFragment.Menu.LEFT, R.drawable.arrow_left);
-        mTopFragment.setImagePadding(TopFragment.Menu.LEFT, 5);
-        mTopFragment.setListener(TopFragment.Menu.LEFT, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        mTopFragment.setImage(TopFragment.Menu.LEFT, R.drawable.arrow_left);
+//        mTopFragment.setImagePadding(TopFragment.Menu.LEFT, 5);
+//        mTopFragment.setListener(TopFragment.Menu.LEFT, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
     }
 
     private void userUpdate() {
@@ -172,9 +194,13 @@ public class CarRegisterActivity extends BaseActivity {
                 success -> {
                     UserInfoResponser result = (UserInfoResponser) success;
                     if (result.getCode() == 200) {
-                        MemberManager.getInstance(CarRegisterActivity.this).updateLogInInfo(result.getUser());
-                        ToastUtil.show(CarRegisterActivity.this, "등록되었습니다");
-                        finishWithAnim();
+                        if(rootType == EXTRA_SIGN_UP) {
+                            userInfo();
+                        } else {
+                            MemberManager.getInstance(CarRegisterActivity.this).updateLogInInfo(result.getUser());
+                            ToastUtil.show(CarRegisterActivity.this, "등록되었습니다");
+                            finishWithAnim();
+                        }
                     } else {
                         showServerErrorDialog(result.getResultMsg());
                     }
@@ -183,5 +209,40 @@ public class CarRegisterActivity extends BaseActivity {
                     hideLoading();
                     showServerErrorDialog(fail.getResultMsg());
                 });
+    }
+
+    private void userInfo(){
+        UserInfoRequester userInfoRequester = new UserInfoRequester(CarRegisterActivity.this);
+
+        request(userInfoRequester,
+                success -> {
+                    UserInfoResponser result = (UserInfoResponser) success;
+                    if (result.getCode() == 200) {
+                        MemberManager.getInstance(CarRegisterActivity.this).updateLogInInfo(result.getUser());
+                        notificationRegister();
+                    } else {
+                        showServerErrorDialog(result.getResultMsg());
+                    }
+                    hideLoading();
+                }, fail -> {
+                    hideLoading();
+                    showServerErrorDialog(fail.getResultMsg());
+                });
+    }
+
+    private void notificationRegister() {
+        NotificationRegisterRequester notificationRegisterRequester = new NotificationRegisterRequester(CarRegisterActivity.this);
+        notificationRegisterRequester.setNotificationToken(FirebaseInstanceId.getInstance().getToken());
+
+        request(notificationRegisterRequester,
+                success -> {
+
+                }, fail -> {
+
+                });
+//        setResult(RESULT_OK);
+//        finishWithAnim();
+        Intent intent = new Intent(CarRegisterActivity.this, SignUpCompleteActivity.class);
+        startActivityForResult(intent, EXTRA_ACTIVITY_COMPLETE);
     }
 }

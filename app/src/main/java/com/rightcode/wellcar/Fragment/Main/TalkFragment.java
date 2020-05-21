@@ -85,7 +85,9 @@ public class TalkFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        subscription.unsubscribe();
+        if(subscription != null) {
+            subscription.unsubscribe();
+        }
     }
 
     @OnClick({R.id.tv_login})

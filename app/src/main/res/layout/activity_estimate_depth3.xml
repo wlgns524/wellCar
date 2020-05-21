@@ -90,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
+                android:visibility="gone"
                 app:piv_count="0"
                 app:piv_dynamicCount="true"
                 app:piv_interactiveAnimation="true"

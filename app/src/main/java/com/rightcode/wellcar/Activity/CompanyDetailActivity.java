@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.rightcode.wellcar.Activity.Estimate.DirectEstimateActivity;
+import com.rightcode.wellcar.Activity.Login.LoginActivity;
 import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.CompanyImageRecyclerViewAdapter;
 import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.StoreReviewRecyclerViewAdapter;
 import com.rightcode.wellcar.Component.SmallRatingStarLayout;
@@ -209,12 +210,18 @@ public class CompanyDetailActivity extends BaseActivity {
                 break;
             }
             case R.id.tv_company_estimate: {
-                Intent intent = new Intent(CompanyDetailActivity.this, DirectEstimateActivity.class);
-                EstimateRegister register = new EstimateRegister();
-                intent.putExtra(EXTRA_ESTIMATE_REGISTER, register);
-                intent.putExtra(EXTRA_COMPANY_ID, storeId);
-                startActivityForResult(intent, EXTRA_ACTIVITY_COMPLETE);
-                break;
+                if (MemberManager.getInstance(CompanyDetailActivity.this).isLogin()) {
+                    Intent intent = new Intent(CompanyDetailActivity.this, DirectEstimateActivity.class);
+                    EstimateRegister register = new EstimateRegister();
+                    intent.putExtra(EXTRA_ESTIMATE_REGISTER, register);
+                    intent.putExtra(EXTRA_COMPANY_ID, storeId);
+                    startActivityForResult(intent, EXTRA_ACTIVITY_COMPLETE);
+                    break;
+                } else {
+                    Intent intent = new Intent(CompanyDetailActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    break;
+                }
             }
         }
     }

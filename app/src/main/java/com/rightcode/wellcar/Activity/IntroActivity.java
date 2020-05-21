@@ -73,7 +73,7 @@ public class IntroActivity extends BaseActivity {
         request(versionRequester,
                 success -> {
                     VersionResponser result = (VersionResponser) success;
-                    if (CommonUtil.getVersionCode(IntroActivity.this) <= result.getVersion().getAndroid()) {
+                    if (CommonUtil.getVersionCode(IntroActivity.this) >= result.getVersion().getAndroid()) {
                         checkPermission();
                     } else {
                         final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object

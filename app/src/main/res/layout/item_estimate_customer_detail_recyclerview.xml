@@ -40,7 +40,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 tools:text="아이정비소" />
 
             <ImageView
@@ -49,7 +49,8 @@
                 android:layout_height="10dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="3dp"
-                android:layout_toRightOf="@+id/tv_company_name"
+                android:layout_toRightOf="@+id/iv_company_image"
+                android:layout_below="@+id/tv_company_name"
                 android:src="@drawable/ic_rating_star_fill_small" />
 
             <TextView
@@ -57,25 +58,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/iv_star"
+                android:layout_below="@id/tv_company_name"
                 android:text="3.5"
                 android:textColor="@color/black"
-                android:textSize="10sp" />
+                android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/tv_company_introduction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_company_name"
+                android:layout_below="@+id/iv_star"
                 android:layout_toRightOf="@+id/iv_company_image"
                 android:textColor="@color/text_gray"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 tools:text="서울 특별시 강동구 픽업  딜리버리 가능" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_company_image"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -86,7 +88,7 @@
                     android:maxLines="1"
                     android:text="최근 후기"
                     android:textColor="@color/text_gray"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/tv_company_review_count"
@@ -97,7 +99,7 @@
                     android:maxLines="1"
                     android:text="3"
                     android:textColor="@color/app_color"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -107,7 +109,7 @@
                     android:maxLines="1"
                     android:text="개"
                     android:textColor="@color/text_gray"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -117,7 +119,7 @@
                     android:maxLines="1"
                     android:text="수리 사례"
                     android:textColor="@color/text_gray"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/tv_company_order_count"
@@ -128,7 +130,7 @@
                     android:maxLines="1"
                     android:text="9"
                     android:textColor="@color/app_color"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -137,7 +139,7 @@
                     android:maxLines="1"
                     android:text="건"
                     android:textColor="@color/text_gray"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -147,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="20dp"
             tools:text="₩1,350,000" />
     </LinearLayout>
 

@@ -5,6 +5,8 @@ public class ExtraData {
     public static final int EXTRA_ACTIVITY_COMPLETE = 9999;
     public static final int EXTRA_ACTIVITY_ACTION = 9998;
     public static final int REQUEST_CODE_GALLERY = 9997;
+    public static final int EXTRA_SIGN_UP = 101;
+    public static final int EXTRA_CHANGE_CAR = 102;
 
     public static final String EXTRA_IMAGE = "EXTRA_IMAGE";
     public static final String EXTRA_IMAGE_COUNT = "EXTRA_IMAGE_COUNT";
@@ -51,6 +53,9 @@ public class ExtraData {
     public static final String EXTRA_BRAND_ID = "EXTRA_BRAND_ID";
     public static final String EXTRA_TICKET_HISTORY_ID = "EXTRA_TICKET_HISTORY_ID";
     public static final String EXTRA_REVIEW_IS_MINE = "EXTRA_REVIEW_IS_MINE";
+
+    public static final String EXTRA_CAR_REGIST_ROOT = "EXTRA_CAR_REGIST_ROOT";
+
 
 }
 

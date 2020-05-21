@@ -1,7 +1,7 @@
 package com.rightcode.wellcar.Adapter.ViewHolder;
 
-import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.fragment.app.FragmentManager;
@@ -17,15 +17,16 @@ import com.rightcode.wellcar.Component.RecyclerViewOnClickListener;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.RxJava.RxBus;
 import com.rightcode.wellcar.RxJava.RxEvent.AroundSelectEvent;
-import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.network.model.response.event.Event;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lombok.Setter;
+
+import static com.rightcode.wellcar.Activity.AroundActivity.around_timer;
 
 
 public class AroundHeaderViewHolder extends CommonRecyclerViewHolder implements ViewPager.OnPageChangeListener {
@@ -40,6 +41,8 @@ public class AroundHeaderViewHolder extends CommonRecyclerViewHolder implements 
     private Context mContext;
     private HomeBannerViewPagerAdapter mHomeBannerViewPagerAdapter;
     private AroundHeaderRecyclerViewAdapter mAroundHeaderRecyclerViewAdapter;
+    private int currentPage;
+
 
     private ArrayList<String> data = new ArrayList<String>(
             Arrays.asList("썬팅", "블랙박스", "타이어", "유리막", "언더코팅", "튜닝", "셀프세차", "ppf"));
@@ -76,10 +79,34 @@ public class AroundHeaderViewHolder extends CommonRecyclerViewHolder implements 
         cv_banner.addOnPageChangeListener(this);
     }
 
+    private void autoScrollViewPager() {
+        Handler handler = new Handler();
+        currentPage = cv_banner.getCurrentItem();
+        Runnable Update = new Runnable() {
+            @Override
+            public void run() {
+                cv_banner.setCurrentItem(currentPage,true);
+                currentPage += 1;
+
+                if(currentPage >= mHomeBannerViewPagerAdapter.getCount()){
+                    currentPage = 0;
+                }
+            }
+        };
+
+        around_timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 2000, 2000);
+    }
+
     public void setEventData(ArrayList<Event> eventData) {
-        pageindicator.setCount(eventData.size());
+//        pageindicator.setCount(eventData.size());
         mHomeBannerViewPagerAdapter.setData(eventData);
         mHomeBannerViewPagerAdapter.notifyDataSetChanged();
+        autoScrollViewPager();
     }
 
     @Override

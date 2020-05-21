@@ -51,8 +51,13 @@
                     android:paddingBottom="5dp"
                     tools:text="디엠모터스"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
@@ -65,7 +70,7 @@
                     android:layout_height="wrap_content"
                     tools:text="5.0"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -81,7 +86,7 @@
                     android:maxLines="1"
                     android:text="최근 후기"
                     android:textColor="@color/text_gray"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:id="@+id/tv_company_review_count"
@@ -92,7 +97,7 @@
                     android:maxLines="1"
                     android:text="3"
                     android:textColor="@color/app_color"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -102,7 +107,7 @@
                     android:maxLines="1"
                     android:text="개"
                     android:textColor="@color/text_gray"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -112,7 +117,7 @@
                     android:maxLines="1"
                     android:text="수리 사례"
                     android:textColor="@color/text_gray"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:id="@+id/tv_company_order_count"
@@ -123,7 +128,7 @@
                     android:maxLines="1"
                     android:text="9"
                     android:textColor="@color/app_color"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -132,7 +137,7 @@
                     android:maxLines="1"
                     android:text="건"
                     android:textColor="@color/text_gray"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
             </LinearLayout>
 
             <TextView
@@ -141,10 +146,11 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:maxLines="2"
                 android:ellipsize="end"
                 android:text="서울 특별시 강동구 픽업 \u0026 딜리버리 가능"
                 android:textColor="@color/text_gray"
-                android:textSize="10sp" />
+                android:textSize="10dp" />
 
             <TextView
                 android:layout_width="match_parent"

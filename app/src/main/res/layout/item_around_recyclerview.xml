@@ -53,8 +53,12 @@
                     android:paddingBottom="5dp"
                     android:text="디엠모터스"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
-
+                    android:textSize="14dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
@@ -67,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:text="5.0"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -85,7 +89,7 @@
                     android:maxLines="1"
                     android:text="최근 후기"
                     android:textColor="@color/text_gray"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/tv_company_review_count"
@@ -97,7 +101,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textColor="@color/app_color"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -107,7 +111,7 @@
                     android:maxLines="1"
                     android:text="개"
                     android:textColor="@color/text_gray"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
 
             </LinearLayout>
 
@@ -117,11 +121,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:ellipsize="end"
                 tools:text="서울 특별시 강동구 픽업 \u0026 딜리버리 가능\nafsdadfsdfasafsdadfsafdsafdsafdsafafdsafdsafdsfadsasd"
                 android:textColor="@color/text_gray"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
 
             <LinearLayout
@@ -144,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_gray"
                     android:singleLine="true"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     tools:text="2km" />
 
             </LinearLayout>

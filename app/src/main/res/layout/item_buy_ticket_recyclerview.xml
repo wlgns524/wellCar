@@ -21,7 +21,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="14dp"
             tools:text="2020.03.20" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:textColor="@color/red"
-            android:textSize="14sp"
+            android:textSize="14dp"
             tools:text="-1개 사용" />
 
         <TextView
@@ -45,7 +45,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="14dp"
             tools:text="스팀닥터" />
 
     </LinearLayout>

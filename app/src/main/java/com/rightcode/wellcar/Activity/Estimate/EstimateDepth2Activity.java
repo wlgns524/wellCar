@@ -487,7 +487,7 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
     }
 
     private void selectListRefresh() {
-        ArrayList<String> overlapList = new ArrayList();
+        ArrayList<String> overlapList = new ArrayList<>();
         int size = 0;
         //중복 제거 반복문
         for (Item item : values) {

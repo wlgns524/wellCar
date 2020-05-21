@@ -63,6 +63,14 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(MemberManager.getInstance(LoginActivity.this).isLogin()){
+            finishWithAnim();
+        }
+    }
+
     //------------------------------------------------------------------------------------------
     // OnClick
     //------------------------------------------------------------------------------------------

@@ -2,6 +2,7 @@ package com.rightcode.wellcar.Activity.Estimate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +25,9 @@ import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.request.estimate.EstimateRegister;
 import com.rightcode.wellcar.network.requester.event.EventListRequester;
 import com.rightcode.wellcar.network.responser.event.EventListResponser;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +61,9 @@ public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnIt
     private SpinnerAdapter guSpinnerAdapter;
     private HomeBannerViewPagerAdapter mHomeBannerViewPagerAdapter;
 
+    private int currentPage;
+    private Timer timer;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,6 +73,21 @@ public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnIt
         ButterKnife.bind(this);
         initialize();
         eventList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        autoScrollViewPager();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(timer != null){
+            timer.cancel();
+            timer = null;
+        }
     }
 
     //------------------------------------------------------------------------------------------
@@ -272,7 +294,7 @@ public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnIt
                 success -> {
                     EventListResponser result = (EventListResponser) success;
                     if (result.getCode() == 200) {
-                        pageindicator.setCount(result.getList().size());
+//                        pageindicator.setCount(result.getList().size());
                         mHomeBannerViewPagerAdapter.setData(result.getList());
                         mHomeBannerViewPagerAdapter.notifyDataSetChanged();
                     } else {
@@ -283,5 +305,29 @@ public class EstimateDepth1Activity extends BaseActivity implements Spinner.OnIt
                     hideLoading();
                     showServerErrorDialog(fail.getResultMsg());
                 });
+    }
+
+    private void autoScrollViewPager() {
+        Handler handler = new Handler();
+        currentPage = cv_event.getCurrentItem();
+        Runnable Update = new Runnable() {
+            @Override
+            public void run() {
+                cv_event.setCurrentItem(currentPage,true);
+                currentPage += 1;
+
+                if(currentPage >= mHomeBannerViewPagerAdapter.getCount()){
+                    currentPage = 0;
+                }
+            }
+        };
+
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 2000, 2000);
     }
 }
