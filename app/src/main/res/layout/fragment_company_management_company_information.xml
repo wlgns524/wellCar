@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/tv_thumnail_delete"
+                    android:layout_alignParentRight="true"
                     android:background="@drawable/fdae0c_border_fdae0c_background_corner_5"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
@@ -140,7 +140,7 @@
                     android:paddingBottom="5dp"
                     android:text="첨부"
                     android:textColor="@color/white" />
-
+                <!--
                 <TextView
                     android:id="@+id/tv_thumnail_delete"
                     android:layout_width="wrap_content"
@@ -153,6 +153,8 @@
                     android:paddingBottom="5dp"
                     android:text="삭제"
                     android:textColor="@color/white" />
+                    -->
+
             </RelativeLayout>
 
             <ImageView

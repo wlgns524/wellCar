@@ -124,7 +124,7 @@ public class CompanyManagementCompanyInformationFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.ll_address, R.id.tv_thumnail_attach, R.id.tv_thumnail_delete, R.id.tv_company_information_modify})
+    @OnClick({R.id.ll_address, R.id.tv_thumnail_attach, /*R.id.tv_thumnail_delete,*/ R.id.tv_company_information_modify})
     void onClickMenu(View view) {
         switch (view.getId()) {
             case R.id.ll_address: {
@@ -136,13 +136,14 @@ public class CompanyManagementCompanyInformationFragment extends BaseFragment {
                 checkPermission();
                 break;
             }
+            /*
             case R.id.tv_thumnail_delete: {
                 if (selectedPhotos != null)
                     selectedPhotos.clear();
                 iv_thumbnail_image.setImageResource(android.R.color.transparent);
                 iv_thumbnail_image.setVisibility(View.GONE);
                 break;
-            }
+            }*/
             case R.id.tv_company_information_modify: {
                 if (TextUtils.isEmpty(et_company_name.getText().toString())) {
                     ToastUtil.show(getContext(), "상호명을 입력해주세요");
