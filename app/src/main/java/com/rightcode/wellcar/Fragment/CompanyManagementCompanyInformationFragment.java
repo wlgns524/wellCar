@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -19,14 +20,11 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.rightcode.wellcar.Activity.CustomGalleryActivity;
 import com.rightcode.wellcar.Activity.Login.AddressWebActivitiy;
-import com.rightcode.wellcar.Activity.MainActivity;
 import com.rightcode.wellcar.MemberManager;
 import com.rightcode.wellcar.R;
-import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.CommonResult;
 import com.rightcode.wellcar.network.model.request.user.UserStoreUpdate;
-import com.rightcode.wellcar.network.model.response.user.UserCompany;
 import com.rightcode.wellcar.network.model.response.user.UserStore;
 import com.rightcode.wellcar.network.requester.store.StoreThumbnailRegisterRequester;
 import com.rightcode.wellcar.network.requester.user.UserInfoRequester;
@@ -61,6 +59,8 @@ public class CompanyManagementCompanyInformationFragment extends BaseFragment {
     ImageView iv_thumbnail_image;
     @BindView(R.id.et_opens)
     EditText et_opens;
+    @BindView(R.id.et_company_introduction_detail)
+    EditText etCompanyIntroductionDetail;
 
     private View root;
     private ArrayList<String> selectedPhotos;
@@ -181,6 +181,7 @@ public class CompanyManagementCompanyInformationFragment extends BaseFragment {
         et_address_detail.setText(userStore.getAddressDetail());
         et_company_introduction.setText(userStore.getIntroduction());
         et_opens.setText(userStore.getOpens());
+        etCompanyIntroductionDetail.setText(userStore.getContent());
         Glide.with(getContext()).load(userStore.getThumbnail() != null ? userStore.getThumbnail().getName() : "")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
@@ -224,6 +225,7 @@ public class CompanyManagementCompanyInformationFragment extends BaseFragment {
         param.setAddressDetail(et_address_detail.getText().toString());
         param.setIntroduction(et_company_introduction.getText().toString());
         param.setOpens(et_opens.getText().toString());
+        param.setContent(etCompanyIntroductionDetail.getText().toString());
 
         userStoreUpdateRequester.setParam(param);
         request(userStoreUpdateRequester,

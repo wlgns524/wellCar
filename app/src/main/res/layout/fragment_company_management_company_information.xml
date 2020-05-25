@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="소개글"
+                android:text="한줄 소개글"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
@@ -110,6 +110,32 @@
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="상세 소개글"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:clipToPadding="false"
+                android:background="@drawable/space_border_white_corner_5"
+                android:layout_marginBottom="5dp">
+                <EditText
+                    android:id="@+id/et_company_introduction_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:padding="10dp"
+                    android:hint="링크 및 이동주소등 입력은 불가합니다. 자동삭제됩니다."
+                    android:textColor="@color/black"
+                    android:background="@null"
+                    android:textSize="12sp"
+                    android:gravity="start"/>
+            </androidx.core.widget.NestedScrollView>
 
             <RelativeLayout
                 android:layout_width="match_parent"

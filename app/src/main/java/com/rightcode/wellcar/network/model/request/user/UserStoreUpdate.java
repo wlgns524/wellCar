@@ -23,4 +23,7 @@ public class UserStoreUpdate {
     @JsonField
     @Setter
     String opens;
+    @JsonField
+    @Setter
+    String content;
 }

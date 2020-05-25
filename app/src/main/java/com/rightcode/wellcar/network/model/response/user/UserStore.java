@@ -28,4 +28,6 @@ public class UserStore {
     String position;
     @JsonField
     Image thumbnail;
+    @JsonField
+    String content;
 }
