@@ -28,6 +28,7 @@ import com.rightcode.wellcar.network.responser.estimate.EstimateStoreListRespons
 import com.rightcode.wellcar.network.responser.event.EventDetailResponser;
 import com.rightcode.wellcar.network.responser.event.EventListResponser;
 import com.rightcode.wellcar.network.responser.item.ItemListResponser;
+import com.rightcode.wellcar.network.responser.item.ItemsPriceResponser;
 import com.rightcode.wellcar.network.responser.itemBrand.ItemBrandListResponser;
 import com.rightcode.wellcar.network.responser.notice.NoticeDetailResponser;
 import com.rightcode.wellcar.network.responser.notice.NoticeListResponser;
@@ -171,6 +172,11 @@ public interface LegacyNetworkApi {
 
     );
 
+    @GET("/item/price")
+    Call<ItemsPriceResponser> itemPrice(
+            @Query("id") Integer id
+    );
+
 
     //----------------------------------------------------------------------------------------------
     // itemBrand
@@ -243,7 +249,7 @@ public interface LegacyNetworkApi {
     // estimateStore
     //----------------------------------------------------------------------------------------------
 
-    @GET("/estimateStore/list")
+    @GET("v2/estimateStore/list")
     Call<EstimateStoreListResponser> estimateStoreList(
     );
 

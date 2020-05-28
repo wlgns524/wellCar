@@ -108,8 +108,8 @@ public class UserFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.tv_change_car, R.id.rl_company_user, R.id.rl_customer_user, R.id.rl_company_buy, R.id.rl_customer_buy, R.id.rl_company_review,
-            R.id.rl_customer_review, R.id.rl_company_estimate_customer, R.id.rl_customer_estimate_customer, R.id.rl_company_car_clean, R.id.rl_customer_car_clean,
+    @OnClick({R.id.tv_change_car, R.id.rl_company_user, R.id.rl_customer_user,  R.id.rl_customer_buy, R.id.rl_company_review,
+            R.id.rl_customer_review,  R.id.rl_customer_estimate_customer,  R.id.rl_customer_car_clean,
             R.id.rl_company_notice, R.id.rl_basic_notice, R.id.rl_customer_notice, R.id.rl_company_inquiry, R.id.rl_basic_inquiry, R.id.rl_customer_inquiry,
             R.id.rl_company_notification, R.id.rl_basic_notification, R.id.rl_customer_notification, R.id.rl_company_company, R.id.rl_company_car_wash,
             R.id.tv_logout, R.id.layout_unregist_car})
@@ -124,7 +124,6 @@ public class UserFragment extends BaseFragment {
                 intent = new Intent(getContext(), UserActivity.class);
                 break;
             }
-            case R.id.rl_company_buy:
             case R.id.rl_customer_buy: {
                 intent = new Intent(getContext(), BuyActivity.class);
                 break;
@@ -134,12 +133,10 @@ public class UserFragment extends BaseFragment {
                 intent = new Intent(getContext(), ReviewManagementActivity.class);
                 break;
             }
-            case R.id.rl_company_estimate_customer:
             case R.id.rl_customer_estimate_customer: {
                 intent = new Intent(getContext(), EstimateCustomerActivity.class);
                 break;
             }
-            case R.id.rl_company_car_clean:
             case R.id.rl_customer_car_clean: {
                 intent = new Intent(getContext(), CarCleanActivity.class);
                 break;

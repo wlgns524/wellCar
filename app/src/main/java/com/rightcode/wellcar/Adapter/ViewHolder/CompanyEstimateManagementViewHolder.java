@@ -19,7 +19,9 @@ import com.rightcode.wellcar.RxJava.RxBus;
 import com.rightcode.wellcar.RxJava.RxEvent.MoveTalkEvent;
 import com.rightcode.wellcar.Util.DataEnums;
 import com.rightcode.wellcar.Util.MoneyHelper;
+import com.rightcode.wellcar.network.model.response.estimate.Estimate;
 import com.rightcode.wellcar.network.model.response.estimate.EstimateStore;
+import com.rightcode.wellcar.network.model.response.estimate.EstimateStoreItem;
 import com.rightcode.wellcar.network.model.response.estimateStore.EstimateStoreList;
 
 import butterknife.BindView;
@@ -83,7 +85,7 @@ public class CompanyEstimateManagementViewHolder extends CommonRecyclerViewHolde
         tv_car_brand_name.setText(data.getCarName());
         tv_car_year.setText(data.getCarModelYear());
         tv_user_name.setText(data.getUserName());
-        tv_items.setText(data.getItems());
+        tv_items.setText(data.getItems().get(0).getName());
         tv_created.setText(data.getCreatedAt());
         tv_request.setText(data.getRequest());
         if (data.getPrice() != null) {
@@ -99,7 +101,7 @@ public class CompanyEstimateManagementViewHolder extends CommonRecyclerViewHolde
     @Override
     public void onClick(View v) {
         if (data.getPrice() == null) {
-            EstimateInputDialog dialog = new EstimateInputDialog(mContext, data.getId());
+            EstimateInputDialog dialog = new EstimateInputDialog(mContext, data.getId(), data.getItems().get(0).getId());
             dialog.show();
         } else {
             CommonDialog commonDialog = new CommonDialog(mContext);

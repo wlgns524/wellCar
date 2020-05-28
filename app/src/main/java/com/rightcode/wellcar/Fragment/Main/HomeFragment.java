@@ -35,6 +35,7 @@ import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.DataEnums;
 import com.rightcode.wellcar.Util.FragmentUtil;
 import com.rightcode.wellcar.Util.Log;
+import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.request.auth.Login;
 import com.rightcode.wellcar.network.model.response.car.Car;
 import com.rightcode.wellcar.network.model.response.user.UserInfo;
@@ -158,6 +159,10 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
             }
             case R.id.rl_estimate: {
                 if (MemberManager.getInstance(getContext()).isLogin()) {
+                    if(MemberManager.getInstance(getContext()).getUserInfo().getRole().toString().equals("업체")){
+                        ToastUtil.show(getContext(), "이용하실 수 없습니다.");
+                        break;
+                    }
                     Intent intent = new Intent(getContext(), EstimateDepth1Activity.class);
                     startActivity(intent);
                 } else {
@@ -173,6 +178,10 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
             }
             case R.id.rl_car_wash: {
                 if(MemberManager.getInstance(getContext()).isLogin()){
+                    if(MemberManager.getInstance(getContext()).getUserInfo().getRole().toString().equals("업체")){
+                        ToastUtil.show(getContext(), "이용하실 수 없습니다.");
+                        break;
+                    }
                     Intent intent = new Intent(getContext(), CarWashActivity.class);
                     startActivity(intent);
                 } else {

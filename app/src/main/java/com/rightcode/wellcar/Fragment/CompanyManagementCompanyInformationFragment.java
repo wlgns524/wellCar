@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -60,7 +59,7 @@ public class CompanyManagementCompanyInformationFragment extends BaseFragment {
     @BindView(R.id.et_opens)
     EditText et_opens;
     @BindView(R.id.et_company_introduction_detail)
-    EditText etCompanyIntroductionDetail;
+    EditText et_company_introduction_detail;
 
     private View root;
     private ArrayList<String> selectedPhotos;
@@ -181,7 +180,7 @@ public class CompanyManagementCompanyInformationFragment extends BaseFragment {
         et_address_detail.setText(userStore.getAddressDetail());
         et_company_introduction.setText(userStore.getIntroduction());
         et_opens.setText(userStore.getOpens());
-        etCompanyIntroductionDetail.setText(userStore.getContent());
+        et_company_introduction_detail.setText(userStore.getContent());
         Glide.with(getContext()).load(userStore.getThumbnail() != null ? userStore.getThumbnail().getName() : "")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
@@ -225,7 +224,7 @@ public class CompanyManagementCompanyInformationFragment extends BaseFragment {
         param.setAddressDetail(et_address_detail.getText().toString());
         param.setIntroduction(et_company_introduction.getText().toString());
         param.setOpens(et_opens.getText().toString());
-        param.setContent(etCompanyIntroductionDetail.getText().toString());
+        param.setContent(et_company_introduction_detail.getText().toString());
 
         userStoreUpdateRequester.setParam(param);
         request(userStoreUpdateRequester,

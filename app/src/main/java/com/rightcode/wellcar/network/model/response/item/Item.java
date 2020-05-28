@@ -69,6 +69,10 @@ public class Item implements Parcelable {
                 return DataEnums.ItemDiffType.TUNING;
             case "타이어":
                 return DataEnums.ItemDiffType.TIRE;
+            case "가성비 패키지":
+                return DataEnums.ItemDiffType.COST_PACKAGE;
+            case "프리미엄 패키지":
+                return DataEnums.ItemDiffType.PREMIUM_PACKAGE;
         }
         return null;
     }

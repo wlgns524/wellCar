@@ -22,6 +22,9 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/tv_estimate"
         android:layout_below="@+id/top_fragment"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="1dp"
         android:layout_marginBottom="20dp">
 
         <LinearLayout
@@ -129,6 +132,38 @@
                     tools:text="썬팅(레이노 s9) + 블랙박스(아이나비) + 유리막" />
             </LinearLayout>
 
+            <RelativeLayout
+                android:id="@+id/rl_cost_package_kind"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/space_border_white_corner_5">
+
+                <Spinner
+                    android:id="@+id/sn_cost_package_kind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@null"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    tools:listitem="@layout/item_spinner" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/arrow_down_fill" />
+
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:id="@+id/ll_premium"
@@ -154,6 +189,38 @@
                     android:textSize="12sp"
                     tools:text="썬팅(레인보우 v90) + 블랙박스(아이나비) + 유리막 + 언더코팅" />
             </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/rl_premium_package_kind"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/space_border_white_corner_5">
+
+                <Spinner
+                    android:id="@+id/sn_premium_package_kind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@null"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    tools:listitem="@layout/item_spinner" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/arrow_down_fill" />
+
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:id="@+id/ll_sunblock"

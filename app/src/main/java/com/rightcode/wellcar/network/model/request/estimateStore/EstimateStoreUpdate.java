@@ -17,4 +17,8 @@ public class EstimateStoreUpdate implements Serializable {
     @Setter
     Integer price;
 
+    @JsonField
+    @Setter
+    String content;
+
 }

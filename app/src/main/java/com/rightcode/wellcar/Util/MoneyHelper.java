@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 public final class MoneyHelper
 
 {
-    private static DecimalFormat dfKor = new DecimalFormat("###,###");
+    public static DecimalFormat dfKor = new DecimalFormat("###,###");
     private static DecimalFormat dfUs = new DecimalFormat("###,##0.00");
     public static String getKor(int paramInt)
     {

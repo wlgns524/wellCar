@@ -113,6 +113,10 @@ public class BaseDialog extends Dialog {
 
 
     protected void request(CommonApiRequester requester, Action1<? super CommonResult> successAction, Action1<? super CommonResult> failAction) {
+        if(networkBridge == null) {
+            networkBridge = new NetworkBridge();
+        }
+
         if (networkBridge != null) {
             networkBridge.request(requester, successAction, failAction);
         } else {

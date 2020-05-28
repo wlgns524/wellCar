@@ -2,6 +2,9 @@ package com.rightcode.wellcar.network.model.response.estimateStore;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
+import com.rightcode.wellcar.network.model.response.estimate.EstimateStoreItem;
+
+import java.util.ArrayList;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +27,7 @@ public class EstimateStoreList {
     @JsonField
     String carImageName;
     @JsonField
-    String items;
+    ArrayList<EstimateStoreItem> items;
     @JsonField
     Integer price;
     @JsonField

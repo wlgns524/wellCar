@@ -74,7 +74,7 @@ public class TalkCompanyViewHolder extends CommonRecyclerViewHolder implements V
                 .centerCrop()
                 .apply(RequestOptions.circleCropTransform())
                 .into(iv_company_image);
-        tv_uesr_nickname.setText(data.getStoreName());
+        tv_uesr_nickname.setText(data.getUserName());
         tv_talk_date.setText(data.getCreatedAt());
         tv_chats.setText(data.getContent());
         if (data.getViewCount() > 0) {
@@ -83,7 +83,11 @@ public class TalkCompanyViewHolder extends CommonRecyclerViewHolder implements V
         } else {
             tv_talk_count.setVisibility(View.GONE);
         }
-        tv_estimate_price.setText(MoneyHelper.getUsaUnit(data.getPrice()));
+        if(data.getPrice() != null) {
+            tv_estimate_price.setText(MoneyHelper.getUsaUnit(data.getPrice()));
+        } else {
+            tv_estimate_price.setText(MoneyHelper.getUsaUnit(0));
+        }
         initItemLayout(data.getItems());
         if (data.getRequest() != null) {
             tv_request.setText(data.getRequest());

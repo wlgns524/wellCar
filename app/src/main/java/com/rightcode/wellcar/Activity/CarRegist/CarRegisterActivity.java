@@ -108,7 +108,11 @@ public class CarRegisterActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        ToastUtil.show(getApplicationContext(),"뒤로 갈 수 없습니다.");
+        if(rootType == EXTRA_SIGN_UP) {
+            ToastUtil.show(getApplicationContext(), "뒤로 갈 수 없습니다.");
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @OnClick({R.id.rl_car_register_brand, R.id.rl_car_register_vehicle, R.id.rl_car_register_year, R.id.tv_car_register})

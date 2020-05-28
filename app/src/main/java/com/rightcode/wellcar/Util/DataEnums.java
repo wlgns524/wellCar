@@ -113,6 +113,8 @@ public class DataEnums {
         PPF("ppf"),
         TUNING("튜닝"),
         TIRE("타이어"),
+        COST_PACKAGE("가성비 패키지"),
+        PREMIUM_PACKAGE("프리미엄 패키지"),
         PACKAGE("패키지");
 
         private String type;

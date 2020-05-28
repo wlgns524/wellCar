@@ -82,7 +82,11 @@ public class TalkCustomerViewHolder extends CommonRecyclerViewHolder implements 
         } else {
             tv_talk_count.setVisibility(View.GONE);
         }
-        tv_estimate_price.setText(MoneyHelper.getUsaUnit(data.getPrice()));
+        if(data.getPrice() != null) {
+            tv_estimate_price.setText(MoneyHelper.getUsaUnit(data.getPrice()));
+        } else {
+            tv_estimate_price.setText(MoneyHelper.getUsaUnit(0));
+        }
         initItemLayout(data.getItems());
         if (data.getRequest() != null) {
             tv_request.setText(data.getRequest());

@@ -43,6 +43,8 @@ public class EstimateCustomerDetailViewHolder extends CommonRecyclerViewHolder i
     TextView tv_estimate_price;
     @BindView(R.id.view_is_payment)
     View view_is_payment;
+    @BindView(R.id.tv_message)
+    TextView tv_message;
 
     private Context mContext;
     private EstimateStore data;
@@ -68,6 +70,7 @@ public class EstimateCustomerDetailViewHolder extends CommonRecyclerViewHolder i
         tv_company_introduction.setText(data.getStores().get(getAdapterPosition()).getIntroduction());
         tv_company_review_count.setText(data.getStores().get(getAdapterPosition()).getReviewCount().toString());
         tv_company_order_count.setText(data.getStores().get(getAdapterPosition()).getOrderCount().toString());
+        tv_message.setText(data.getStores().get(getAdapterPosition()).getContent());
 
         if (data.getStores().get(getAdapterPosition()).getIsPayment()) {
             view_is_payment.setVisibility(View.VISIBLE);

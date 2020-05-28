@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,14 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rightcode.wellcar.Adapter.ViewHolder.CommonRecyclerViewHolder;
 import com.rightcode.wellcar.Adapter.ViewHolder.EstimateCustomerDetailViewHolder;
 import com.rightcode.wellcar.R;
-import com.rightcode.wellcar.network.model.response.estimate.EstimateDetail;
 import com.rightcode.wellcar.network.model.response.estimate.EstimateStore;
 
-import java.util.ArrayList;
-
+import butterknife.BindView;
 import lombok.Setter;
 
 public class EstimateCustomerDetailRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecyclerViewHolder> {
+
     private Context mContext;
 
     @Setter

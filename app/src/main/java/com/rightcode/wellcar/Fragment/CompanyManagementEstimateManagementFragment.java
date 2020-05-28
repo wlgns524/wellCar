@@ -27,7 +27,7 @@ public class CompanyManagementEstimateManagementFragment extends BaseFragment {
 
     @Event(EstimateUpdateEvent.class)
     public void onEstimateUpdateEvent(EstimateUpdateEvent event) {
-        estimateStoreUpdate(event.getId(), event.getPrice());
+        estimateStoreUpdate(event.getId(), event.getPrice(), event.getContent());
     }
 
     @BindView(R.id.rv_company_management_estimate_management)
@@ -101,12 +101,13 @@ public class CompanyManagementEstimateManagementFragment extends BaseFragment {
                 });
     }
 
-    private void estimateStoreUpdate(Integer id, Integer price) {
+    private void estimateStoreUpdate(Integer id, Integer price, String content) {
         showLoading();
         EstimateStoreUpdateRequester estimateStoreUpdateRequester = new EstimateStoreUpdateRequester(getContext());
         estimateStoreUpdateRequester.setId(id);
         EstimateStoreUpdate param = new EstimateStoreUpdate();
         param.setPrice(price);
+        param.setContent(content);
         estimateStoreUpdateRequester.setParam(param);
 
         request(estimateStoreUpdateRequester,
