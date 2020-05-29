@@ -53,8 +53,6 @@ public class EstimateInputDialog extends BaseDialog {
         ButterKnife.bind(this);
         itemPrice();
 
-        et_estimate_price.addTextChangedListener(new NumberTextWatcher(et_estimate_price, tv_estimate_total_price, filmPrice));
-
     }
 
     @OnClick({R.id.tv_dialog_yes, R.id.tv_dialog_no})
@@ -98,11 +96,13 @@ public class EstimateInputDialog extends BaseDialog {
                 if (result.getData().getPrice() == null) {
                     llFilm.setVisibility(View.GONE);
                     tv_estimate_price.setText("견적 구성금액");
+                    et_estimate_price.addTextChangedListener(new NumberTextWatcher(et_estimate_price, tv_estimate_total_price, filmPrice));
                 } else {
                     llFilm.setVisibility(View.VISIBLE);
                     tv_estimate_price.setText("나머지 추가 구성금액");
                     filmPrice = result.getData().getPrice();
                     tvFilm.setText(MoneyHelper.getKor(filmPrice) + "원");
+                    et_estimate_price.addTextChangedListener(new NumberTextWatcher(et_estimate_price, tv_estimate_total_price, filmPrice));
                 }
             } else {
                 ToastUtil.show(mContext, "데이터를 불러오지 못했습니다.");

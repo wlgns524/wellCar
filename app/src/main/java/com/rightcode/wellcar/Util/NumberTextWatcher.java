@@ -21,6 +21,7 @@ public class NumberTextWatcher implements TextWatcher {
         this.tv = tv;
         this.price = price;
         format = new DecimalFormat("###,###");
+        Log.d(price);
     }
 
     @Override
@@ -45,6 +46,7 @@ public class NumberTextWatcher implements TextWatcher {
             Number n = format.parse(v);
             int cp = et.getSelectionStart();
             long price = this.price + (long)n;
+
             et.setText(format.format(n));
             tv.setText(format.format(price));
             endlen = et.getText().toString().length();
@@ -58,6 +60,7 @@ public class NumberTextWatcher implements TextWatcher {
 
         } catch (ParseException e){
             Log.e(e.getMessage());
+            tv.setText(format.format(price));
         }
 
         et.addTextChangedListener(this);
