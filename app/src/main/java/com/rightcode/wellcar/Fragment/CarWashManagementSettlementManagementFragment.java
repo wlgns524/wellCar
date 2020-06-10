@@ -1,6 +1,5 @@
 package com.rightcode.wellcar.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,16 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.CarWashManagementSettlementManagementRecyclerViewAdapter;
-import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.EstimateCustomerItemRecyclerViewAdapter;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.DateUtil;
-import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.MoneyHelper;
 import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.response.accountCompany.AccountCompanyData;
@@ -28,9 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.app.Activity.RESULT_OK;
-import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_ACTION;
-
 public class CarWashManagementSettlementManagementFragment extends BaseFragment {
 
     @BindView(R.id.tv_all)
@@ -39,9 +32,9 @@ public class CarWashManagementSettlementManagementFragment extends BaseFragment 
     TextView tv_exchange;
     @BindView(R.id.tv_ticket)
     TextView tv_ticket;
-    @BindView(R.id.et_start_date)
+    @BindView(R.id.tv_start_date)
     EditText et_start_date;
-    @BindView(R.id.et_end_date)
+    @BindView(R.id.tv_end_date)
     EditText et_end_date;
     @BindView(R.id.tv_sales_price)
     TextView tv_sales_price;

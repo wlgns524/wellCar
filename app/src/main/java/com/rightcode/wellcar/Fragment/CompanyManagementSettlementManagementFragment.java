@@ -1,33 +1,31 @@
 package com.rightcode.wellcar.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rightcode.wellcar.Adapter.RecyclerViewAdapter.CarWashManagementSettlementManagementRecyclerViewAdapter;
+import com.rightcode.wellcar.Dialog.DatePickerDialog;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.DateUtil;
-import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.MoneyHelper;
 import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.response.accountCompany.AccountCompanyData;
 import com.rightcode.wellcar.network.requester.accountCompany.SettlementListRequester;
 import com.rightcode.wellcar.network.responser.accountCompany.SettlementListResponser;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.app.Activity.RESULT_OK;
-import static com.rightcode.wellcar.Util.ExtraData.EXTRA_ACTIVITY_ACTION;
 
 public class CompanyManagementSettlementManagementFragment extends BaseFragment {
 
@@ -37,10 +35,10 @@ public class CompanyManagementSettlementManagementFragment extends BaseFragment 
     TextView tv_exchange;
     @BindView(R.id.tv_payment)
     TextView tv_payment;
-    @BindView(R.id.et_start_date)
-    EditText et_start_date;
-    @BindView(R.id.et_end_date)
-    EditText et_end_date;
+    @BindView(R.id.tv_start_date)
+    TextView tv_start_date;
+    @BindView(R.id.tv_end_date)
+    TextView tv_end_date;
     @BindView(R.id.tv_sales_price)
     TextView tv_sales_price;
     @BindView(R.id.tv_exchange_price)
@@ -81,7 +79,7 @@ public class CompanyManagementSettlementManagementFragment extends BaseFragment 
         return root;
     }
 
-    @OnClick({R.id.tv_all, R.id.tv_exchange, R.id.tv_payment, R.id.iv_search})
+    @OnClick({R.id.tv_all, R.id.tv_exchange, R.id.tv_payment, R.id.iv_search, R.id.tv_start_date, R.id.tv_end_date})
     void onClickMenu(View view) {
         switch (view.getId()) {
             case R.id.tv_all: {
@@ -121,6 +119,22 @@ public class CompanyManagementSettlementManagementFragment extends BaseFragment 
                 settlementList();
                 break;
             }
+
+            case R.id.tv_start_date:{
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), ((yyyy, mm, dd) -> {
+                    tv_start_date.setText(transformDate(yyyy, mm, dd));
+                }));
+                dialog.show();
+                break;
+            }
+
+            case R.id.tv_end_date:{
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), ((yyyy, mm, dd) -> {
+                    tv_end_date.setText(transformDate(yyyy, mm, dd));
+                }));
+                dialog.show();
+                break;
+            }
         }
     }
 
@@ -142,8 +156,8 @@ public class CompanyManagementSettlementManagementFragment extends BaseFragment 
     }
 
     private void settlementList() {
-        String startDate = TextUtils.isEmpty(et_start_date.getText().toString()) ? DateUtil.getDate() : et_start_date.getText().toString();
-        String endDate = TextUtils.isEmpty(et_end_date.getText().toString()) ? DateUtil.getDate() : et_end_date.getText().toString();
+        String startDate = TextUtils.isEmpty(tv_start_date.getText().toString()) ? DateUtil.getDate() : tv_start_date.getText().toString();
+        String endDate = TextUtils.isEmpty(tv_end_date.getText().toString()) ? DateUtil.getDate() : tv_end_date.getText().toString();
         if (startDate.length() != 8) {
             ToastUtil.show(getContext(), "검색 시작일자 입력형식을 확인해주세요");
             return;
@@ -176,6 +190,23 @@ public class CompanyManagementSettlementManagementFragment extends BaseFragment 
                         finishWithAnim();
                     });
                 });
+    }
+
+    @OnClick({R.id.tv_start_date, R.id.tv_end_date})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_start_date:
+                break;
+            case R.id.tv_end_date:
+                break;
+        }
+    }
+    protected String transformDate(int year, int month, int day) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        return sdf.format(calendar.getTime());
     }
 }
 

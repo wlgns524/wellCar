@@ -26,7 +26,7 @@ import butterknife.OnClick;
 public class CompanyManagementActivity extends BaseActivity {
 
     @Event(MoveTalkEvent.class)
-    public void onCarWashUseEvent(CarWashUseEvent event) {
+    public void onMoveTalkEvent(MoveTalkEvent event){
         finishWithAnim();
     }
 

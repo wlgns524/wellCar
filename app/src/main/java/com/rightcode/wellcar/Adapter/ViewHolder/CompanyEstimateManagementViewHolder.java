@@ -18,6 +18,7 @@ import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.RxJava.RxBus;
 import com.rightcode.wellcar.RxJava.RxEvent.MoveTalkEvent;
 import com.rightcode.wellcar.Util.DataEnums;
+import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.MoneyHelper;
 import com.rightcode.wellcar.network.model.response.estimate.Estimate;
 import com.rightcode.wellcar.network.model.response.estimate.EstimateStore;
@@ -85,7 +86,15 @@ public class CompanyEstimateManagementViewHolder extends CommonRecyclerViewHolde
         tv_car_brand_name.setText(data.getCarName());
         tv_car_year.setText(data.getCarModelYear());
         tv_user_name.setText(data.getUserName());
-        tv_items.setText(data.getItems().get(0).getName());
+        String item = null;
+        for (EstimateStoreItem l : data.getItems()){
+            if(item == null){
+             item = data.getItems().get(0).getName();
+            }
+            item = item + " / " + l.getName();
+        }
+
+        tv_items.setText(item);
         tv_created.setText(data.getCreatedAt());
         tv_request.setText(data.getRequest());
         if (data.getPrice() != null) {
