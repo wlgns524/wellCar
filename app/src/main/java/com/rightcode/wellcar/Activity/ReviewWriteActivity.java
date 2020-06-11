@@ -23,6 +23,7 @@ import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.RxJava.RxBus;
 import com.rightcode.wellcar.RxJava.RxEvent.ReviewWriteEvent;
 import com.rightcode.wellcar.Util.FragmentUtil;
+import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.CommonResult;
 import com.rightcode.wellcar.network.model.request.storeReview.StoreReviewRegister;
@@ -186,7 +187,7 @@ public class ReviewWriteActivity extends BaseActivity {
             @Override
             public void onPermissionGranted() {
                 Intent intent = new Intent(ReviewWriteActivity.this, CustomGalleryActivity.class);
-                intent.putExtra(EXTRA_IMAGE_COUNT, 6);
+                intent.putExtra(EXTRA_IMAGE_COUNT, 2);
                 if (selectedPhotos != null) {
                     intent.putStringArrayListExtra(EXTRA_SELECT_IMAGE, selectedPhotos);
                     intent.putExtra(EXTRA_SINGLE_SELECT, false);
@@ -276,6 +277,9 @@ public class ReviewWriteActivity extends BaseActivity {
     }
 
     private void storeReviewImageRegister(Integer storeReviewId) {
+        for(String s : selectedPhotos){
+            Log.d("img : " + s);
+        }
         StoreReviewImageRegisterRequester storeReviewImageRegisterRequester = new StoreReviewImageRegisterRequester(ReviewWriteActivity.this);
         storeReviewImageRegisterRequester.setStoreReviewId(storeReviewId);
         storeReviewImageRegisterRequester.setPath(selectedPhotos);

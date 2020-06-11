@@ -15,7 +15,6 @@ import com.rightcode.wellcar.Fragment.TopFragment;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.RxJava.Event;
 import com.rightcode.wellcar.RxJava.RxBus;
-import com.rightcode.wellcar.RxJava.RxEvent.CarWashUseEvent;
 import com.rightcode.wellcar.RxJava.RxEvent.MoveTalkEvent;
 import com.rightcode.wellcar.Util.FragmentUtil;
 

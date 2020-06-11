@@ -78,26 +78,41 @@ public class CarRegisterActivity extends BaseActivity {
                     break;
                 }
                 case EXTRA_ACTIVITY_ACTION: {
+
                     if (TextUtils.isEmpty(data.getStringExtra("brand"))) {
                         tv_car_register_brand.setText(brand);
                     } else {
                         brand = data.getStringExtra("brand");
                         brandId = data.getIntExtra("brandId", 0);
+                        vehicle = "";
+                        year = "";
                         tv_car_register_brand.setText(brand);
                     }
+
                     if (TextUtils.isEmpty(data.getStringExtra("vehicle"))) {
-                        tv_car_register_vehicle.setText("차량 선택");
+                        if(TextUtils.isEmpty(vehicle)){
+                            tv_car_register_vehicle.setText("차량 선택");
+                        } else {
+                            tv_car_register_vehicle.setText(vehicle);
+                        }
                     } else {
                         vehicle = data.getStringExtra("vehicle");
                         tv_car_register_vehicle.setText(vehicle);
+                        year = "";
                     }
+
                     if (TextUtils.isEmpty(data.getStringExtra("year"))) {
-                        tv_car_register_year.setText("연식 선택");
+                        if(TextUtils.isEmpty(year)){
+                            tv_car_register_year.setText("연식 선택");
+                        } else {
+                            tv_car_register_year.setText(year);
+                        }
                     } else {
                         year = data.getStringExtra("year");
                         tv_car_register_year.setText(year);
                     }
                     carId = data.getIntExtra("carId", 0);
+                    Log.d("carId : " + carId);
                     break;
                 }
                 default:
@@ -155,6 +170,11 @@ public class CarRegisterActivity extends BaseActivity {
 
                 if (TextUtils.isEmpty(year)) {
                     ToastUtil.show(CarRegisterActivity.this, "차량 연식을 선택해주세요");
+                    break;
+                }
+
+                if(carId == 0){
+                    ToastUtil.show(CarRegisterActivity.this, "차량 선택을 다시 해주세요");
                     break;
                 }
 
