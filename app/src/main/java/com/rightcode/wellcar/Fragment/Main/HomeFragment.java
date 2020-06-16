@@ -22,6 +22,7 @@ import com.rightcode.wellcar.Activity.CarRegist.CarRegisterActivity;
 import com.rightcode.wellcar.Activity.Estimate.EstimateDepth1Activity;
 import com.rightcode.wellcar.Activity.EventListActivity;
 import com.rightcode.wellcar.Activity.Login.LoginActivity;
+import com.rightcode.wellcar.Activity.Login.SignUpActivity;
 import com.rightcode.wellcar.Activity.ReviewActivity;
 import com.rightcode.wellcar.Activity.Setting.CarWashActivity;
 import com.rightcode.wellcar.Activity.ShoppingMallActivity;
@@ -148,7 +149,7 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
 
     @OnClick({R.id.tv_change_car, R.id.layout_regist_car,
             R.id.rl_estimate, R.id.rl_shopping_mall, R.id.rl_car_wash, R.id.rl_around, R.id.rl_review, R.id.rl_event,
-            R.id.iv_home_banner, R.id.layout_unregist_car})
+            R.id.iv_home_banner, R.id.layout_unregist_car, R.id.tv_login, R.id.tv_membership})
     void onClickMenu(View view) {
         switch (view.getId()) {
             case R.id.tv_change_car:
@@ -219,6 +220,18 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
                 }
                 if (intent != null)
                     startActivity(intent);
+                break;
+            }
+
+            case R.id.tv_login:{
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.tv_membership:{
+                Intent intent = new Intent(getContext(), SignUpActivity.class);
+                startActivity(intent);
                 break;
             }
         }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -70,6 +71,8 @@ public class UserFragment extends BaseFragment {
     RelativeLayout rl_company_company;
     @BindView(R.id.tv_logout)
     TextView tvLogout;
+    @BindView(R.id.ll_login)
+    LinearLayout llLogin;
 
     private View root;
     private TopFragment mTopFragment;
@@ -108,8 +111,8 @@ public class UserFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.tv_change_car, R.id.rl_company_user, R.id.rl_customer_user,  R.id.rl_customer_buy, R.id.rl_company_review,
-            R.id.rl_customer_review,  R.id.rl_customer_estimate_customer,  R.id.rl_customer_car_clean,
+    @OnClick({R.id.tv_change_car, R.id.rl_company_user, R.id.rl_customer_user, R.id.rl_customer_buy, R.id.rl_company_review,
+            R.id.rl_customer_review, R.id.rl_customer_estimate_customer, R.id.rl_customer_car_clean,
             R.id.rl_company_notice, R.id.rl_basic_notice, R.id.rl_customer_notice, R.id.rl_company_inquiry, R.id.rl_basic_inquiry, R.id.rl_customer_inquiry,
             R.id.rl_company_notification, R.id.rl_basic_notification, R.id.rl_customer_notification, R.id.rl_company_company, R.id.rl_company_car_wash,
             R.id.tv_logout, R.id.layout_unregist_car})
@@ -270,6 +273,7 @@ public class UserFragment extends BaseFragment {
             layout_regist_car_user.setVisibility(View.GONE);
             layout_unregist_car.setVisibility(View.VISIBLE);
             layout_user_basic_view.setVisibility(View.VISIBLE);
+            llLogin.setVisibility(View.GONE);
             layout_user_customer_view.setVisibility(View.GONE);
             layout_user_company_view.setVisibility(View.GONE);
             tvLogout.setVisibility(View.GONE);
