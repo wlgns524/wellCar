@@ -3,15 +3,17 @@ package com.rightcode.wellcar.Activity.Estimate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -28,6 +30,7 @@ import com.rightcode.wellcar.MemberManager;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.Util.DataEnums;
 import com.rightcode.wellcar.Util.FragmentUtil;
+import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.ToastUtil;
 import com.rightcode.wellcar.network.model.request.estimate.EstimateRegister;
 import com.rightcode.wellcar.network.model.response.item.Item;
@@ -49,6 +52,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
+import butterknife.OnItemSelected;
 import butterknife.OnTouch;
 
 import static com.rightcode.wellcar.Util.DataEnums.ItemDiffType.BLACKBOX;
@@ -74,11 +79,11 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
     @BindView(R.id.tv_cost)
     TextView tv_cost;
     @BindView(R.id.rb_cost)
-    RadioButton rb_cost;
+    CheckBox rb_cost;
     @BindView(R.id.tv_premium)
     TextView tv_premium;
     @BindView(R.id.rb_premium)
-    RadioButton rb_premium;
+    CheckBox rb_premium;
     @BindView(R.id.cv_event)
     CustomViewPager cv_event;
     @BindView(R.id.pageindicator)
@@ -213,6 +218,7 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
     private ItemSpinnerAdapter tireKindSpinnerAdapter;
     private ItemSpinnerAdapter costPackageSpinnerAdapter;
     private ItemSpinnerAdapter premiumPackageSpinnerAdapter;
+    private Toast mToast;
 
 
     @Override
@@ -302,10 +308,13 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 String value = String.format("%s(%s)", values.get(position).getName(), values.get(position).getItemBrand().getName());
-                if (value.equals("LX+블랙박스(아이나비)+PPF3종+유리막(가성비 패키지)")) {
+                Log.d(value);
+                if (value.equals("LX+블랙박스(아이나비)+PPF3종+유리막(썬팅+블랙박스+유리막+PPF)")) {
+                    sn_cost_package_kind.setSelection(0);
                     rb_cost.setChecked(false);
                 }
-                if (value.equals("LX+블랙박스(아이나비)+PPF5종+언더코팅+유리막(프리미엄 패키지)")) {
+                if (value.equals("LX+블랙박스(아이나비)+PPF5종+언더코팅+유리막(썬팅+블랙박스+유리막+언더코팅+PPF)")) {
+                    sn_premium_package_kind.setSelection(0);
                     rb_premium.setChecked(false);
                 }
                 values.remove(position);
@@ -392,6 +401,13 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
         }
     }
 
+    View.OnTouchListener touchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            return false;
+        }
+    };
+
 
     @OnTouch({R.id.rl_sunblock_brand, R.id.rl_sunblock_kind, R.id.rl_glass_brand, R.id.rl_glass_kind,
             R.id.rl_blackbox_brand, R.id.rl_blackbox_kind, R.id.rl_undercoating_brand, R.id.rl_undercoating_kind,
@@ -400,13 +416,30 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
             R.id.sn_tuning_kind, R.id.sn_tire_kind, R.id.sn_cost_package_kind, R.id.sn_premium_package_kind})
     void onTouchMenu(View view) {
         switch (view.getId()) {
-
             case R.id.rl_sunblock_brand: {
+                if (rb_cost.isChecked() || rb_premium.isChecked()) {
+                    if(mToast == null){
+                        mToast = ToastUtil.show(EstimateDepth2Activity.this, "패키지 상품 포함 시 선택하실 수 없습니다.");
+                    } else {
+                        mToast.setText("패키지 상품 포함 시 선택하실 수 없습니다.");
+                        mToast.show();
+                    }
+                    break;
+                }
                 itemBrandList(SUNBLOCK);
                 break;
             }
             case R.id.rl_sunblock_kind:
             case R.id.sn_sunblock_kind: {
+                if (rb_cost.isChecked() || rb_premium.isChecked()) {
+                    if(mToast == null){
+                        mToast = ToastUtil.show(EstimateDepth2Activity.this, "패키지 상품 포함 시 선택하실 수 없습니다.");
+                    } else {
+                        mToast.setText("패키지 상품 포함 시 선택하실 수 없습니다.");
+                        mToast.show();
+                    }
+                    break;
+                }
                 if (sunblockId != null)
                     itemList(SUNBLOCK, sunblockId);
                 break;
@@ -422,11 +455,29 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                 break;
             }
             case R.id.rl_blackbox_brand: {
+                if (rb_cost.isChecked() || rb_premium.isChecked()) {
+                    if(mToast == null){
+                        mToast = ToastUtil.show(EstimateDepth2Activity.this, "패키지 상품 포함 시 선택하실 수 없습니다.");
+                    } else {
+                        mToast.setText("패키지 상품 포함 시 선택하실 수 없습니다.");
+                        mToast.show();
+                    }
+                    break;
+                }
                 itemBrandList(BLACKBOX);
                 break;
             }
             case R.id.rl_blackbox_kind:
             case R.id.sn_blackbox_kind: {
+                if (rb_cost.isChecked() || rb_premium.isChecked()) {
+                    if(mToast == null){
+                        mToast = ToastUtil.show(EstimateDepth2Activity.this, "패키지 상품 포함 시 선택하실 수 없습니다.");
+                    } else {
+                        mToast.setText("패키지 상품 포함 시 선택하실 수 없습니다.");
+                        mToast.show();
+                    }
+                    break;
+                }
                 if (blackBoxId != null)
                     itemList(BLACKBOX, blackBoxId);
                 break;
@@ -713,7 +764,11 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
 
             case R.id.sn_cost_package_kind: {
                 if(!costPackageSpinnerAdapter.getItem(position).getName().equals("선택없음(세부옵션)")){
+                    if(!rb_cost.isChecked()){
+                        rb_cost.setChecked(true);
+                    }
                     values.add(costPackageSpinnerAdapter.getItem(position));
+                    removeBlackBoxAndSunblockOfItemList();
                     selectListRefresh();
                 }
                 break;
@@ -721,7 +776,11 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
 
             case R.id.sn_premium_package_kind: {
                 if(!premiumPackageSpinnerAdapter.getItem(position).getName().equals("선택없음(세부옵션)")){
+                    if(!rb_premium.isChecked()){
+                        rb_premium.setChecked(false);
+                    }
                     values.add(premiumPackageValues.get(position));
+                    removeBlackBoxAndSunblockOfItemList();
                     selectListRefresh();
                 }
                 break;
@@ -743,6 +802,24 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void removeBlackBoxAndSunblockOfItemList(){
+        ArrayList<Item> listRemove = new ArrayList<>();
+
+        for(Item item : values){
+            if(item.getDiff() == BLACKBOX || item.getDiff() == SUNBLOCK){
+                listRemove.add(item);
+            }
+        }
+
+        if(listRemove.size() > 0) {
+            for (Item itemRemove : listRemove) {
+                values.remove(itemRemove);
+            }
+        }
+
+        selectListRefresh();
     }
 
 
@@ -1039,15 +1116,5 @@ public class EstimateDepth2Activity extends BaseActivity implements Spinner.OnIt
                     hideLoading();
                     showServerErrorDialog(fail.getResultMsg());
                 });
-    }
-
-    @OnClick({R.id.rl_cost_package_kind, R.id.rl_premium_package_kind})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.rl_cost_package_kind:
-                break;
-            case R.id.rl_premium_package_kind:
-                break;
-        }
     }
 }

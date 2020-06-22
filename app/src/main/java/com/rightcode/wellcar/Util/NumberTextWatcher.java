@@ -12,16 +12,12 @@ public class NumberTextWatcher implements TextWatcher {
 
     private DecimalFormat format;
     private EditText et;
-    private TextView tv;
-    private long price;
-    private boolean hasFractionalPart;
+    private OnChangeListener listener;
 
-    public NumberTextWatcher(EditText et, TextView tv, int price) {
+    public NumberTextWatcher(EditText et, OnChangeListener listener) {
         this.et = et;
-        this.tv = tv;
-        this.price = price;
         format = new DecimalFormat("###,###");
-        Log.d(price);
+        this.listener = listener;
     }
 
     @Override
@@ -45,10 +41,8 @@ public class NumberTextWatcher implements TextWatcher {
             String v = s.toString().replace(String.valueOf(format.getDecimalFormatSymbols().getGroupingSeparator()), "");
             Number n = format.parse(v);
             int cp = et.getSelectionStart();
-            long price = this.price + (long)n;
 
             et.setText(format.format(n));
-            tv.setText(format.format(price));
             endlen = et.getText().toString().length();
 
             int sel = (cp + (endlen - inilen));
@@ -58,11 +52,17 @@ public class NumberTextWatcher implements TextWatcher {
                 et.setSelection(et.getText().length() - 1);
             }
 
+            listener.onChange(n.intValue());
+
         } catch (ParseException e){
             Log.e(e.getMessage());
-            tv.setText(format.format(price));
+            listener.onChange(0);
         }
 
         et.addTextChangedListener(this);
+    }
+
+    public interface OnChangeListener{
+        void onChange(int price);
     }
 }

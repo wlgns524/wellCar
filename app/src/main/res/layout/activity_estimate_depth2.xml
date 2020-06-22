@@ -123,7 +123,7 @@
                     android:text="가성비 패키지"
                     android:textColor="@color/black" />
 
-                <RadioButton
+                <CheckBox
                     android:id="@+id/rb_cost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
                     android:text="프리미엄 패키지"
                     android:textColor="@color/black" />
 
-                <RadioButton
+                <CheckBox
                     android:id="@+id/rb_premium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
