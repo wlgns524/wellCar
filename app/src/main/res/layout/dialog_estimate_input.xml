@@ -156,7 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="*부가세 포함 금액으로 적어주세요"
+                        android:text="*부가세 포함 견적으로 입력하세요"
                         android:textColor="#a5a5a5"
                         android:textSize="10sp" />
 
