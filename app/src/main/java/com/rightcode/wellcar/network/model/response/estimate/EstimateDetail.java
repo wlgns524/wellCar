@@ -32,6 +32,10 @@ public class EstimateDetail {
     Boolean isPayment;
     @JsonField
     String content;
+    @JsonField
+    Boolean isConstruction;
+    @JsonField
+    Integer paymentId;
 //    @JsonField
 //    EstimateDetailStore estimateStore;
 }

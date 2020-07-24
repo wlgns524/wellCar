@@ -14,10 +14,16 @@ import com.rightcode.wellcar.Fragment.TopFragment;
 import com.rightcode.wellcar.R;
 import com.rightcode.wellcar.RxJava.Event;
 import com.rightcode.wellcar.RxJava.RxBus;
+import com.rightcode.wellcar.RxJava.RxEvent.EstimateCompleteEvent;
 import com.rightcode.wellcar.RxJava.RxEvent.EstimateSeletedEvent;
 import com.rightcode.wellcar.RxJava.RxEvent.MoveTalkEvent;
 import com.rightcode.wellcar.Util.FragmentUtil;
+import com.rightcode.wellcar.Util.ToastUtil;
+import com.rightcode.wellcar.network.model.CommonResult;
+import com.rightcode.wellcar.network.model.request.payment.PaymentUpdate;
 import com.rightcode.wellcar.network.requester.estimate.EstimateDetailRequester;
+import com.rightcode.wellcar.network.requester.payment.PaymentUpdateRequester;
+import com.rightcode.wellcar.network.responser.CommonResponser;
 import com.rightcode.wellcar.network.responser.estimate.EstimateDetailResponser;
 
 import butterknife.BindView;
@@ -37,7 +43,10 @@ public class EstimateCustomerDetailActivity extends BaseActivity {
         estimateList(event.getId());
     }
 
-
+    @Event(EstimateCompleteEvent.class)
+    public void onEstimateCompleteEvent(EstimateCompleteEvent event) {
+        updateEstimate(event.getEstimateId(), event.getPaymentId());
+    }
     @BindView(R.id.rv_estimate_customer_detail)
     RecyclerView rv_estimate_customer_detail;
 
@@ -84,6 +93,30 @@ public class EstimateCustomerDetailActivity extends BaseActivity {
         rv_estimate_customer_detail.setLayoutManager(verticalLayoutManager);
         mEstimateCustomerDetailRecyclerViewAdapter = new EstimateCustomerDetailRecyclerViewAdapter(EstimateCustomerDetailActivity.this);
         rv_estimate_customer_detail.setAdapter(mEstimateCustomerDetailRecyclerViewAdapter);
+    }
+
+    private void updateEstimate(Integer estimateId, Integer paymentId) {
+        PaymentUpdate update = new PaymentUpdate();
+        update.setIsConstruction(true);
+
+
+        PaymentUpdateRequester requester = new PaymentUpdateRequester(EstimateCustomerDetailActivity.this);
+        requester.setPaymentUpdate(update);
+        requester.setPaymentId(paymentId);
+
+        request(requester, success -> {
+            CommonResult result = success;
+            if (result.getCode() == 200) {
+                ToastUtil.show(this, "시공 완료 처리되었습니다.");
+                estimateList(estimateId);
+            } else {
+                showServerErrorDialog(result.getResultMsg());
+            }
+        }, fail -> {
+            if (!handleServerError(fail)) {
+                showServerErrorDialog(fail.getResultMsg());
+            }
+        });
     }
 
     private void estimateList(Integer id) {

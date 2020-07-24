@@ -172,14 +172,28 @@
 <!--            </LinearLayout>-->
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_estimate_price"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            tools:text="₩1,350,000" />
+            android:orientation="horizontal"
+            android:layout_gravity="right">
+            <TextView
+                android:id="@+id/tv_estimate_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/color_ffc80f__border_red_background_corner_5_padding_10"
+                android:textColor="@color/black"
+                android:textSize="19dp"
+                android:text="시공진행중" />
+            <TextView
+                android:id="@+id/tv_estimate_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="19dp"
+                tools:text="₩1,350,000"
+                android:layout_marginStart="15dp"/>
+        </LinearLayout>
     </LinearLayout>
 
     <View

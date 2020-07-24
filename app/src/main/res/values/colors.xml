@@ -61,6 +61,9 @@
     <color name="color_000000_40">#66000000</color> <!-- 40% -->
     <color name="color_ffffff_40">#66ffffff</color> <!-- 40% -->
     <color name="app_color_80">#ccfbbc48</color>
+    <color name="color_ffc80f">#ffc80f</color>
+    <color name="color_dedede">#dedede</color>
+    <color name="color_717171">#717171</color>
 
     <!--    100% — FF 99% — FC 98% — FA 97% — F7 96% — F5 95% — F2 94% — F0 93% — ED 92% — EB 91% — E8-->
     <!--    90% — E6 89% — E3 88% — E0 87% — DE 86% — DB 85% — D9 84% — D6 83% — D4 82% — D1 81% — CF-->

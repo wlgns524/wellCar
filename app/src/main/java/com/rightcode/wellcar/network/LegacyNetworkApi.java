@@ -11,10 +11,12 @@ import com.rightcode.wellcar.network.model.request.inquiry.InquiryRegister;
 import com.rightcode.wellcar.network.model.request.payment.BuyCheck;
 import com.rightcode.wellcar.network.model.request.payment.PaymentEstimateBuyInfo;
 import com.rightcode.wellcar.network.model.request.payment.PaymentTicketBuyInfo;
+import com.rightcode.wellcar.network.model.request.payment.PaymentUpdate;
 import com.rightcode.wellcar.network.model.request.storeReview.StoreReviewRegister;
 import com.rightcode.wellcar.network.model.request.ticketHistory.TicketHistoryRegister;
 import com.rightcode.wellcar.network.model.request.user.UserStoreUpdate;
 import com.rightcode.wellcar.network.model.request.user.UserUpdate;
+import com.rightcode.wellcar.network.responser.CommonResponser;
 import com.rightcode.wellcar.network.responser.accountCompany.SettlementListResponser;
 import com.rightcode.wellcar.network.responser.auth.FindLoginIdResponser;
 import com.rightcode.wellcar.network.responser.auth.LoginResponser;
@@ -425,6 +427,12 @@ public interface LegacyNetworkApi {
     Call<PaymentEstimateDetailResponser> paymentEstimateDetail(
             @Query("id") Integer paymentId
     );
+
+    @POST("/payment/update")
+    Call<CommonResult> paymentUpdate(
+            @Query("id") Integer id,
+            @Body PaymentUpdate update
+            );
 
 
     //----------------------------------------------------------------------------------------------

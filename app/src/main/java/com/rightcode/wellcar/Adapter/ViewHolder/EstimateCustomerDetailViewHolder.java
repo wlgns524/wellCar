@@ -10,11 +10,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.rightcode.wellcar.Activity.CompanyDetailActivity;
+import com.rightcode.wellcar.Dialog.CommonDialog;
 import com.rightcode.wellcar.R;
+import com.rightcode.wellcar.RxJava.RxBus;
+import com.rightcode.wellcar.RxJava.RxEvent.EstimateCompleteEvent;
 import com.rightcode.wellcar.Util.DataEnums;
 import com.rightcode.wellcar.Util.Log;
 import com.rightcode.wellcar.Util.MoneyHelper;
+import com.rightcode.wellcar.network.model.request.payment.PaymentUpdate;
 import com.rightcode.wellcar.network.model.response.estimate.EstimateStore;
+import com.rightcode.wellcar.network.requester.payment.PaymentUpdateRequester;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +50,9 @@ public class EstimateCustomerDetailViewHolder extends CommonRecyclerViewHolder i
     View view_is_payment;
     @BindView(R.id.tv_message)
     TextView tv_message;
+    @BindView(R.id.tv_estimate_status)
+    TextView tv_estimate_status;
+
 
     private Context mContext;
     private EstimateStore data;
@@ -73,10 +81,31 @@ public class EstimateCustomerDetailViewHolder extends CommonRecyclerViewHolder i
         tv_message.setText(data.getStores().get(getAdapterPosition()).getContent());
 
         if (data.getStores().get(getAdapterPosition()).getIsPayment()) {
-            view_is_payment.setVisibility(View.VISIBLE);
+
             tv_estimate_price.setText("결제완료");
             tv_estimate_price.setBackground(mContext.getDrawable(R.drawable.red_border_red_background_corner_5_padding_10));
             tv_estimate_price.setTextColor(mContext.getColor(R.color.white));
+            if (data.getStores().get(getAdapterPosition()).getIsConstruction()) {
+                tv_estimate_status.setBackground(mContext.getDrawable(R.drawable.color_dedede_border_red_background_corner_5_padding_10));
+                tv_estimate_status.setText("시공완료");
+                tv_estimate_status.setTextColor(mContext.getColor(R.color.color_717171));
+                view_is_payment.setVisibility(View.VISIBLE);
+            } else {
+                view_is_payment.setVisibility(View.GONE);
+                itemView.setOnClickListener(view -> {
+                    CommonDialog commonDialog = new CommonDialog(mContext);
+                    commonDialog.setMessage("시공을 완료하시겠습니까?");
+                    commonDialog.setPositiveButton("확인", aVoid -> {
+                        Log.d(data.getId() + " / " + data.getStores().get(getAdapterPosition()).getPaymentId());
+                        RxBus.send(new EstimateCompleteEvent(data.getId(), data.getStores().get(getAdapterPosition()).getPaymentId()));
+                        commonDialog.dismiss();
+                    });
+                    commonDialog.setNegativeButton("취소", aVoid -> {
+                        commonDialog.dismiss();
+                    });
+                    commonDialog.show();
+                });
+            }
         } else {
             view_is_payment.setVisibility(View.GONE);
             tv_estimate_price.setText(data.getStores().get(getAdapterPosition()).getPrice() != null ?
@@ -84,6 +113,7 @@ public class EstimateCustomerDetailViewHolder extends CommonRecyclerViewHolder i
                     "견적대기중..");
             tv_estimate_price.setBackground(null);
             tv_estimate_price.setTextColor(mContext.getColor(R.color.black));
+            tv_estimate_status.setVisibility(View.GONE);
         }
     }
 
